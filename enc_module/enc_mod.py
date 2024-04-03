@@ -1,8 +1,6 @@
 from Cryptodome.Cipher import AES
 from Cryptodome.Cipher import ChaCha20_Poly1305
-#from Cryptodome.Hash import SHA3_256
-#from Cryptodome.Random import get_random_bytes
-#from Cryptodome.Util.Padding import pad, unpad
+from Cryptodome.Random import get_random_bytes
 from Cryptodome.Protocol.KDF import bcrypt, bcrypt_check
 
 
