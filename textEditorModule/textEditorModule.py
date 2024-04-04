@@ -1,0 +1,77 @@
+from PyQt6 import QtWidgets, QtGui, QtCore
+
+class TextWindow(QtWidgets.QTextEdit):
+    def __init__(self):
+        super().__init__()
+        self.setFontPointSize(20) 
+        self.setPlaceholderText("Input your text")
+
+
+class ComboBoxTextSize(QtWidgets.QComboBox):
+    def __init__(self):
+        super().__init__()
+        self.addItems(str(x) for x in range(20, 41))
+        self.scroll = QtWidgets.QScrollArea()
+
+
+class SettingsPanel(QtWidgets.QHBoxLayout):
+    def __init__(self):
+        super().__init__()
+        self.cmbTextSize = ComboBoxTextSize()
+        self.buttonToBoldText = QtWidgets.QPushButton("Bold")
+        self.addWidget(self.cmbTextSize)
+        self.addWidget(self.buttonToBoldText)
+
+
+
+class TextEditor(QtWidgets.QBoxLayout):
+    def __init__(self):
+        super().__init__(self.Direction.TopToBottom)
+        self.settingsPanel = SettingsPanel()
+        self.textWindow = TextWindow()
+        self.textSettingsPanel = QtWidgets.QHBoxLayout()
+        self.settingsPanel.cmbTextSize.currentIndexChanged.connect(self.changeTextSize)
+        self.settingsPanel.buttonToBoldText.clicked.connect(self.doBoldText)
+        self.addLayout(self.settingsPanel)
+        self.addWidget(self.textWindow)
+
+    def changeTextSize(self):
+        if not self.textWindow.textCursor().hasSelection():
+            self.textWindow.setFontPointSize(int(self.settingsPanel.cmbTextSize.currentText()))
+        else:
+            for _ in range(self.textWindow.textCursor().selectionStart(), self.textWindow.textCursor().selectionEnd()):
+                self.textWindow.textCursor().movePosition(QtGui.QTextCursor.MoveOperation.Right, QtGui.QTextCursor.MoveMode.MoveAnchor)
+                self.textWindow.setFontPointSize(int(self.settingsPanel.cmbTextSize.currentText()))
+
+    def doBoldText(self):
+        if not self.textWindow.textCursor().hasSelection():
+            if self.textWindow.fontWeight() == 900:
+                self.textWindow.setFontWeight(400)
+            else:
+                self.textWindow.setFontWeight(900)
+        else:
+            print(self.textWindow.textCursor().position())
+            for _ in range(self.textWindow.textCursor().selectionStart(), self.textWindow.textCursor().selectionEnd()):
+                self.textWindow.textCursor().movePosition(QtGui.QTextCursor.MoveOperation.Right, QtGui.QTextCursor.MoveMode.KeepAnchor)
+                if self.textWindow.fontWeight() == 900:
+                    self.textWindow.setFontWeight(400)
+                else:
+                    self.textWindow.setFontWeight(900)
+                
+
+class Window(QtWidgets.QWidget):
+    def __init__(self):
+        QtWidgets.QWidget.__init__(self, parent=None)
+        self.textEditor = TextEditor()
+        self.setLayout(self.textEditor)
+    
+    
+
+if __name__ == "__main__":
+    import sys
+    application = QtWidgets.QApplication(sys.argv)
+    window = Window()
+    window.show()
+    application.exec()
+    
+
