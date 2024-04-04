@@ -3,8 +3,9 @@ from PyQt6 import QtWidgets, QtGui, QtCore
 class TextWindow(QtWidgets.QTextEdit):
     def __init__(self):
         super().__init__()
-        self.setFontPointSize(20) 
+        #self.setFontPointSize(20) 
         self.setPlaceholderText("Input your text")
+        self.textCursor().charFormat().setFontUnderline(True)
 
 
 class ComboBoxTextSize(QtWidgets.QComboBox):
@@ -36,27 +37,26 @@ class TextEditor(QtWidgets.QBoxLayout):
         self.addWidget(self.textWindow)
 
     def changeTextSize(self):
-        if not self.textWindow.textCursor().hasSelection():
+        charFormatFontSize = QtGui.QTextCharFormat(self.textWindow.currentCharFormat())
+        charFormatFontSize.setFontPointSize(float(self.settingsPanel.cmbTextSize.currentText()))
+        self.textWindow.setCurrentCharFormat(charFormatFontSize)
+        '''if not self.textWindow.textCursor().hasSelection():
             self.textWindow.setFontPointSize(int(self.settingsPanel.cmbTextSize.currentText()))
         else:
             for _ in range(self.textWindow.textCursor().selectionStart(), self.textWindow.textCursor().selectionEnd()):
                 self.textWindow.textCursor().movePosition(QtGui.QTextCursor.MoveOperation.Right, QtGui.QTextCursor.MoveMode.MoveAnchor)
-                self.textWindow.setFontPointSize(int(self.settingsPanel.cmbTextSize.currentText()))
+                self.textWindow.setFontPointSize(int(self.settingsPanel.cmbTextSize.currentText()))'''
 
     def doBoldText(self):
-        if not self.textWindow.textCursor().hasSelection():
-            if self.textWindow.fontWeight() == 900:
-                self.textWindow.setFontWeight(400)
-            else:
-                self.textWindow.setFontWeight(900)
+        charFormatBold = QtGui.QTextCharFormat(self.textWindow.currentCharFormat())
+        charFormatNorm = QtGui.QTextCharFormat(self.textWindow.currentCharFormat())
+        charFormatBold.setFontWeight(900)
+        charFormatNorm.setFontWeight(400)
+        if self.textWindow.textCursor().charFormat().fontWeight() == 400:
+            self.textWindow.setCurrentCharFormat(charFormatBold)
         else:
-            print(self.textWindow.textCursor().position())
-            for _ in range(self.textWindow.textCursor().selectionStart(), self.textWindow.textCursor().selectionEnd()):
-                self.textWindow.textCursor().movePosition(QtGui.QTextCursor.MoveOperation.Right, QtGui.QTextCursor.MoveMode.KeepAnchor)
-                if self.textWindow.fontWeight() == 900:
-                    self.textWindow.setFontWeight(400)
-                else:
-                    self.textWindow.setFontWeight(900)
+            self.textWindow.setCurrentCharFormat(charFormatNorm)
+        
                 
 
 class Window(QtWidgets.QWidget):
