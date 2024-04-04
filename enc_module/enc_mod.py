@@ -36,19 +36,23 @@ class ENC:
         self.mode = mode
 
     @staticmethod
-    def pass_to_hash(password, salt) -> bytes:
+    def pass_to_hash(password, salt=None) -> bytes:
         """pass_to_hash
             speaks for itself
 
         Args:
-            password (_type_): bytes or string that represent secret key.
-            salt (_type_): bytes or string that represent hashing salt.
+            password (bytes/str): bytes or string that represent secret key.
+            salt (bytes/str, optional): bytes or string that represent \
+hashing salt. Defaults to None.
+
 
         Returns:
             bytes: secret key hash.
         """
         if isinstance(password, str):
             password = password.encode()
+        if salt is None:
+            return bcrypt(password, 12)
         if isinstance(salt, str):
             salt = salt.encode()
         return bcrypt(password, 12, salt)
@@ -59,8 +63,9 @@ class ENC:
             checks if hash was generated from password
 
         Args:
-            password (_type_): bytes or string that represent secret key.
-            pass_hash (bytes): bytes of hashed secret key.
+            password (bytes/str): bytes or string that represent secret key.
+            pass_hash (bytes): bytes of hashed secret key\
+ (output of pass_to_hash).
 
         Returns:
             bool: returns True if pass_hash was generated using password,\
@@ -74,77 +79,71 @@ class ENC:
             return False
         return True
 
-    def encrypt(self, data: bytes, password=None, salt=None,
-                pass_hash=None) -> tuple:
+    def encrypt(self, data,
+                pass_hash: bytes) -> tuple:
         """encrypt
             encrypts data using specific algorithm
 
         Args:
-            data (bytes): data that needs to be encrypted.
-            password (_type_, optional): bytes or string that represent \
-secret key. Defaults to None.
-            salt (_type_, optional): bytes or string that represent \
-hashing  salt. Defaults to None.
-            pass_hash (_type_, optional): bytes of hashed secret key. \
-Defaults to None.
+            data (bytes/str): data that needs to be encrypted.
+            pass_hash (bytes): bytes of secret key\
+hashed using bcrypt (pass_to_hash).
+
+
         Raises:
-            EncArgumentError: if given arguments are \
-not enough to complete operation.
+            EncArgumentError: raised if data format is wrong
+
 
         Returns:
             tuple: constists of 4 bytes elements: encrypted data,
             verification tag, encryption nonce, hashed password.
         """
-        if pass_hash is None:
-            pass_hash = self.pass_to_hash(password, salt)
-        elif password is None and salt is None and pass_hash is not None:
+        if isinstance(data, str):
+            data = data.encode()
+        elif isinstance(data, bytes):
             pass
         else:
             raise EncArgumentError
         if self.alg is AES:
-            cipher = self.alg.new(pass_hash, self.mode)
+            cipher = self.alg.new(key=pass_hash[-31:] + b'\0', mode=self.mode)
         elif self.alg is ChaCha20_Poly1305:
-            cipher = self.alg.new(pass_hash)
+            cipher = self.alg.new(key=pass_hash[-31:] + b'\0')
         enc_data, tag = cipher.encrypt_and_digest(data)
         return enc_data, tag, cipher.nonce, pass_hash
 
     def decrypt(self, enc_data: bytes, tag: bytes, nonce: bytes,
-                pass_data: dict) -> tuple:
+                pass_hash: bytes) -> tuple:
         """decrypt
             decrypts data using specific algorithm
 
 
         Args:
-            enc_data (bytes): encrypted data.
+            enc_data (bytes/str): encrypted data.
             tag (bytes): verification tag.
             nonce (bytes): encryption nonce.
-            password (_type_, optional): bytes or string that represents\
- secret key. Defaults to None.
-            salt (_type_, optional): bytes or string that represent\
- hashing salt. Defaults to None.
-            pass_hash (_type_, optional): bytes of hashed secret key.\
+            pass_hash (bytes, optional): bytes of hashed secret key.\
  Defaults to None.
 
+
         Raises:
-            EncArgumentError: if given arguments are not enough\
- to complete operation.
+            EncArgumentError: raised if data format is wrong
+
 
         Returns:
             tuple: consists of 2 elements: bytes of decrypted data,\
  bool value that depicts verification result
         """
-        if "pass_hash" in pass_data:
-            pass_hash = pass_data["pass_hash"]
-        elif all("password" in pass_data, "salt" in pass_data,
-                 "pass_hash" not in pass_data):
-            pass_hash = self.pass_to_hash(pass_data["password"],
-                                          pass_data["salt"])
+        if isinstance(enc_data, str):
+            enc_data = enc_data.encode()
+        elif isinstance(enc_data, bytes):
+            pass
         else:
             raise EncArgumentError
         if self.alg is AES:
-            cipher = self.alg.new(pass_hash, self.mode, nonce=nonce)
+            cipher = self.alg.new(key=pass_hash[-31:] + b'\0', mode=self.mode,
+                                  nonce=nonce)
         elif self.alg is ChaCha20_Poly1305:
-            cipher = self.alg.new(pass_hash, nonce=nonce)
+            cipher = self.alg.new(key=pass_hash[-31:] + b'\0', nonce=nonce)
         verification = None
         try:
             data = cipher.decrypt_and_verify(enc_data, tag)
