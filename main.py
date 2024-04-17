@@ -3,9 +3,9 @@ import sys
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QDialog
 
-from account_login_window import Ui_LoginWindow
-from dialogwindow_note import Ui_Dialog
-from main_window_notes import Ui_MainWindow
+from ui_account_login_window import Ui_LoginWindow
+from ui_dialogwindow_note import Ui_Dialog
+from ui_main_window_notes import Ui_MainWindow
 
 
 class NotesApp(QMainWindow):
@@ -21,7 +21,7 @@ class NotesApp(QMainWindow):
         DirectoryPath = None
 
         # взаимодействие с кнопками
-        self.ui.btn_add_note.clicked.connect(self.open_addNote_window)
+        self.ui.btn_add_note.clicked.connect(self.open_window_addNote)
         self.ui.btn_save.clicked.connect(self.saveNote)
         self.ui.btn_delete_note.clicked.connect(self.delete_note)
         # взаимодействие с списком файлов
@@ -30,28 +30,8 @@ class NotesApp(QMainWindow):
 
         # заполнение listWidget
         self.research_notes()
-        self.account_dialog.pushButton.clicked.connect(self.login_in_account)
 
         self.flags_check()
-
-    def open_accountWindow(self):
-        self.account_window = QMainWindow()
-        self.account_dialog = Ui_LoginWindow()
-        self.account_dialog.setupUi(self.account_window)
-
-        self.account_window.show()
-        self.account_dialog.pushButton.clicked.connect(self.login_in_account)
-
-    def login_in_account(self):
-        name = '123'
-        password = '321'
-        if self.account_dialog.lineEdit_name.text() == name and \
-                self.account_dialog.lineEdit_password.text() == password:
-            self.show()
-            self.account_window.close()
-        else:
-            self.account_dialog.label_error.setText('Вы кто такие!? Я вас не звал!\n'
-                                                    'Проверьте верность введеного логина или пароля. ')
 
     def flags_check(self):
         global NAME_NOTE
@@ -66,6 +46,32 @@ class NotesApp(QMainWindow):
             self.ui.btn_save.show()
             self.ui.btn_delete_note.show()
         self.ui.label_save_or_del.setText("")
+
+    def open_window_addNote(self):
+        self.dialog_window = QDialog()
+        self.dialog = Ui_Dialog()
+        self.dialog.setupUi(self.dialog_window)
+        self.dialog_window.show()
+        self.dialog.pushButton.clicked.connect(self.addNote)
+
+    def open_accountWindow(self):
+        self.account_window = QDialog()
+        self.account_dialog = Ui_LoginWindow()
+        self.account_dialog.setupUi(self.account_window)
+
+        self.account_window.show()
+        self.account_dialog.pushButton.clicked.connect(self.login_in_account)
+
+    def login_in_account(self):
+        name = '123'
+        password = name[::-1]
+        if self.account_dialog.lineEdit_name.text() == name and \
+                self.account_dialog.lineEdit_password.text() == password:
+            self.show()
+            self.account_window.close()
+        else:
+            self.account_dialog.label_error.setText('Вы кто такие!? Я вас не звал!\n'
+                                                    'Проверьте верность введеного логина или пароля. ')
 
     def research_notes(self):
         if self.ui.listWidget.count():
@@ -131,13 +137,6 @@ class NotesApp(QMainWindow):
                 self.ui.textEdit.setText(file.read())
 
         self.flags_check()
-
-    def open_addNote_window(self):
-        self.dialog_window = QDialog()
-        self.dialog = Ui_Dialog()
-        self.dialog.setupUi(self.dialog_window)
-        self.dialog_window.show()
-        self.dialog.pushButton.clicked.connect(self.addNote)
 
 
 if __name__ == "__main__":
