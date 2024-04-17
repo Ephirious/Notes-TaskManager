@@ -237,7 +237,7 @@ class Note:
             if self.enc_flag != 0:
                 records["encryption"][1] = self.enc_parameters
             records["data"] = self.data
-            dmp = json.dumps(records, ensure_ascii=False)
+            dmp = json.dumps(records, ensure_ascii=False, indent=2)
             with open(self.path, 'w', encoding="utf-8") as file:
                 file.write(dmp)
 
@@ -284,7 +284,7 @@ class Note:
         alg = encryption.EncChaCha()
         self.data = b64decode(self.data.encode("utf-8"))
         self.enc_parameters = list(map(
-                                       lambda x: b64decode(x).encode("utf-8"),
+                                       lambda x: b64decode(x.encode("utf-8")),
                                        self.enc_parameters))
         self.data, auth = alg.decrypt(self.data,
                                       self.enc_parameters[0],
@@ -336,11 +336,3 @@ class Storage():
         if self.path is not None:
             st_expl = StorageExplorer()
             self.storage_entry = st_expl.get_structure(self.path)
-
-
-fl = StorageExplorer()
-st = fl.read_storage("./test/st")
-nt = Note.load_from_entry(st.storage_entry.structure[1].structure[0])
-nt.protect("13")
-nt.unprotect("13")
-nt.save()
