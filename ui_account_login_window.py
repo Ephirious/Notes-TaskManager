@@ -26,6 +26,9 @@ class Ui_LoginWindow(object):
         Dialog.resize(365, 380)
         Dialog.setMinimumSize(QSize(365, 380))
         Dialog.setMaximumSize(QSize(365, 380))
+        icon = QIcon()
+        icon.addFile(u":/icons/icons/axolot.png", QSize(), QIcon.Normal, QIcon.Off)
+        Dialog.setWindowIcon(icon)
         self.verticalLayout_3 = QVBoxLayout(Dialog)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.label_App = QLabel(Dialog)
@@ -98,10 +101,15 @@ class Ui_LoginWindow(object):
 
         self.verticalLayout_3.addItem(self.verticalSpacer)
 
-        self.pushButton = QPushButton(Dialog)
-        self.pushButton.setObjectName(u"pushButton")
+        self.btn_reg = QPushButton(Dialog)
+        self.btn_reg.setObjectName(u"btn_reg")
 
-        self.verticalLayout_3.addWidget(self.pushButton)
+        self.verticalLayout_3.addWidget(self.btn_reg)
+
+        self.btn_login = QPushButton(Dialog)
+        self.btn_login.setObjectName(u"btn_login")
+
+        self.verticalLayout_3.addWidget(self.btn_login)
 
 
         self.retranslateUi(Dialog)
@@ -116,6 +124,7 @@ class Ui_LoginWindow(object):
         self.label_name.setText(QCoreApplication.translate("Dialog", u"Name", None))
         self.label_password.setText(QCoreApplication.translate("Dialog", u"Password", None))
         self.label_error.setText("")
-        self.pushButton.setText(QCoreApplication.translate("Dialog", u"Login", None))
+        self.btn_reg.setText(QCoreApplication.translate("Dialog", u"Reg", None))
+        self.btn_login.setText(QCoreApplication.translate("Dialog", u"Login", None))
     # retranslateUi
 

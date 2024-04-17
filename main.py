@@ -10,7 +10,7 @@ from ui_main_window_notes import Ui_MainWindow
 
 class NotesApp(QMainWindow):
     def __init__(self):
-        global NAME_NOTE, FileNote
+        global NAME_NOTE
         super(NotesApp, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -60,7 +60,7 @@ class NotesApp(QMainWindow):
         self.account_dialog.setupUi(self.account_window)
 
         self.account_window.show()
-        self.account_dialog.pushButton.clicked.connect(self.login_in_account)
+        self.account_dialog.btn_login.clicked.connect(self.login_in_account)
 
     def login_in_account(self):
         name = '123'

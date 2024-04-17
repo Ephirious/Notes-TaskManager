@@ -25,6 +25,10 @@
   <property name="windowTitle">
    <string>Axolot's Notes - Login window</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="res.qrc">
+    <normaloff>:/icons/icons/axolot.png</normaloff>:/icons/icons/axolot.png</iconset>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item alignment="Qt::AlignHCenter">
     <widget class="QLabel" name="label_App">
@@ -146,7 +150,14 @@
     </spacer>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="btn_reg">
+     <property name="text">
+      <string>Reg</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="btn_login">
      <property name="text">
       <string>Login</string>
      </property>
