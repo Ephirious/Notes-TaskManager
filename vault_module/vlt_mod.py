@@ -1,6 +1,6 @@
-import enc_mod as encryption
 import os
 import json
+import enc_mod as encryption
 
 
 class FEWrongArguments(Exception):
@@ -19,23 +19,25 @@ class ProtectionError(Exception):
 class NoteParametersError(Exception):
     "Some of notes parameters are empty or incorrectly presented"
 
-class _EntryContents:
-    def __init__(self, name: str,  path: str, contents: list):
+
+class FileEntry:
+    """Basic (file) entry class for file hierarchy search
+    """
+    def __init__(self, name: str,  path: str):
         self.name = name
         self.path = path
+
+
+class DirEntry(FileEntry):
+    """Directory entry class for file hierarchy search
+    """
+    def __init__(self, name: str, path: str, contents: list):
+        super().__init__(name, path)
         self.contents = contents
-
-class FileEntry(_EntryContents):
-    def __init__(self, name: str, path: str, contents: list):
-        super().__init__(name, path, contents)
-
-class DirEntry(_EntryContents):
-    def __init__(self, name: str, path: str, contents: list):
-        super().__init__(name, path, contents)
         self.structure = []
 
 
-class FileExplorer():
+class _FileExplorer():
     """works with paths, files and dirs
     """
     def __init__(self):
@@ -43,7 +45,15 @@ class FileExplorer():
         self.dest_path = None
 
     @staticmethod
-    def fix_path(path):
+    def fix_path(path: str):
+        """returns proper absolute path
+
+        Args:
+            path (str): path than need to be processed
+
+        Returns:
+            str: proper path
+        """
         path = os.path.abspath(os.path.expanduser(path))
         return path
 
@@ -70,33 +80,64 @@ class FileExplorer():
         raise FEWrongArguments
 
     def set_curr_path(self, path: str):
+        """sets current path with proper path
+
+        Args:
+            path (str): path that we want to set as current
+        """
         path = self.fix_path(path)
         if not self.check_existance(path, "dir"):
             self.curr_path = None
         else:
             self.curr_path = path
-    
+
     @staticmethod
     def type_check(path: str) -> int:
+        """checks if path leads to file, dir or neither
+
+        Args:
+            path (str): path that need to be checked
+
+        Returns:
+            int: 1 for dir, 2 for file, 0 for neither of those
+        """
         if os.path.isdir(path):
             return 1
         if os.path.isfile(path):
             return 2
         return 0
-    
-    def get_contents(self, path="") -> _EntryContents:
+
+    def get_contents(self, path):
+        """Creates Entry object for entered path
+
+        Args:
+            path (str): path that defines Entry object
+
+        Returns:
+            DirEntry: if path leads to dir
+            FileEntry: if path leads to file
+            None: if path is incorrect or leads to neither dir nor file
+        """
         contents = []
         f_type = self.type_check(path)
         if f_type == 1:
             entries = os.listdir(path)
             for name in entries:
-                contents.append(path + "/" + name)
-            return DirEntry(path.split("/"[-1]), path, contents)
+                contents.append(path + '/' + name)
+            return DirEntry(path.split("/")[-1], path, contents)
         if f_type == 2:
-            return FileEntry(path.split("/"[-1]), path, contents)
+            return FileEntry(path.split("/")[-1], path)
         return None
-    
-    def get_structure(self, path="") -> DirEntry:
+
+    def get_structure(self, path: str) -> DirEntry:
+        """generates hierarchy of Entries
+
+        Args:
+            path (str): path that lead to root dir for structure build
+
+        Returns:
+            DirEntry: root of structure
+        """
         root = self.get_contents(path)
         for entry in root.contents:
             if self.type_check(entry) == 1:
@@ -106,8 +147,15 @@ class FileExplorer():
         return root
 
 
-class StorageExplorer(FileExplorer):
+class StorageExplorer(_FileExplorer):
+    """File system explorer with Storage creating functionality
+    """
     def check_for_storage(self) -> bool:
+        """checks if current path leads to storage
+
+        Returns:
+            bool: True if path contains not empty storage's json else False
+        """
         if self.curr_path is None:
             return False
         self.dest_path = self.curr_path + "/.storage/storage.json"
@@ -116,11 +164,19 @@ class StorageExplorer(FileExplorer):
             return True
         return False
 
-    def read_storage(self, path):
+    def read_storage(self, path: str):
+        """Creates new Storage object
+
+        Args:
+            path (str): path to storage dir
+
+        Returns:
+            Storage: new storage object
+        """
         self.curr_path = path
         if self.check_for_storage():
             with open(self.curr_path + "/.storage/storage.json", "r",
-                      encoding="Unicode") as file:
+                      encoding="utf-8") as file:
                 storage_data = json.load(file)
                 new_storage = Storage(path)
                 new_storage.json_load(storage_data)
@@ -128,7 +184,7 @@ class StorageExplorer(FileExplorer):
                 return new_storage
         else:
             return None
-        
+
 
 class Note:
     """represents notes in program
@@ -149,21 +205,21 @@ class Note:
             FileFormatError: were given wrong path to note
         """
         if self.path is not None:
-            if self.path.split(".")[1] != "json" or \
+            if self.path.split(".")[-1] != "json" or \
                not os.path.isfile(self.path):
                 raise FileFormatError
             with open(self.path, 'rb') as file:
-                records = json.loads(file)
+                records = json.load(file)
             self.header = records["header"]
             self.user = records["user"]
             self.note_id = records["id"]
             self.enc_flag = records["encryption"][0]
-            if self.enc_flag is not None:
+            if self.enc_flag != 0:
                 self.enc_parameters = records["encryption"][1]
             self.data = records["data"]
 
     def save(self):
-        """writes note's contents into .json fiel
+        """writes note's contents into .json file
 
         Raises:
             FileFormatError: were given frong filename format
@@ -175,9 +231,9 @@ class Note:
             records["header"] = self.header
             records["user"] = self.user
             records["id"] = self.note_id
-            records["encryption"] = [None, None]
+            records["encryption"] = [0, 0]
             records["encryption"][0] = self.enc_flag
-            if self.enc_flag is not None:
+            if self.enc_flag != 0:
                 records["encryption"][1] = self.enc_parameters
             records["data"] = self.data
             with open(self.path, 'wb') as file:
@@ -221,6 +277,20 @@ class Note:
         if not auth:
             raise encryption.EncAuthError
 
+    @staticmethod
+    def load_from_entry(note_entry: FileEntry):
+        """creates Note from search entry
+
+        Args:
+            note_entry (FileEntry): Entry of note
+
+        Returns:
+            Note: new note with loaded data
+        """
+        new_note = Note(note_entry.path)
+        new_note.open()
+        return new_note
+
 
 class Storage():
     """ represent storage of notes
@@ -232,21 +302,17 @@ class Storage():
         self.storage_entry = None
 
     def json_load(self, storage_data):
+        """loads storage data from read json (dict)
+
+        Args:
+            storage_data (dict): data that needs to be loaded
+        """
         self.name = storage_data["name"]
         self.user = storage_data["user"]
 
     def load_structure(self):
-        st_expl = StorageExplorer()
-        self.storage_entry = st_expl.get_structure(self.path)
-
-    def get_note(self, note_entry: FileEntry) -> Note:
-        return Note(note_entry.path).open()
-
-
-if __name__ == "__main__":
-    fl = FileExplorer()
-    fl.set_curr_path('.')
-    if fl.check_existance(fl.curr_path + "/test/f.txt", "file"):
-        print(fl.type_check(fl.curr_path + "/test/f.txt"))
-        fl.get_structure(fl.curr_path)
-
+        """creates DirEntry of storage
+        """
+        if self.path is not None:
+            st_expl = StorageExplorer()
+            self.storage_entry = st_expl.get_structure(self.path)
