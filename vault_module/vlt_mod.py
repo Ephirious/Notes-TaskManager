@@ -1,4 +1,5 @@
 import os
+from base64 import b64encode, b64decode
 import json
 import enc_mod as encryption
 
@@ -189,14 +190,14 @@ class StorageExplorer(_FileExplorer):
 class Note:
     """represents notes in program
     """
-    def __init__(self, path) -> None:
-        self.header = None
-        self.user = None
-        self.note_id = None
+    def __init__(self, path: str) -> None:
+        self.header = str()
+        self.user = str()
+        self.note_id = int()
         self.path = path
-        self.enc_flag = None
-        self.enc_parameters = None
-        self.data = None
+        self.enc_flag = int()
+        self.enc_parameters = list()
+        self.data = str()
 
     def open(self):
         """opens note's .json file and loads note's data
@@ -225,7 +226,7 @@ class Note:
             FileFormatError: were given frong filename format
         """
         if self.path is not None:
-            if self.path.split(".")[1] != "json":
+            if self.path.split(".")[-1] != "json":
                 raise FileFormatError
             records = {}
             records["header"] = self.header
@@ -236,8 +237,9 @@ class Note:
             if self.enc_flag != 0:
                 records["encryption"][1] = self.enc_parameters
             records["data"] = self.data
-            with open(self.path, 'wb') as file:
-                json.dump(file, records, ensure_ascii=False)
+            dmp = json.dumps(records, ensure_ascii=False)
+            with open(self.path, 'w', encoding="utf-8") as file:
+                file.write(dmp)
 
     def protect(self, password):
         """protects data of note with encryption
@@ -249,13 +251,23 @@ class Note:
         Raises:
             ProtectionError: can't protect data that is already protected
         """
-        if self.enc_flag is not None:
+        if self.enc_flag != 0:
             raise ProtectionError
         alg = encryption.EncChaCha()
-        salt = encryption.get_random_bytes
-        self.data, tag, nonce, _ = alg.encrypt(password, salt)
-        self.enc_flag = True
-        self.enc_parameters = [tag, nonce, salt]
+        salt = encryption.get_random_bytes(16)
+        e_data, tag, nonce, _ = alg.encrypt(
+                                            self.data.encode("utf-8"),
+                                            encryption.bcrypt(
+                                                password,
+                                                cost=12,
+                                                salt=salt))
+        self.enc_flag = 1
+        self.data = b64encode(e_data).decode("utf-8")
+        self.enc_parameters = list(map(
+                                       lambda x: b64encode(x).decode("utf-8"),
+                                       [tag,
+                                        nonce,
+                                        salt]))
 
     def unprotect(self, password):
         """decrypt note's data
@@ -267,15 +279,23 @@ class Note:
             ProtectionError: can't unprotect data that is not protected
             encryption.EncAuthError: can't authenticate data
         """
-        if self.enc_flag is not None:
+        if self.enc_flag != 1:
             raise ProtectionError
         alg = encryption.EncChaCha()
-        self.data, auth = alg.decrypt(self.data, self.enc_parameters[0],
+        self.data = b64decode(self.data.encode("utf-8"))
+        self.enc_parameters = list(map(
+                                       lambda x: b64decode(x).encode("utf-8"),
+                                       self.enc_parameters))
+        self.data, auth = alg.decrypt(self.data,
+                                      self.enc_parameters[0],
                                       self.enc_parameters[1],
-                                      pass_hash=alg.pass_to_hash(password,
-                                      self.enc_parameters[3]))
+                                      alg.pass_to_hash(password,
+                                                       self.enc_parameters[2]))
         if not auth:
             raise encryption.EncAuthError
+        self.data = self.data.decode("utf-8")
+        self.enc_flag = 0
+        self.enc_parameters = []
 
     @staticmethod
     def load_from_entry(note_entry: FileEntry):
@@ -295,13 +315,13 @@ class Note:
 class Storage():
     """ represent storage of notes
     """
-    def __init__(self, path):
-        self.name = None
-        self.user = None
+    def __init__(self, path: str):
+        self.name = str()
+        self.user = str()
         self.path = path
-        self.storage_entry = None
+        self.storage_entry = list()
 
-    def json_load(self, storage_data):
+    def json_load(self, storage_data: dict):
         """loads storage data from read json (dict)
 
         Args:
@@ -316,3 +336,11 @@ class Storage():
         if self.path is not None:
             st_expl = StorageExplorer()
             self.storage_entry = st_expl.get_structure(self.path)
+
+
+fl = StorageExplorer()
+st = fl.read_storage("./test/st")
+nt = Note.load_from_entry(st.storage_entry.structure[1].structure[0])
+nt.protect("13")
+nt.unprotect("13")
+nt.save()
