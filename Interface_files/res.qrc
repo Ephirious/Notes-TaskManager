@@ -1,0 +1,15 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icons/dark_mode_FILL0_wght400_GRAD0_opsz24.svg</file>
+    <file>icons/scan_delete_FILL0_wght400_GRAD0_opsz24.svg</file>
+    <file>icons/save_FILL0_wght400_GRAD0_opsz24.svg</file>
+    <file>icons/axolot.png</file>
+    <file>icons/add_box_FILL0_wght400_GRAD0_opsz24.svg</file>
+    <file>icons/arrow_back_ios_FILL0_wght400_GRAD0_opsz24.svg</file>
+    <file>icons/create_new_folder_FILL0_wght400_GRAD0_opsz24.svg</file>
+    <file>icons/settings_FILL0_wght400_GRAD0_opsz24.svg</file>
+    <file>icons/png-transparent-arrows-double-arrow-doublechevronright-right-arrows-navigation-set-arrows-part-one-icon.png</file>
+    <file>icons/png-transparent-computer-icons-settings-text-symbol-settings.png</file>
+    <file>icons/png-transparent-empty-folder-files-documents-files-and-folders-icon.png</file>
+  </qresource>
+</RCC>
