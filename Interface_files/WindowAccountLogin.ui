@@ -30,7 +30,7 @@
     <normaloff>:/icons/icons/axolot.png</normaloff>:/icons/icons/axolot.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
-   <item alignment="Qt::AlignHCenter">
+   <item alignment="Qt::AlignmentFlag::AlignHCenter">
     <widget class="QLabel" name="label_App">
      <property name="maximumSize">
       <size>
@@ -50,14 +50,14 @@
       <string>Axolot's Notes</string>
      </property>
      <property name="textFormat">
-      <enum>Qt::AutoText</enum>
+      <enum>Qt::TextFormat::AutoText</enum>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
      </property>
     </widget>
    </item>
-   <item alignment="Qt::AlignHCenter">
+   <item alignment="Qt::AlignmentFlag::AlignHCenter">
     <widget class="QLabel" name="label_log">
      <property name="font">
       <font>
@@ -66,7 +66,7 @@
       </font>
      </property>
      <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
+      <enum>Qt::LayoutDirection::LeftToRight</enum>
      </property>
      <property name="text">
       <string>LOGIN</string>
@@ -136,10 +136,10 @@
    <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
-      <enum>Qt::Vertical</enum>
+      <enum>Qt::Orientation::Vertical</enum>
      </property>
      <property name="sizeType">
-      <enum>QSizePolicy::MinimumExpanding</enum>
+      <enum>QSizePolicy::Policy::MinimumExpanding</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>

@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'WindowAccountLogin.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.3
+## Created by: Qt User Interface Compiler version 6.7.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -40,10 +40,10 @@ class Ui_LoginWindow(object):
         font.setBold(False)
         font.setUnderline(False)
         self.label_App.setFont(font)
-        self.label_App.setTextFormat(Qt.AutoText)
+        self.label_App.setTextFormat(Qt.TextFormat.AutoText)
         self.label_App.setScaledContents(True)
 
-        self.verticalLayout_3.addWidget(self.label_App, 0, Qt.AlignHCenter)
+        self.verticalLayout_3.addWidget(self.label_App, 0, Qt.AlignmentFlag.AlignHCenter)
 
         self.label_log = QLabel(Dialog)
         self.label_log.setObjectName(u"label_log")
@@ -51,9 +51,9 @@ class Ui_LoginWindow(object):
         font1.setPointSize(20)
         font1.setBold(False)
         self.label_log.setFont(font1)
-        self.label_log.setLayoutDirection(Qt.LeftToRight)
+        self.label_log.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
 
-        self.verticalLayout_3.addWidget(self.label_log, 0, Qt.AlignHCenter)
+        self.verticalLayout_3.addWidget(self.label_log, 0, Qt.AlignmentFlag.AlignHCenter)
 
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setSpacing(0)
