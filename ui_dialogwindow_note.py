@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'DialogWNameNote.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.3
+## Created by: Qt User Interface Compiler version 6.7.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -40,11 +40,11 @@ class Ui_Dialog(object):
         font.setWeight(QFont.DemiBold)
         font.setItalic(False)
         self.label.setFont(font)
-        self.label.setLayoutDirection(Qt.LeftToRight)
+        self.label.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         self.label.setAutoFillBackground(False)
         self.label.setStyleSheet(u"font: 600 \"Sitka Text Semibold\";")
 
-        self.verticalLayout.addWidget(self.label, 0, Qt.AlignHCenter)
+        self.verticalLayout.addWidget(self.label, 0, Qt.AlignmentFlag.AlignHCenter)
 
         self.labelError = QLabel(Dialog)
         self.labelError.setObjectName(u"labelError")
@@ -72,8 +72,8 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0444\u0430\u0439\u043b\u0430", None))
-        self.label.setText(QCoreApplication.translate("Dialog", u"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0444\u0430\u0439\u043b\u0430", None))
+        self.label.setText(QCoreApplication.translate("Dialog", u"Enter the name of new file", None))
         self.labelError.setText("")
-        self.pushButton.setText(QCoreApplication.translate("Dialog", u"\u041e\u043a", None))
+        self.pushButton.setText(QCoreApplication.translate("Dialog", u"Ok", None))
     # retranslateUi
 

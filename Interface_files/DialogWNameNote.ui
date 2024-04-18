@@ -33,7 +33,7 @@
    <string notr="true">background-color: rgb(216, 193, 219)</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <item alignment="Qt::AlignHCenter">
+   <item alignment="Qt::AlignmentFlag::AlignHCenter">
     <widget class="QLabel" name="label">
      <property name="font">
       <font>
@@ -44,7 +44,7 @@
       </font>
      </property>
      <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
+      <enum>Qt::LayoutDirection::LeftToRight</enum>
      </property>
      <property name="autoFillBackground">
       <bool>false</bool>
@@ -53,7 +53,7 @@
       <string notr="true">font: 600 &quot;Sitka Text Semibold&quot;;</string>
      </property>
      <property name="text">
-      <string>Введите название файла</string>
+      <string>Enter the name of new file</string>
      </property>
     </widget>
    </item>
@@ -78,7 +78,7 @@
 font: 600 11pt &quot;Sitka Text Semibold&quot;;</string>
      </property>
      <property name="text">
-      <string>Ок</string>
+      <string>Ok</string>
      </property>
     </widget>
    </item>
