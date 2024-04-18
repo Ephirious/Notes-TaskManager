@@ -57,7 +57,7 @@ class Ui_LoginWindow(object):
         self.label_log.setStyleSheet(u"font: 600 11pt \"Sitka Subheading Semibold\";")
         self.label_error = QLabel(Dialog)
         self.label_error.setObjectName(u"label_error")
-        self.label_error.setGeometry(QRect(20, 180, 331, 20))
+        self.label_error.setGeometry(QRect(20, 180, 331, 71))
         self.layoutWidget = QWidget(Dialog)
         self.layoutWidget.setObjectName(u"layoutWidget")
         self.layoutWidget.setGeometry(QRect(140, 320, 77, 54))
