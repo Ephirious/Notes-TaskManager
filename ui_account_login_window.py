@@ -17,20 +17,20 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QLabel, QLineEdit, QPushButton,
     QSizePolicy, QVBoxLayout, QWidget)
-import res
+import res_rc
 
 class Ui_LoginWindow(object):
-    def setupUi(self, Dialog):
-        if not Dialog.objectName():
-            Dialog.setObjectName(u"Dialog")
-        Dialog.resize(365, 380)
-        Dialog.setMinimumSize(QSize(365, 380))
-        Dialog.setMaximumSize(QSize(365, 380))
+    def setupUi(self, LoginWindow):
+        if not LoginWindow.objectName():
+            LoginWindow.setObjectName(u"LoginWindow")
+        LoginWindow.resize(365, 380)
+        LoginWindow.setMinimumSize(QSize(365, 380))
+        LoginWindow.setMaximumSize(QSize(365, 380))
         icon = QIcon()
         icon.addFile(u":/icons/icons/axolot.png", QSize(), QIcon.Normal, QIcon.Off)
-        Dialog.setWindowIcon(icon)
-        Dialog.setStyleSheet(u"background-color: rgb(216, 193, 219)")
-        self.label_App = QLabel(Dialog)
+        LoginWindow.setWindowIcon(icon)
+        LoginWindow.setStyleSheet(u"background-color: rgb(216, 193, 219)")
+        self.label_App = QLabel(LoginWindow)
         self.label_App.setObjectName(u"label_App")
         self.label_App.setGeometry(QRect(97, 9, 171, 25))
         self.label_App.setMaximumSize(QSize(300, 45))
@@ -44,7 +44,7 @@ class Ui_LoginWindow(object):
         self.label_App.setStyleSheet(u"font: 15pt \"Snap ITC\";")
         self.label_App.setTextFormat(Qt.TextFormat.AutoText)
         self.label_App.setScaledContents(True)
-        self.label_log = QLabel(Dialog)
+        self.label_log = QLabel(LoginWindow)
         self.label_log.setObjectName(u"label_log")
         self.label_log.setGeometry(QRect(160, 40, 45, 16))
         font1 = QFont()
@@ -55,10 +55,10 @@ class Ui_LoginWindow(object):
         self.label_log.setFont(font1)
         self.label_log.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         self.label_log.setStyleSheet(u"font: 600 11pt \"Sitka Subheading Semibold\";")
-        self.label_error = QLabel(Dialog)
+        self.label_error = QLabel(LoginWindow)
         self.label_error.setObjectName(u"label_error")
         self.label_error.setGeometry(QRect(20, 180, 331, 71))
-        self.layoutWidget = QWidget(Dialog)
+        self.layoutWidget = QWidget(LoginWindow)
         self.layoutWidget.setObjectName(u"layoutWidget")
         self.layoutWidget.setGeometry(QRect(140, 320, 77, 54))
         self.verticalLayout_2 = QVBoxLayout(self.layoutWidget)
@@ -80,7 +80,7 @@ class Ui_LoginWindow(object):
 
         self.verticalLayout_2.addWidget(self.btn_login)
 
-        self.layoutWidget1 = QWidget(Dialog)
+        self.layoutWidget1 = QWidget(LoginWindow)
         self.layoutWidget1.setObjectName(u"layoutWidget1")
         self.layoutWidget1.setGeometry(QRect(10, 62, 347, 47))
         self.verticalLayout = QVBoxLayout(self.layoutWidget1)
@@ -106,10 +106,11 @@ class Ui_LoginWindow(object):
         self.lineEdit_name.setObjectName(u"lineEdit_name")
         self.lineEdit_name.setMinimumSize(QSize(345, 22))
         self.lineEdit_name.setStyleSheet(u"background-color: white;")
+        self.lineEdit_name.setClearButtonEnabled(True)
 
         self.verticalLayout.addWidget(self.lineEdit_name)
 
-        self.layoutWidget2 = QWidget(Dialog)
+        self.layoutWidget2 = QWidget(LoginWindow)
         self.layoutWidget2.setObjectName(u"layoutWidget2")
         self.layoutWidget2.setGeometry(QRect(12, 122, 347, 45))
         self.verticalLayout_3 = QVBoxLayout(self.layoutWidget2)
@@ -135,23 +136,25 @@ class Ui_LoginWindow(object):
         self.lineEdit_password.setMaximumSize(QSize(345, 22))
         self.lineEdit_password.setStyleSheet(u"background-color: white;\n"
 "")
+        self.lineEdit_password.setEchoMode(QLineEdit.EchoMode.PasswordEchoOnEdit)
+        self.lineEdit_password.setClearButtonEnabled(True)
 
         self.verticalLayout_3.addWidget(self.lineEdit_password)
 
 
-        self.retranslateUi(Dialog)
+        self.retranslateUi(LoginWindow)
 
-        QMetaObject.connectSlotsByName(Dialog)
+        QMetaObject.connectSlotsByName(LoginWindow)
     # setupUi
 
-    def retranslateUi(self, Dialog):
-        Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"Axolot's Notes - Login window", None))
-        self.label_App.setText(QCoreApplication.translate("Dialog", u"Axolot's Notes", None))
-        self.label_log.setText(QCoreApplication.translate("Dialog", u"LOGIN", None))
+    def retranslateUi(self, LoginWindow):
+        LoginWindow.setWindowTitle(QCoreApplication.translate("LoginWindow", u"Axolot's Notes - Login window", None))
+        self.label_App.setText(QCoreApplication.translate("LoginWindow", u"Axolot's Notes", None))
+        self.label_log.setText(QCoreApplication.translate("LoginWindow", u"LOGIN", None))
         self.label_error.setText("")
-        self.btn_reg.setText(QCoreApplication.translate("Dialog", u"Sign up", None))
-        self.btn_login.setText(QCoreApplication.translate("Dialog", u"Log in", None))
-        self.label_name.setText(QCoreApplication.translate("Dialog", u"Name", None))
-        self.label_password.setText(QCoreApplication.translate("Dialog", u"Password", None))
+        self.btn_reg.setText(QCoreApplication.translate("LoginWindow", u"Sign up", None))
+        self.btn_login.setText(QCoreApplication.translate("LoginWindow", u"Log in", None))
+        self.label_name.setText(QCoreApplication.translate("LoginWindow", u"Name", None))
+        self.label_password.setText(QCoreApplication.translate("LoginWindow", u"Password", None))
     # retranslateUi
 

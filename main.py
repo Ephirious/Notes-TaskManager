@@ -4,8 +4,11 @@ import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QDialog
 
 from ui_account_login_window import Ui_LoginWindow
+from ui_account_sign_in_window import Ui_SigninWindow
 from ui_dialogwindow_note import Ui_Dialog
 from ui_main_window_notes import Ui_MainWindow
+
+# from data_base.data_bd import *
 
 
 class NotesApp(QMainWindow):
@@ -15,7 +18,7 @@ class NotesApp(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.open_accountWindow()
+        self.open_login_window()
 
         NAME_NOTE = None
         DirectoryPath = None
@@ -54,24 +57,44 @@ class NotesApp(QMainWindow):
         self.dialog_window.show()
         self.dialog.pushButton.clicked.connect(self.addNote)
 
-    def open_accountWindow(self):
-        self.account_window = QDialog()
-        self.account_dialog = Ui_LoginWindow()
-        self.account_dialog.setupUi(self.account_window)
+    def open_login_window(self):
+        self.login_window = QDialog()
+        self.login_dialog = Ui_LoginWindow()
+        self.login_dialog.setupUi(self.login_window)
 
-        self.account_window.show()
-        self.account_dialog.btn_login.clicked.connect(self.login_in_account)
+        self.login_window.show()
+        self.login_dialog.btn_login.clicked.connect(self.login_in_account)
+        self.login_dialog.btn_reg.clicked.connect(self.open_reg_window)
 
     def login_in_account(self):
-        name = '123'
-        password = name[::-1]
-        if self.account_dialog.lineEdit_name.text() == name and \
-                self.account_dialog.lineEdit_password.text() == password:
+        if search_user(self.login_dialog.lineEdit_name.text(), self.login_dialog.lineEdit_password.text()):
             self.show()
-            self.account_window.close()
+            self.login_window.close()
         else:
-            self.account_dialog.label_error.setText('Вы кто такие!? Я вас не звал!\n'
-                                                    'Проверьте верность введеного логина или пароля. ')
+            self.login_dialog.label_error.setText('Вы кто такие!? Я вас не звал!\n'
+                                                  'Проверьте верность введеного логина или пароля. ')
+
+    def open_reg_window(self):
+
+        # если открыто
+        self.login_window.close()
+
+        self.reg_window = QDialog()
+        self.reg_dialog = Ui_SigninWindow()
+        self.reg_dialog.setupUi(self.reg_window)
+
+        self.reg_window.show()
+        self.reg_dialog.btn_signup.clicked.connect(self.sign_in_account)
+
+    def sign_in_account(self):
+        login, password = self.reg_dialog.lineEdit_login.text(), self.reg_dialog.lineEdit_password.text()
+        if not search_user(login, password):
+            registration(login, password)
+            self.show()
+            self.reg_window.close()
+        else:
+            # обработать else
+            pass
 
     def research_notes(self):
         if self.ui.listWidget.count():

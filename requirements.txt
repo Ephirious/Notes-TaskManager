@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 PySide6
+=======
+pycryptodomex==3.20.0
+>>>>>>> base_data

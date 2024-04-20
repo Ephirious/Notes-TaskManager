@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'MainWNotes.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.3
+## Created by: Qt User Interface Compiler version 6.7.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -18,7 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QListWidget,
     QListWidgetItem, QMainWindow, QPushButton, QSizePolicy,
     QSpacerItem, QTextEdit, QVBoxLayout, QWidget)
-import res
+import res_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -44,7 +44,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.btn_back.sizePolicy().hasHeightForWidth())
         self.btn_back.setSizePolicy(sizePolicy)
         self.btn_back.setMinimumSize(QSize(80, 25))
-        self.btn_back.setMaximumSize(QSize(80, 25))
+        self.btn_back.setMaximumSize(QSize(90, 25))
         font = QFont()
         font.setFamilies([u"Segoe UI Black"])
         font.setPointSize(11)
@@ -114,7 +114,7 @@ class Ui_MainWindow(object):
         self.buttonsLayout.setContentsMargins(12, 0, 0, 12)
         self.btn_add_note = QPushButton(self.centralwidget)
         self.btn_add_note.setObjectName(u"btn_add_note")
-        self.btn_add_note.setMaximumSize(QSize(80, 25))
+        self.btn_add_note.setMaximumSize(QSize(90, 25))
         self.btn_add_note.setStyleSheet(u"background-color: rgb(216, 193, 219);\n"
 "font: 900 13 pt \"Segoe UI Black\";\n"
 "color: rgb(91, 61, 107)")
@@ -126,7 +126,7 @@ class Ui_MainWindow(object):
 
         self.btn_storage = QPushButton(self.centralwidget)
         self.btn_storage.setObjectName(u"btn_storage")
-        self.btn_storage.setMaximumSize(QSize(80, 25))
+        self.btn_storage.setMaximumSize(QSize(90, 25))
         self.btn_storage.setStyleSheet(u"background-color: rgb(216, 193, 219);\n"
 "font: 900 11pt \"Segoe UI Black\";\n"
 "color: rgb(91, 61, 107)")
@@ -138,7 +138,7 @@ class Ui_MainWindow(object):
 
         self.btn_settings = QPushButton(self.centralwidget)
         self.btn_settings.setObjectName(u"btn_settings")
-        self.btn_settings.setMaximumSize(QSize(80, 25))
+        self.btn_settings.setMaximumSize(QSize(90, 25))
         self.btn_settings.setStyleSheet(u"background-color: rgb(216, 193, 219);\n"
 "font: 900 11pt \"Segoe UI Black\";\n"
 "color: rgb(91, 61, 107)")
