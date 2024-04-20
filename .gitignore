@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ### Example user template template
 ### Example user template
 
@@ -9,6 +10,12 @@ out
 gen
 
 !/Notes/
+=======
+*.jpg
+*.txt
+*.dot
+/test/
+>>>>>>> base_data
 =======
 *.jpg
 *.txt
