@@ -20,32 +20,32 @@ def close_table(db, c):
     db.close()
 
 
-def serch_user(Login, Password):
+def search_user(login, password):
     # Подключение к базе, создание курсора
-    db = sqlite3.connect('users.db')
+    db = sqlite3.connect('data_base/user.db')
     c = db.cursor()
 
-    c.execute(f"SELECT * FROM users WHERE login={Login}")
+    c.execute(f"SELECT * FROM users WHERE login={login}")
     value = c.fetchall()
     close_table(db, c)
-    if value != [] and value[0][1] == Password:
+    if value != [] and value[0][1] == password:
         return True
     else:
         return False
 
 
-def registration(Login, Password):
+def registration(login, password):
     # Подключение к базе, создание курсора
-    db = sqlite3.connect('user.db')
+    db = sqlite3.connect('data_base/user.db')
     c = db.cursor()
 
-    c.execute("SELECT * FROM users WHERE Login={login}")
+    c.execute("SELECT * FROM users WHERE login={login}")
     value = c.fetchall()
     # если таких значений не найдено value = [], приравнивается к false
     if value:
-        # Дописать ссылку на файлик
-        c.execute("INSERT INTO users Login={login}, Password={password}, 'hcddhe.txt')")
+        c.execute("INSERT INTO users  (login, password) VALUES ({}, {})".format(login, password))
+        close_table(db, c)
+        return True
     else:
-        return "Такой пользователь уже есть!"
-    close_table(db, c)
-    return
+        close_table(db, c)
+        return False
