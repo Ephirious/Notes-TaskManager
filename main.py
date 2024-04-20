@@ -8,7 +8,7 @@ from ui_account_sign_in_window import Ui_SigninWindow
 from ui_dialogwindow_note import Ui_Dialog
 from ui_main_window_notes import Ui_MainWindow
 
-# from data_base.data_bd import *
+from data_base.data_bd import *
 
 
 class NotesApp(QMainWindow):

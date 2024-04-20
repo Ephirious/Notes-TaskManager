@@ -39,10 +39,10 @@ def registration(login, password):
     db = sqlite3.connect('data_base/user.db')
     c = db.cursor()
 
-    c.execute("SELECT * FROM users WHERE login={login}")
+    c.execute(f"SELECT * FROM users WHERE login={login}")
     value = c.fetchall()
     # если таких значений не найдено value = [], приравнивается к false
-    if value:
+    if not value:
         c.execute("INSERT INTO users  (login, password) VALUES ({}, {})".format(login, password))
         close_table(db, c)
         return True
