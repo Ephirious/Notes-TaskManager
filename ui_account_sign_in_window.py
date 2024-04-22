@@ -24,7 +24,7 @@ class Ui_SigninWindow(object):
     def setupUi(self, SigninWindow):
         if not SigninWindow.objectName():
             SigninWindow.setObjectName(u"SigninWindow")
-        SigninWindow.resize(492, 580)
+        SigninWindow.resize(500, 580)
         SigninWindow.setMaximumSize(QSize(500, 600))
         icon = QIcon()
         icon.addFile(u":/icons/icons/axolot.png", QSize(), QIcon.Normal, QIcon.Off)
@@ -38,10 +38,13 @@ class Ui_SigninWindow(object):
         self.label = QLabel(SigninWindow)
         self.label.setObjectName(u"label")
         font = QFont()
-        font.setFamilies([u"Comic Sans MS"])
-        font.setPointSize(32)
-        font.setBold(True)
+        font.setFamilies([u"Snap ITC"])
+        font.setPointSize(27)
+        font.setBold(False)
+        font.setItalic(False)
         self.label.setFont(font)
+        self.label.setStyleSheet(u"font: 27pt \"Snap ITC\";\n"
+"background-color: none;")
 
         self.verticalLayout_3.addWidget(self.label, 0, Qt.AlignmentFlag.AlignHCenter)
 
@@ -63,13 +66,16 @@ class Ui_SigninWindow(object):
         self.label_3 = QLabel(self.Frame)
         self.label_3.setObjectName(u"label_3")
         font1 = QFont()
-        font1.setFamilies([u"Segoe UI"])
-        font1.setPointSize(26)
+        font1.setFamilies([u"Sitka"])
+        font1.setPointSize(25)
         font1.setBold(False)
         font1.setItalic(False)
         self.label_3.setFont(font1)
+        self.label_3.setStyleSheet(u"font: 25pt \"Sitka\";\n"
+"background-color: none;\n"
+"color: rgb(91, 61, 107)")
 
-        self.verticalLayout_5.addWidget(self.label_3)
+        self.verticalLayout_5.addWidget(self.label_3, 0, Qt.AlignmentFlag.AlignHCenter)
 
 
         self.verticalLayout_4.addLayout(self.verticalLayout_5)
@@ -80,8 +86,13 @@ class Ui_SigninWindow(object):
         self.label_login = QLabel(self.Frame)
         self.label_login.setObjectName(u"label_login")
         font2 = QFont()
-        font2.setPointSize(13)
+        font2.setFamilies([u"Sitka"])
+        font2.setPointSize(17)
+        font2.setBold(False)
+        font2.setItalic(False)
         self.label_login.setFont(font2)
+        self.label_login.setStyleSheet(u"font: 17pt \"Sitka\";\n"
+"color: rgb(91, 61, 107)")
 
         self.verticalLayout.addWidget(self.label_login)
 
@@ -103,6 +114,8 @@ class Ui_SigninWindow(object):
         self.label_password = QLabel(self.Frame)
         self.label_password.setObjectName(u"label_password")
         self.label_password.setFont(font2)
+        self.label_password.setStyleSheet(u"font: 17pt \"Sitka\";\n"
+"color: rgb(91, 61, 107)")
 
         self.verticalLayout_2.addWidget(self.label_password)
 
@@ -127,10 +140,13 @@ class Ui_SigninWindow(object):
         self.btn_signup = QPushButton(SigninWindow)
         self.btn_signup.setObjectName(u"btn_signup")
         font3 = QFont()
-        font3.setPointSize(12)
-        font3.setBold(True)
+        font3.setFamilies([u"Sitka"])
+        font3.setPointSize(15)
+        font3.setBold(False)
+        font3.setItalic(False)
         self.btn_signup.setFont(font3)
-        self.btn_signup.setStyleSheet(u"background-color: rgb(255, 255, 255);")
+        self.btn_signup.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
+"font: 15pt \"Sitka\";")
 
         self.verticalLayout_6.addWidget(self.btn_signup)
 
@@ -144,10 +160,10 @@ class Ui_SigninWindow(object):
         SigninWindow.setWindowTitle(QCoreApplication.translate("SigninWindow", u"Axolot's Notes - sign in", None))
         self.label.setText(QCoreApplication.translate("SigninWindow", u"Axolot's Notes", None))
         self.label_3.setText(QCoreApplication.translate("SigninWindow", u"Register", None))
-        self.label_login.setText(QCoreApplication.translate("SigninWindow", u"Login", None))
+        self.label_login.setText(QCoreApplication.translate("SigninWindow", u"Login:", None))
         self.lineEdit_login.setInputMask("")
         self.lineEdit_login.setText("")
-        self.label_password.setText(QCoreApplication.translate("SigninWindow", u"Password", None))
+        self.label_password.setText(QCoreApplication.translate("SigninWindow", u"Password:", None))
         self.btn_signup.setText(QCoreApplication.translate("SigninWindow", u"Sign up", None))
     # retranslateUi
 

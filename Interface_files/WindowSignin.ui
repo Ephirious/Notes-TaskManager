@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>492</width>
+    <width>500</width>
     <height>580</height>
    </rect>
   </property>
@@ -39,10 +39,15 @@
       <widget class="QLabel" name="label">
        <property name="font">
         <font>
-         <family>Comic Sans MS</family>
-         <pointsize>32</pointsize>
-         <bold>true</bold>
+         <family>Snap ITC</family>
+         <pointsize>27</pointsize>
+         <italic>false</italic>
+         <bold>false</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 27pt &quot;Snap ITC&quot;;
+background-color: none;</string>
        </property>
        <property name="text">
         <string>Axolot's Notes</string>
@@ -81,15 +86,20 @@
         <property name="rightMargin">
          <number>30</number>
         </property>
-        <item>
+        <item alignment="Qt::AlignmentFlag::AlignHCenter">
          <widget class="QLabel" name="label_3">
           <property name="font">
            <font>
-            <family>Segoe UI</family>
-            <pointsize>26</pointsize>
+            <family>Sitka</family>
+            <pointsize>25</pointsize>
             <italic>false</italic>
             <bold>false</bold>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">font: 25pt &quot;Sitka&quot;;
+background-color: none;
+color: rgb(91, 61, 107)</string>
           </property>
           <property name="text">
            <string>Register</string>
@@ -116,11 +126,18 @@
          <widget class="QLabel" name="label_login">
           <property name="font">
            <font>
-            <pointsize>13</pointsize>
+            <family>Sitka</family>
+            <pointsize>17</pointsize>
+            <italic>false</italic>
+            <bold>false</bold>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">font: 17pt &quot;Sitka&quot;;
+color: rgb(91, 61, 107)</string>
+          </property>
           <property name="text">
-           <string>Login</string>
+           <string>Login:</string>
           </property>
          </widget>
         </item>
@@ -166,11 +183,18 @@
          <widget class="QLabel" name="label_password">
           <property name="font">
            <font>
-            <pointsize>13</pointsize>
+            <family>Sitka</family>
+            <pointsize>17</pointsize>
+            <italic>false</italic>
+            <bold>false</bold>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">font: 17pt &quot;Sitka&quot;;
+color: rgb(91, 61, 107)</string>
+          </property>
           <property name="text">
-           <string>Password</string>
+           <string>Password:</string>
           </property>
          </widget>
         </item>
@@ -209,12 +233,15 @@
     <widget class="QPushButton" name="btn_signup">
      <property name="font">
       <font>
-       <pointsize>12</pointsize>
-       <bold>true</bold>
+       <family>Sitka</family>
+       <pointsize>15</pointsize>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255);</string>
+      <string notr="true">background-color: rgb(255, 255, 255);
+font: 15pt &quot;Sitka&quot;;</string>
      </property>
      <property name="text">
       <string>Sign up</string>

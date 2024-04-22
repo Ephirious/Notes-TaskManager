@@ -23,9 +23,9 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
-        Dialog.resize(300, 150)
-        Dialog.setMinimumSize(QSize(300, 150))
-        Dialog.setMaximumSize(QSize(300, 150))
+        Dialog.resize(367, 212)
+        Dialog.setMinimumSize(QSize(367, 212))
+        Dialog.setMaximumSize(QSize(367, 212))
         icon = QIcon()
         icon.addFile(u":/icons/icons/axolot.png", QSize(), QIcon.Normal, QIcon.Off)
         Dialog.setWindowIcon(icon)
@@ -36,24 +36,29 @@ class Ui_Dialog(object):
         self.label.setObjectName(u"label")
         font = QFont()
         font.setFamilies([u"Sitka Text Semibold"])
-        font.setPointSize(15)
-        font.setWeight(QFont.DemiBold)
+        font.setPointSize(19)
+        font.setBold(False)
         font.setItalic(False)
         self.label.setFont(font)
         self.label.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         self.label.setAutoFillBackground(False)
-        self.label.setStyleSheet(u"font: 600 \"Sitka Text Semibold\";")
+        self.label.setStyleSheet(u"font: 19pt \"Sitka Text Semibold\";\n"
+"background-color: none;\n"
+"")
 
         self.verticalLayout.addWidget(self.label, 0, Qt.AlignmentFlag.AlignHCenter)
 
         self.labelError = QLabel(Dialog)
         self.labelError.setObjectName(u"labelError")
+        self.labelError.setStyleSheet(u"background-color: none;")
 
         self.verticalLayout.addWidget(self.labelError)
 
         self.lineEdit = QLineEdit(Dialog)
         self.lineEdit.setObjectName(u"lineEdit")
-        self.lineEdit.setStyleSheet(u"background-color: white")
+        self.lineEdit.setEnabled(True)
+        self.lineEdit.setMouseTracking(True)
+        self.lineEdit.setStyleSheet(u"background-color: white;")
 
         self.verticalLayout.addWidget(self.lineEdit)
 
@@ -72,8 +77,9 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0444\u0430\u0439\u043b\u0430", None))
-        self.label.setText(QCoreApplication.translate("Dialog", u"Enter the name of new file", None))
+        self.label.setText(QCoreApplication.translate("Dialog", u"Enter the name of new file:", None))
         self.labelError.setText("")
+        self.lineEdit.setText("")
         self.pushButton.setText(QCoreApplication.translate("Dialog", u"Ok", None))
     # retranslateUi
 
