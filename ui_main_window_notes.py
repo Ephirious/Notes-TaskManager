@@ -73,10 +73,10 @@ class Ui_MainWindow(object):
         font1 = QFont()
         font1.setFamilies([u"Snap ITC"])
         font1.setPointSize(17)
-        font1.setBold(True)
+        font1.setBold(False)
         font1.setItalic(False)
         self.label.setFont(font1)
-        self.label.setStyleSheet(u"font: bold \"Snap ITC\";\n"
+        self.label.setStyleSheet(u"font: url(:/fonts/fonts/Snap ITC.ttf);\n"
 "background-color: none;\n"
 "color: white")
 

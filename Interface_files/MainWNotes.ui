@@ -105,11 +105,11 @@ color: rgb(91, 61, 107)</string>
           <family>Snap ITC</family>
           <pointsize>17</pointsize>
           <italic>false</italic>
-          <bold>true</bold>
+          <bold>false</bold>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: bold &quot;Snap ITC&quot;;
+         <string notr="true">font: url(:/fonts/fonts/Snap ITC.ttf);
 background-color: none;
 color: white</string>
         </property>
