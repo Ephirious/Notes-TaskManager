@@ -38,12 +38,12 @@ class Ui_SigninWindow(object):
         self.label = QLabel(SigninWindow)
         self.label.setObjectName(u"label")
         font = QFont()
-        font.setFamilies([u"Snap ITC"])
+        font.setFamilies([u"Arial"])
         font.setPointSize(27)
         font.setBold(False)
         font.setItalic(False)
         self.label.setFont(font)
-        self.label.setStyleSheet(u"font: 27pt \"Snap ITC\";\n"
+        self.label.setStyleSheet(u"font: url(:/fonts/fonts/Snap ITC.ttf);\n"
 "background-color: none;")
 
         self.verticalLayout_3.addWidget(self.label, 0, Qt.AlignmentFlag.AlignHCenter)
@@ -133,6 +133,11 @@ class Ui_SigninWindow(object):
 
         self.verticalLayout_6.addWidget(self.Frame)
 
+        self.label_error = QLabel(SigninWindow)
+        self.label_error.setObjectName(u"label_error")
+
+        self.verticalLayout_6.addWidget(self.label_error)
+
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_6.addItem(self.verticalSpacer)
@@ -164,6 +169,7 @@ class Ui_SigninWindow(object):
         self.lineEdit_login.setInputMask("")
         self.lineEdit_login.setText("")
         self.label_password.setText(QCoreApplication.translate("SigninWindow", u"Password:", None))
+        self.label_error.setText("")
         self.btn_signup.setText(QCoreApplication.translate("SigninWindow", u"Sign up", None))
     # retranslateUi
 

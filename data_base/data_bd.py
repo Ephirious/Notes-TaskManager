@@ -25,10 +25,10 @@ def search_user(login, password):
     db = sqlite3.connect('data_base/user.db')
     c = db.cursor()
 
-    c.execute(f"SELECT * FROM users WHERE login={login}")
+    c.execute("SELECT * FROM users WHERE login=?", (login,))
     value = c.fetchall()
     close_table(db, c)
-    if value != [] and value[0][1] == password:
+    if value and (value[0][0] == login and value[0][1] == password):
         return True
     else:
         return False
@@ -39,11 +39,11 @@ def registration(login, password):
     db = sqlite3.connect('data_base/user.db')
     c = db.cursor()
 
-    c.execute(f"SELECT * FROM users WHERE login={login}")
+    c.execute("SELECT * FROM users WHERE login=?", (login,))
     value = c.fetchall()
     # если таких значений не найдено value = [], приравнивается к false
     if not value:
-        c.execute("INSERT INTO users  (login, password) VALUES ({}, {})".format(login, password))
+        c.execute("INSERT INTO users  (login, password) VALUES (?, ?)", (login, password))
         close_table(db, c)
         return True
     else:

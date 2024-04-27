@@ -3,12 +3,11 @@ import sys
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QDialog
 
+from data_base.data_bd import *
 from ui_account_login_window import Ui_LoginWindow
 from ui_account_sign_in_window import Ui_SigninWindow
 from ui_dialogwindow_note import Ui_Dialog
 from ui_main_window_notes import Ui_MainWindow
-
-from data_base.data_bd import *
 
 
 class NotesApp(QMainWindow):
@@ -93,8 +92,8 @@ class NotesApp(QMainWindow):
             self.show()
             self.reg_window.close()
         else:
-            # обработать else
-            pass
+            self.reg_dialog.label_error.setText('Введеный логин уже занят, пожалуйста'
+                                                'введите новый логин')
 
     def research_notes(self):
         if self.ui.listWidget.count():
@@ -163,6 +162,10 @@ class NotesApp(QMainWindow):
 
 
 if __name__ == "__main__":
+    # ==Код не позволяющий включать приложению темную тему==
+    sys.argv += ['-platform', 'windows:darkmode=0']
+    # =======================================================
     app = QApplication(sys.argv)
+
     window = NotesApp()
     sys.exit(app.exec())
