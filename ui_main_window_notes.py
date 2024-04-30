@@ -24,7 +24,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(717, 643)
+        MainWindow.resize(737, 643)
         icon = QIcon()
         icon.addFile(u":/icons/icons/axolot.png", QSize(), QIcon.Normal, QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -80,14 +80,16 @@ class Ui_MainWindow(object):
         self.label.setSizePolicy(sizePolicy)
         self.label.setMaximumSize(QSize(300, 100))
         font1 = QFont()
-        font1.setFamilies([u"Snap ITC"])
-        font1.setPointSize(17)
+        font1.setFamilies([u"Ravie"])
+        font1.setPointSize(15)
         font1.setBold(False)
         font1.setItalic(False)
         self.label.setFont(font1)
-        self.label.setStyleSheet(u"font: url(:/fonts/fonts/Snap ITC.ttf);\n"
+        self.label.setStyleSheet(u"font: 15pt \"Ravie\";\n"
 "background-color: none;\n"
-"color: white")
+"color: white;\n"
+"\n"
+"")
 
         self.horizontalLayout_3.addWidget(self.label)
 
@@ -136,7 +138,7 @@ class Ui_MainWindow(object):
         self.btn_add_note.setMaximumSize(QSize(90, 25))
         self.btn_add_note.setStyleSheet(u"QPushButton {\n"
 "background-color: rgb(216, 193, 219);\n"
-"font: 900 13 pt \"Segoe UI Black\";\n"
+"font: 900 10 pt \"Segoe UI Black\";\n"
 "color: rgb(91, 61, 107)\n"
 "}\n"
 "QPushButton:hover {\n"
@@ -149,6 +151,7 @@ class Ui_MainWindow(object):
         icon3 = QIcon()
         icon3.addFile(u":/icons/icons/add_box_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_add_note.setIcon(icon3)
+        self.btn_add_note.setIconSize(QSize(16, 16))
 
         self.buttonsLayout.addWidget(self.btn_add_note)
 
@@ -178,7 +181,7 @@ class Ui_MainWindow(object):
         self.btn_settings.setMaximumSize(QSize(90, 25))
         self.btn_settings.setStyleSheet(u"QPushButton {\n"
 "background-color: rgb(216, 193, 219);\n"
-"font: 900 11pt \"Segoe UI Black\";\n"
+"font: 900 10 pt \"Segoe UI Black\";\n"
 "color: rgb(91, 61, 107)\n"
 "}\n"
 "QPushButton:hover {\n"
@@ -296,15 +299,15 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Axolot's Notes", None))
-        self.btn_back.setText(QCoreApplication.translate("MainWindow", u"Back", None))
+        self.btn_back.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0437\u0430\u0434", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Axolot's Notes", None))
         self.btn_theme.setText("")
         self.label_3.setText("")
-        self.btn_add_note.setText(QCoreApplication.translate("MainWindow", u"Add note", None))
-        self.btn_storage.setText(QCoreApplication.translate("MainWindow", u"Storage", None))
-        self.btn_settings.setText(QCoreApplication.translate("MainWindow", u"Settings", None))
+        self.btn_add_note.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
+        self.btn_storage.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0430\u043f\u043a\u0438", None))
+        self.btn_settings.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438", None))
         self.label_save_or_del.setText("")
-        self.btn_delete_note.setText(QCoreApplication.translate("MainWindow", u"Delete note", None))
-        self.btn_save.setText(QCoreApplication.translate("MainWindow", u"Save", None))
+        self.btn_delete_note.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
+        self.btn_save.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
     # retranslateUi
 

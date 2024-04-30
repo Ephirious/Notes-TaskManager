@@ -38,12 +38,12 @@ class Ui_SigninWindow(object):
         self.label = QLabel(SigninWindow)
         self.label.setObjectName(u"label")
         font = QFont()
-        font.setFamilies([u"Snap ITC"])
+        font.setFamilies([u"Ravie"])
         font.setPointSize(27)
         font.setBold(False)
         font.setItalic(False)
         self.label.setFont(font)
-        self.label.setStyleSheet(u"font: 27pt \"Snap ITC\";\n"
+        self.label.setStyleSheet(u"font: 27pt \"Ravie\";\n"
 "background-color: none;")
 
         self.verticalLayout_3.addWidget(self.label, 0, Qt.AlignmentFlag.AlignHCenter)
@@ -73,7 +73,7 @@ class Ui_SigninWindow(object):
         self.label_3.setFont(font1)
         self.label_3.setStyleSheet(u"font: 25pt \"Sitka\";\n"
 "background-color: none;\n"
-"color: rgb(91, 61, 107)")
+"color: black")
 
         self.verticalLayout_5.addWidget(self.label_3, 0, Qt.AlignmentFlag.AlignHCenter)
 
@@ -190,13 +190,13 @@ class Ui_SigninWindow(object):
     def retranslateUi(self, SigninWindow):
         SigninWindow.setWindowTitle(QCoreApplication.translate("SigninWindow", u"Axolot's Notes - sign in", None))
         self.label.setText(QCoreApplication.translate("SigninWindow", u"Axolot's Notes", None))
-        self.label_3.setText(QCoreApplication.translate("SigninWindow", u"Register", None))
-        self.label_login.setText(QCoreApplication.translate("SigninWindow", u"Login:", None))
+        self.label_3.setText(QCoreApplication.translate("SigninWindow", u"\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044f", None))
+        self.label_login.setText(QCoreApplication.translate("SigninWindow", u"\u041f\u0440\u0438\u0434\u0443\u043c\u0430\u0439\u0442\u0435 \u043b\u043e\u0433\u0438\u043d:", None))
         self.lineEdit_login.setInputMask("")
         self.lineEdit_login.setText("")
-        self.lineEdit_login.setPlaceholderText(QCoreApplication.translate("SigninWindow", u"Name", None))
-        self.label_password.setText(QCoreApplication.translate("SigninWindow", u"Password:", None))
-        self.lineEdit_password.setPlaceholderText(QCoreApplication.translate("SigninWindow", u"Password", None))
-        self.btn_signup.setText(QCoreApplication.translate("SigninWindow", u"Sign up", None))
+        self.lineEdit_login.setPlaceholderText(QCoreApplication.translate("SigninWindow", u"\u0418\u043c\u044f \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f", None))
+        self.label_password.setText(QCoreApplication.translate("SigninWindow", u"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043f\u0430\u0440\u043e\u043b\u044c:", None))
+        self.lineEdit_password.setPlaceholderText(QCoreApplication.translate("SigninWindow", u"\u041f\u0430\u0440\u043e\u043b\u044c", None))
+        self.btn_signup.setText(QCoreApplication.translate("SigninWindow", u"\u0417\u0430\u0440\u0435\u0433\u0435\u0441\u0442\u0440\u0438\u0440\u043e\u0432\u0430\u0442\u044c\u0441\u044f", None))
     # retranslateUi
 

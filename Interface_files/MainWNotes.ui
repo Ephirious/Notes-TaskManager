@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>717</width>
+    <width>737</width>
     <height>643</height>
    </rect>
   </property>
@@ -74,7 +74,7 @@ background-color: rgb(191, 171, 194);
 }</string>
         </property>
         <property name="text">
-         <string>Back</string>
+         <string>Назад</string>
         </property>
         <property name="icon">
          <iconset resource="res.qrc">
@@ -111,16 +111,18 @@ background-color: rgb(191, 171, 194);
         </property>
         <property name="font">
          <font>
-          <family>Snap ITC</family>
-          <pointsize>17</pointsize>
+          <family>Ravie</family>
+          <pointsize>15</pointsize>
           <italic>false</italic>
           <bold>false</bold>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: url(:/fonts/fonts/Snap ITC.ttf);
+         <string notr="true">font: 15pt &quot;Ravie&quot;;
 background-color: none;
-color: white</string>
+color: white;
+
+</string>
         </property>
         <property name="text">
          <string>Axolot's Notes</string>
@@ -220,7 +222,7 @@ background-color: rgb(109, 90, 111);
           <property name="styleSheet">
            <string notr="true">QPushButton {
 background-color: rgb(216, 193, 219);
-font: 900 13 pt &quot;Segoe UI Black&quot;;
+font: 900 10 pt &quot;Segoe UI Black&quot;;
 color: rgb(91, 61, 107)
 }
 QPushButton:hover {
@@ -232,11 +234,17 @@ background-color: rgb(191, 171, 194);
 }</string>
           </property>
           <property name="text">
-           <string>Add note</string>
+           <string>Добавить</string>
           </property>
           <property name="icon">
            <iconset resource="res.qrc">
             <normaloff>:/icons/icons/add_box_FILL0_wght400_GRAD0_opsz24.svg</normaloff>:/icons/icons/add_box_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
           </property>
          </widget>
         </item>
@@ -263,7 +271,7 @@ background-color: rgb(191, 171, 194);
 }</string>
           </property>
           <property name="text">
-           <string>Storage</string>
+           <string>Папки</string>
           </property>
           <property name="icon">
            <iconset resource="res.qrc">
@@ -282,7 +290,7 @@ background-color: rgb(191, 171, 194);
           <property name="styleSheet">
            <string notr="true">QPushButton {
 background-color: rgb(216, 193, 219);
-font: 900 11pt &quot;Segoe UI Black&quot;;
+font: 900 10 pt &quot;Segoe UI Black&quot;;
 color: rgb(91, 61, 107)
 }
 QPushButton:hover {
@@ -294,7 +302,7 @@ background-color: rgb(191, 171, 194);
 }</string>
           </property>
           <property name="text">
-           <string>Settings</string>
+           <string>Настройки</string>
           </property>
           <property name="icon">
            <iconset resource="res.qrc">
@@ -407,7 +415,7 @@ background-color: rgb(191, 171, 194);
 </string>
             </property>
             <property name="text">
-             <string>Delete note</string>
+             <string>Удалить</string>
             </property>
             <property name="icon">
              <iconset resource="res.qrc">
@@ -432,7 +440,7 @@ background-color: rgb(191, 171, 194);
 }</string>
             </property>
             <property name="text">
-             <string>Save</string>
+             <string>Сохранить</string>
             </property>
             <property name="icon">
              <iconset resource="res.qrc">

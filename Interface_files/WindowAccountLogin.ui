@@ -75,7 +75,7 @@ background-color: rgb(225, 225, 225);
 }</string>
       </property>
       <property name="text">
-       <string>Sign up</string>
+       <string>Зарегестрироваться</string>
       </property>
      </widget>
     </item>
@@ -96,7 +96,7 @@ background-color: rgb(225, 225, 225);
 }</string>
       </property>
       <property name="text">
-       <string>Log in</string>
+       <string>Войти</string>
       </property>
      </widget>
     </item>
@@ -141,10 +141,11 @@ background-color: rgb(225, 225, 225);
         <property name="styleSheet">
          <string notr="true">font: 13pt &quot;Sitka&quot;;
 background-color: none;
+color: rgb(91, 61, 107)
 </string>
         </property>
         <property name="text">
-         <string>Name:</string>
+         <string>Имя пользователя:</string>
         </property>
        </widget>
       </item>
@@ -209,10 +210,11 @@ background-color: white;
         </property>
         <property name="styleSheet">
          <string notr="true">font: 13pt &quot;Sitka&quot;;
-background-color: none;</string>
+background-color: none;
+color: rgb(91, 61, 107)</string>
         </property>
         <property name="text">
-         <string>Password:</string>
+         <string>Пароль:</string>
         </property>
        </widget>
       </item>
@@ -255,7 +257,7 @@ background-color: white;
     <rect>
      <x>140</x>
      <y>10</y>
-     <width>211</width>
+     <width>220</width>
      <height>81</height>
     </rect>
    </property>
@@ -264,7 +266,7 @@ background-color: white;
      <widget class="QLabel" name="label_App">
       <property name="font">
        <font>
-        <family>Snap ITC</family>
+        <family>Ravie</family>
         <pointsize>17</pointsize>
         <italic>false</italic>
         <bold>false</bold>
@@ -272,7 +274,7 @@ background-color: white;
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: 17pt &quot;Snap ITC&quot;;
+       <string notr="true">font: 17pt &quot;Ravie&quot;;
 background-color: none;</string>
       </property>
       <property name="text">
@@ -294,7 +296,7 @@ background-color: none;</string>
       <property name="font">
        <font>
         <family>Sitka</family>
-        <pointsize>13</pointsize>
+        <pointsize>15</pointsize>
         <italic>false</italic>
         <bold>false</bold>
        </font>
@@ -306,12 +308,13 @@ background-color: none;</string>
        <enum>Qt::LayoutDirection::LeftToRight</enum>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: 13pt &quot;Sitka&quot;;;
+       <string notr="true">font: 15pt &quot;Sitka&quot;;;
 background-color: none;
+color: rgb(91, 61, 107)
 </string>
       </property>
       <property name="text">
-       <string>LOG IN</string>
+       <string>Авторизация</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignCenter</set>

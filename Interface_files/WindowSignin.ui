@@ -39,14 +39,14 @@
       <widget class="QLabel" name="label">
        <property name="font">
         <font>
-         <family>Snap ITC</family>
+         <family>Ravie</family>
          <pointsize>27</pointsize>
          <italic>false</italic>
          <bold>false</bold>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 27pt &quot;Snap ITC&quot;;
+        <string notr="true">font: 27pt &quot;Ravie&quot;;
 background-color: none;</string>
        </property>
        <property name="text">
@@ -99,10 +99,10 @@ background-color: none;</string>
           <property name="styleSheet">
            <string notr="true">font: 25pt &quot;Sitka&quot;;
 background-color: none;
-color: rgb(91, 61, 107)</string>
+color: black</string>
           </property>
           <property name="text">
-           <string>Register</string>
+           <string>Регистрация</string>
           </property>
          </widget>
         </item>
@@ -137,7 +137,7 @@ color: rgb(91, 61, 107)</string>
 color: rgb(91, 61, 107)</string>
           </property>
           <property name="text">
-           <string>Login:</string>
+           <string>Придумайте логин:</string>
           </property>
          </widget>
         </item>
@@ -170,7 +170,7 @@ background-color: white;
            <bool>false</bool>
           </property>
           <property name="placeholderText">
-           <string>Name</string>
+           <string>Имя пользователя</string>
           </property>
           <property name="clearButtonEnabled">
            <bool>true</bool>
@@ -208,7 +208,7 @@ background-color: white;
 color: rgb(91, 61, 107)</string>
           </property>
           <property name="text">
-           <string>Password:</string>
+           <string>Введите пароль:</string>
           </property>
          </widget>
         </item>
@@ -232,7 +232,7 @@ background-color: white;
            <enum>QLineEdit::EchoMode::PasswordEchoOnEdit</enum>
           </property>
           <property name="placeholderText">
-           <string>Password</string>
+           <string>Пароль</string>
           </property>
           <property name="clearButtonEnabled">
            <bool>true</bool>
@@ -281,7 +281,7 @@ background-color: rgb(225, 225, 225);
 }</string>
      </property>
      <property name="text">
-      <string>Sign up</string>
+      <string>Зарегестрироваться</string>
      </property>
     </widget>
    </item>
