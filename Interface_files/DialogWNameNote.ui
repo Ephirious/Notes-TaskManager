@@ -88,8 +88,18 @@ background-color: none;
    <item>
     <widget class="QPushButton" name="pushButton">
      <property name="styleSheet">
-      <string notr="true">background-color: white;
-font: 600 11pt &quot;Sitka Text Semibold&quot;;</string>
+      <string notr="true">QPushButton {
+background-color: white;
+font: 600 11pt &quot;Sitka Text Semibold&quot;;
+color: black;
+}
+QPushButton:hover {
+background-color: rgb(225, 225, 225);
+}
+
+QPushButton:pressed {
+background-color: rgb(225, 225, 225);
+}</string>
      </property>
      <property name="text">
       <string>Ok</string>

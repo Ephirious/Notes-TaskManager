@@ -24,7 +24,7 @@ class Ui_SigninWindow(object):
     def setupUi(self, SigninWindow):
         if not SigninWindow.objectName():
             SigninWindow.setObjectName(u"SigninWindow")
-        SigninWindow.resize(500, 580)
+        SigninWindow.resize(500, 600)
         SigninWindow.setMaximumSize(QSize(500, 600))
         icon = QIcon()
         icon.addFile(u":/icons/icons/axolot.png", QSize(), QIcon.Normal, QIcon.Off)
@@ -98,7 +98,18 @@ class Ui_SigninWindow(object):
 
         self.lineEdit_login = QLineEdit(self.Frame)
         self.lineEdit_login.setObjectName(u"lineEdit_login")
-        self.lineEdit_login.setStyleSheet(u"background-color: rgb(255, 255, 255);")
+        self.lineEdit_login.setStyleSheet(u"QLineEdit {\n"
+"background-color: white;\n"
+"font: 11pt \"Sitka\";\n"
+"color: black;\n"
+"}\n"
+"QLineEdit:hover {\n"
+"background-color: rgb(225, 225, 225);\n"
+"}\n"
+"\n"
+"QLineEdit:pressed {\n"
+"background-color: white;\n"
+"}")
         self.lineEdit_login.setFrame(True)
         self.lineEdit_login.setReadOnly(False)
         self.lineEdit_login.setClearButtonEnabled(True)
@@ -121,7 +132,18 @@ class Ui_SigninWindow(object):
 
         self.lineEdit_password = QLineEdit(self.Frame)
         self.lineEdit_password.setObjectName(u"lineEdit_password")
-        self.lineEdit_password.setStyleSheet(u"background-color: rgb(255, 255, 255);")
+        self.lineEdit_password.setStyleSheet(u"QLineEdit {\n"
+"background-color: white;\n"
+"font: 11pt \"Sitka\";\n"
+"color: black;\n"
+"}\n"
+"QLineEdit:hover {\n"
+"background-color: rgb(225, 225, 225);\n"
+"}\n"
+"\n"
+"QLineEdit:pressed {\n"
+"background-color: white;\n"
+"}")
         self.lineEdit_password.setEchoMode(QLineEdit.EchoMode.PasswordEchoOnEdit)
         self.lineEdit_password.setClearButtonEnabled(True)
 
@@ -145,8 +167,17 @@ class Ui_SigninWindow(object):
         font3.setBold(False)
         font3.setItalic(False)
         self.btn_signup.setFont(font3)
-        self.btn_signup.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"font: 15pt \"Sitka\";")
+        self.btn_signup.setStyleSheet(u"QPushButton {\n"
+"background-color: white;\n"
+"font: 15pt \"Sitka\";\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgb(225, 225, 225);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(225, 225, 225);\n"
+"}")
 
         self.verticalLayout_6.addWidget(self.btn_signup)
 
@@ -163,7 +194,9 @@ class Ui_SigninWindow(object):
         self.label_login.setText(QCoreApplication.translate("SigninWindow", u"Login:", None))
         self.lineEdit_login.setInputMask("")
         self.lineEdit_login.setText("")
+        self.lineEdit_login.setPlaceholderText(QCoreApplication.translate("SigninWindow", u"Name", None))
         self.label_password.setText(QCoreApplication.translate("SigninWindow", u"Password:", None))
+        self.lineEdit_password.setPlaceholderText(QCoreApplication.translate("SigninWindow", u"Password", None))
         self.btn_signup.setText(QCoreApplication.translate("SigninWindow", u"Sign up", None))
     # retranslateUi
 

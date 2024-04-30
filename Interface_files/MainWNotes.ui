@@ -60,9 +60,18 @@
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(216, 193, 219);
+         <string notr="true">QPushButton {
+background-color: rgb(216, 193, 219);
 font: 900 11pt &quot;Segoe UI Black&quot;;
-color: rgb(91, 61, 107)</string>
+color: rgb(91, 61, 107)
+}
+QPushButton:hover {
+background-color: rgb(191, 171, 194);
+}
+
+QPushButton:pressed {
+background-color: rgb(191, 171, 194);
+}</string>
         </property>
         <property name="text">
          <string>Back</string>
@@ -133,6 +142,18 @@ color: white</string>
       </item>
       <item>
        <widget class="QPushButton" name="btn_theme">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+background-color: rgb(133, 110, 136);
+}
+QPushButton:hover {
+background-color: rgb(109, 90, 111);
+}
+
+QPushButton:pressed {
+background-color: rgb(109, 90, 111);
+}</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -197,9 +218,18 @@ color: white</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(216, 193, 219);
+           <string notr="true">QPushButton {
+background-color: rgb(216, 193, 219);
 font: 900 13 pt &quot;Segoe UI Black&quot;;
-color: rgb(91, 61, 107)</string>
+color: rgb(91, 61, 107)
+}
+QPushButton:hover {
+background-color: rgb(191, 171, 194);
+}
+
+QPushButton:pressed {
+background-color: rgb(191, 171, 194);
+}</string>
           </property>
           <property name="text">
            <string>Add note</string>
@@ -219,9 +249,18 @@ color: rgb(91, 61, 107)</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(216, 193, 219);
+           <string notr="true">QPushButton {
+background-color: rgb(216, 193, 219);
 font: 900 11pt &quot;Segoe UI Black&quot;;
-color: rgb(91, 61, 107)</string>
+color: rgb(91, 61, 107)
+}
+QPushButton:hover {
+background-color: rgb(191, 171, 194);
+}
+
+QPushButton:pressed {
+background-color: rgb(191, 171, 194);
+}</string>
           </property>
           <property name="text">
            <string>Storage</string>
@@ -241,9 +280,18 @@ color: rgb(91, 61, 107)</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(216, 193, 219);
+           <string notr="true">QPushButton {
+background-color: rgb(216, 193, 219);
 font: 900 11pt &quot;Segoe UI Black&quot;;
-color: rgb(91, 61, 107)</string>
+color: rgb(91, 61, 107)
+}
+QPushButton:hover {
+background-color: rgb(191, 171, 194);
+}
+
+QPushButton:pressed {
+background-color: rgb(191, 171, 194);
+}</string>
           </property>
           <property name="text">
            <string>Settings</string>
@@ -344,9 +392,19 @@ color: rgb(91, 61, 107)</string>
           <item>
            <widget class="QPushButton" name="btn_delete_note">
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(216, 193, 219);
+             <string notr="true">QPushButton {
+background-color: rgb(216, 193, 219);
 font: 900 11pt &quot;Segoe UI Black&quot;;
-color: rgb(91, 61, 107)</string>
+color: rgb(91, 61, 107)
+}
+QPushButton:hover {
+background-color: rgb(191, 171, 194);
+}
+
+QPushButton:pressed {
+background-color: rgb(191, 171, 194);
+}
+</string>
             </property>
             <property name="text">
              <string>Delete note</string>
@@ -360,9 +418,18 @@ color: rgb(91, 61, 107)</string>
           <item>
            <widget class="QPushButton" name="btn_save">
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(216, 193, 219);
+             <string notr="true">QPushButton {
+background-color: rgb(216, 193, 219);
 font: 900 11pt &quot;Segoe UI Black&quot;;
-color: rgb(91, 61, 107)</string>
+color: rgb(91, 61, 107)
+}
+QPushButton:hover {
+background-color: rgb(191, 171, 194);
+}
+
+QPushButton:pressed {
+background-color: rgb(191, 171, 194);
+}</string>
             </property>
             <property name="text">
              <string>Save</string>

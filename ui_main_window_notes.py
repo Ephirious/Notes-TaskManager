@@ -52,9 +52,18 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setStrikeOut(False)
         self.btn_back.setFont(font)
-        self.btn_back.setStyleSheet(u"background-color: rgb(216, 193, 219);\n"
+        self.btn_back.setStyleSheet(u"QPushButton {\n"
+"background-color: rgb(216, 193, 219);\n"
 "font: 900 11pt \"Segoe UI Black\";\n"
-"color: rgb(91, 61, 107)")
+"color: rgb(91, 61, 107)\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgb(191, 171, 194);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(191, 171, 194);\n"
+"}")
         icon1 = QIcon()
         icon1.addFile(u":/icons/icons/arrow_back_ios_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_back.setIcon(icon1)
@@ -88,6 +97,16 @@ class Ui_MainWindow(object):
 
         self.btn_theme = QPushButton(self.centralwidget)
         self.btn_theme.setObjectName(u"btn_theme")
+        self.btn_theme.setStyleSheet(u"QPushButton {\n"
+"background-color: rgb(133, 110, 136);\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgb(109, 90, 111);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(109, 90, 111);\n"
+"}")
         icon2 = QIcon()
         icon2.addFile(u":/icons/icons/dark_mode_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_theme.setIcon(icon2)
@@ -115,9 +134,18 @@ class Ui_MainWindow(object):
         self.btn_add_note = QPushButton(self.centralwidget)
         self.btn_add_note.setObjectName(u"btn_add_note")
         self.btn_add_note.setMaximumSize(QSize(90, 25))
-        self.btn_add_note.setStyleSheet(u"background-color: rgb(216, 193, 219);\n"
+        self.btn_add_note.setStyleSheet(u"QPushButton {\n"
+"background-color: rgb(216, 193, 219);\n"
 "font: 900 13 pt \"Segoe UI Black\";\n"
-"color: rgb(91, 61, 107)")
+"color: rgb(91, 61, 107)\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgb(191, 171, 194);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(191, 171, 194);\n"
+"}")
         icon3 = QIcon()
         icon3.addFile(u":/icons/icons/add_box_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_add_note.setIcon(icon3)
@@ -127,9 +155,18 @@ class Ui_MainWindow(object):
         self.btn_storage = QPushButton(self.centralwidget)
         self.btn_storage.setObjectName(u"btn_storage")
         self.btn_storage.setMaximumSize(QSize(90, 25))
-        self.btn_storage.setStyleSheet(u"background-color: rgb(216, 193, 219);\n"
+        self.btn_storage.setStyleSheet(u"QPushButton {\n"
+"background-color: rgb(216, 193, 219);\n"
 "font: 900 11pt \"Segoe UI Black\";\n"
-"color: rgb(91, 61, 107)")
+"color: rgb(91, 61, 107)\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgb(191, 171, 194);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(191, 171, 194);\n"
+"}")
         icon4 = QIcon()
         icon4.addFile(u":/icons/icons/create_new_folder_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_storage.setIcon(icon4)
@@ -139,9 +176,18 @@ class Ui_MainWindow(object):
         self.btn_settings = QPushButton(self.centralwidget)
         self.btn_settings.setObjectName(u"btn_settings")
         self.btn_settings.setMaximumSize(QSize(90, 25))
-        self.btn_settings.setStyleSheet(u"background-color: rgb(216, 193, 219);\n"
+        self.btn_settings.setStyleSheet(u"QPushButton {\n"
+"background-color: rgb(216, 193, 219);\n"
 "font: 900 11pt \"Segoe UI Black\";\n"
-"color: rgb(91, 61, 107)")
+"color: rgb(91, 61, 107)\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgb(191, 171, 194);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(191, 171, 194);\n"
+"}")
         icon5 = QIcon()
         icon5.addFile(u":/icons/icons/settings_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_settings.setIcon(icon5)
@@ -193,9 +239,19 @@ class Ui_MainWindow(object):
 
         self.btn_delete_note = QPushButton(self.centralwidget)
         self.btn_delete_note.setObjectName(u"btn_delete_note")
-        self.btn_delete_note.setStyleSheet(u"background-color: rgb(216, 193, 219);\n"
+        self.btn_delete_note.setStyleSheet(u"QPushButton {\n"
+"background-color: rgb(216, 193, 219);\n"
 "font: 900 11pt \"Segoe UI Black\";\n"
-"color: rgb(91, 61, 107)")
+"color: rgb(91, 61, 107)\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgb(191, 171, 194);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(191, 171, 194);\n"
+"}\n"
+"")
         icon6 = QIcon()
         icon6.addFile(u":/icons/icons/scan_delete_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_delete_note.setIcon(icon6)
@@ -204,9 +260,18 @@ class Ui_MainWindow(object):
 
         self.btn_save = QPushButton(self.centralwidget)
         self.btn_save.setObjectName(u"btn_save")
-        self.btn_save.setStyleSheet(u"background-color: rgb(216, 193, 219);\n"
+        self.btn_save.setStyleSheet(u"QPushButton {\n"
+"background-color: rgb(216, 193, 219);\n"
 "font: 900 11pt \"Segoe UI Black\";\n"
-"color: rgb(91, 61, 107)")
+"color: rgb(91, 61, 107)\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgb(191, 171, 194);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(191, 171, 194);\n"
+"}")
         icon7 = QIcon()
         icon7.addFile(u":/icons/icons/save_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_save.setIcon(icon7)

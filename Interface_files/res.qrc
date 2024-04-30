@@ -14,5 +14,6 @@
   </qresource>
   <qresource prefix="fonts">
     <file>fonts/Snap ITC.ttf</file>
+    <file>fonts/Yellowjug.ttf</file>
   </qresource>
 </RCC>

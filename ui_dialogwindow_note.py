@@ -64,8 +64,18 @@ class Ui_Dialog(object):
 
         self.pushButton = QPushButton(Dialog)
         self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setStyleSheet(u"background-color: white;\n"
-"font: 600 11pt \"Sitka Text Semibold\";")
+        self.pushButton.setStyleSheet(u"QPushButton {\n"
+"background-color: white;\n"
+"font: 600 11pt \"Sitka Text Semibold\";\n"
+"color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgb(225, 225, 225);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(225, 225, 225);\n"
+"}")
 
         self.verticalLayout.addWidget(self.pushButton)
 

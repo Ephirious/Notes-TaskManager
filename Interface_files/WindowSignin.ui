@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>580</height>
+    <height>600</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -144,7 +144,18 @@ color: rgb(91, 61, 107)</string>
         <item>
          <widget class="QLineEdit" name="lineEdit_login">
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255);</string>
+           <string notr="true">QLineEdit {
+background-color: white;
+font: 11pt &quot;Sitka&quot;;
+color: black;
+}
+QLineEdit:hover {
+background-color: rgb(225, 225, 225);
+}
+
+QLineEdit:pressed {
+background-color: white;
+}</string>
           </property>
           <property name="inputMask">
            <string/>
@@ -157,6 +168,9 @@ color: rgb(91, 61, 107)</string>
           </property>
           <property name="readOnly">
            <bool>false</bool>
+          </property>
+          <property name="placeholderText">
+           <string>Name</string>
           </property>
           <property name="clearButtonEnabled">
            <bool>true</bool>
@@ -201,10 +215,24 @@ color: rgb(91, 61, 107)</string>
         <item>
          <widget class="QLineEdit" name="lineEdit_password">
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255);</string>
+           <string notr="true">QLineEdit {
+background-color: white;
+font: 11pt &quot;Sitka&quot;;
+color: black;
+}
+QLineEdit:hover {
+background-color: rgb(225, 225, 225);
+}
+
+QLineEdit:pressed {
+background-color: white;
+}</string>
           </property>
           <property name="echoMode">
            <enum>QLineEdit::EchoMode::PasswordEchoOnEdit</enum>
+          </property>
+          <property name="placeholderText">
+           <string>Password</string>
           </property>
           <property name="clearButtonEnabled">
            <bool>true</bool>
@@ -240,8 +268,17 @@ color: rgb(91, 61, 107)</string>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255);
-font: 15pt &quot;Sitka&quot;;</string>
+      <string notr="true">QPushButton {
+background-color: white;
+font: 15pt &quot;Sitka&quot;;
+}
+QPushButton:hover {
+background-color: rgb(225, 225, 225);
+}
+
+QPushButton:pressed {
+background-color: rgb(225, 225, 225);
+}</string>
      </property>
      <property name="text">
       <string>Sign up</string>
