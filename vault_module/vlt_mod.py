@@ -220,7 +220,7 @@ class Note:
         self.enc_parameters = list()
         self.data = str()
 
-    def __dict__(self):
+    def dict_fix(self):
         records = {}
         records["header"] = self.header
         records["user"] = self.user
@@ -261,7 +261,8 @@ class Note:
         if self.path is not None:
             if self.path.split(".")[-1] != "json":
                 raise FileFormatError
-            dmp = json.dumps(self.__dict__, ensure_ascii=False, indent=2)
+            data = self.dict_fix()
+            dmp = json.dumps(data, indent=2)
             with open(self.path, 'w', encoding="utf-8") as file:
                 file.write(dmp)
 
@@ -322,13 +323,13 @@ class Note:
         self.enc_parameters = []
 
     @staticmethod
-    def new_note():
+    def new_note(path=None):
         """creates new note with random id
 
         Returns:
             Note: new empty note
         """
-        new = Note(None)
+        new = Note(path)
         new.note_id = randint(1, 10 ** 10 - 1)
         return new
 
@@ -390,8 +391,8 @@ class Storage():
     """ represent storage of notes
     """
     def __init__(self, path: str):
-        self.name = str()
         self.user = str()
+        self.name = path.split('/')[-1]
         self.path = path
         self.protection = bool()
         self.storage_entry = list()
@@ -412,7 +413,6 @@ class Storage():
         if self.path is not None:
             st_expl = StorageExplorer()
             self.storage_entry = st_expl.get_structure(self.path)
-            return self.storage_entry
 
     @staticmethod
     def new_storage(name: str, path: str, protection: bool):
@@ -435,8 +435,8 @@ class Storage():
     def get_note(self, file: FileEntry) -> NoteWrapper:
         return NoteWrapper(Note.load_from_entry(file), self.protection)
 
-    def create_note(self) -> NoteWrapper:
-        new = Note.new_note()
+    def create_note(self, path) -> NoteWrapper:
+        new = Note.new_note(path)
         new.user = self.user
         return NoteWrapper(new, self.protection)
 

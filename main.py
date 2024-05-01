@@ -19,14 +19,14 @@ class NotesApp(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        STORAGE = StorageExplorer()
+        STORAGE = None
         NOTE = None
         PATH = None
         USER = None
 
         self.open_log_in_window()
 
-        self.ui.btn_storage.clicked.connect(self.open_filemanager)
+        self.ui.btn_storage.clicked.connect(self.new_storage)
 
         # взаимодействие с кнопками
         self.ui.btn_add_note.clicked.connect(self.open_window_addNote)
@@ -41,17 +41,27 @@ class NotesApp(QMainWindow):
 
         self.flags_check()
 
-    def ebe(self, e):
-        print(e)
-
     def open_filemanager(self):
-        global PATH
 
-        if PATH is None:
-            file_dialog = QFileDialog()
-            return file_dialog.getExistingDirectory(self, 'Создайте новую папку для заметок', 'Notes')
-        else:
-            pass
+        file_dialog = QFileDialog()
+        return file_dialog.getExistingDirectory(self, 'Создайте новую папку для заметок', 'Notes')
+
+    def new_storage(self):
+        global STORAGE, PATH, NOTE
+
+        self.ui.treeWidget.clear()
+
+        file_dialog = QFileDialog()
+        PATH = file_dialog.getExistingDirectory(self, 'Создайте новую папку для заметок', 'Notes')
+
+        STORAGE = Storage(PATH)
+        STORAGE.load_structure()
+
+        NOTE = None
+
+        root_item = QTreeWidgetItem([f'{STORAGE.name}'])
+        self.find_notes(PATH, root_item)
+        self.ui.treeWidget.addTopLevelItem(root_item)
 
     def flags_check(self):
         global NOTE
@@ -86,21 +96,25 @@ class NotesApp(QMainWindow):
     def log_in_account(self):
         global USER, PATH, STORAGE
 
+        st = StorageExplorer()
+
         USER = search_user(self.login_dialog.lineEdit_name.text(),
                            self.login_dialog.lineEdit_password.text())
-        if USER:
+        if USER.login:
             if USER.data:
                 PATH = USER.data
             else:
                 PATH = self.open_filemanager()
                 add_link_to_data(USER.login, PATH)
 
+            # Создание структуры папок и файлов
             STORAGE = Storage(PATH)
-            STORAGE.name = PATH.split('/')[-1]
-            STORAGE.user = USER.login
+            STORAGE.load_structure()
+            # STORAGE.name = PATH.split('/')[-1]
+            # STORAGE.user = USER.login
 
             root_item = QTreeWidgetItem([f'{STORAGE.name}'])
-            self.research_notes(PATH, root_item)
+            self.find_notes(PATH, root_item)
             self.ui.treeWidget.addTopLevelItem(root_item)
 
             self.show()
@@ -132,12 +146,13 @@ class NotesApp(QMainWindow):
 
             PATH = self.open_filemanager()
             USER = registration(login, password, PATH)
-            STORAGE = Storage(PATH)
-            STORAGE.name = PATH.split('/')[-1]
-            STORAGE.user = login
+
+            STORAGE = Storage(PATH).load_structure()
+            # STORAGE.name = PATH.split('/')[-1]
+            # STORAGE.user = login
 
             root_item = QTreeWidgetItem([f'{STORAGE.name}'])
-            self.research_notes(PATH, root_item)
+            self.find_notes(PATH, root_item)
             self.ui.treeWidget.addTopLevelItem(root_item)
 
             self.show()
@@ -146,29 +161,32 @@ class NotesApp(QMainWindow):
             self.reg_dialog.label_error.setText('Введеный логин уже занят, пожалуйста'
                                                 'введите новый логин')
 
-    """ ФУНКЦИЯ ЗАПЛАТКА НА ТОТ МОМЕНТ,
-     ПОКА НЕ БУДЕТ ГОТОВА load_structure().structure
-     """
+    def find_notes(self, directory, parent_item):
 
-    def research_notes(self, directory, parent_item):
-        for item in os.listdir(directory):
-            item_path = os.path.join(directory, item)
-            if os.path.isdir(item_path):
+        st = StorageExplorer()
+        if type(directory) is str:
+            directory = st.get_structure(directory)
+        else:
+            directory = st.get_structure(directory.path)
+
+        for element in directory.structure:
+            if type(element) is DirEntry:
                 # Если элемент является каталогом, создаем новый элемент дерева и добавляем его к родительскому элементу
-                directory_item = QTreeWidgetItem([item])
+                directory_item = QTreeWidgetItem([element.name, element.path])
                 parent_item.addChild(directory_item)
                 # Рекурсивно вызываем функцию для обработки подкаталога
-                self.research_notes(item_path, directory_item)
+                self.find_notes(element, directory_item)
             else:
                 # Если элемент является файлом, просто добавляем его к родительскому элементу
-                file_item = QTreeWidgetItem([item])
+                file_item = QTreeWidgetItem([element.name, element.path])
                 parent_item.addChild(file_item)
 
     def saveNote(self):
-        global NOTE
+        global NOTE, USER
 
         if NOTE:
             text = self.ui.textEdit.toPlainText()
+            NOTE.user = USER.login
             NOTE.write(text)
             NOTE.save()
             self.ui.label_save_or_del.setText("Заметка была успешно сохранена!")
@@ -178,16 +196,21 @@ class NotesApp(QMainWindow):
 
         self.saveNote()
 
-        NOTE = STORAGE.create_note()
+        NOTE = STORAGE.create_note(PATH + f"/{self.dialog.lineEdit.text()}.json")
         NOTE.change_header(self.dialog.lineEdit.text())
 
         if len(NOTE._note.header) > 15:
             name_n = NOTE._note.header[:10] + '...'
-            self.ui.treeWidget.addTopLevelItem(QTreeWidgetItem([name_n]))
+            self.ui.treeWidget.addTopLevelItem(QTreeWidgetItem([name_n,
+                                                                PATH + f"/{self.dialog.lineEdit.text()}.json"]))
         elif len(NOTE._note.header) == 0:
             pass
         else:
-            self.ui.treeWidget.addTopLevelItem(QTreeWidgetItem([NOTE._note.header]))
+            self.ui.treeWidget.addTopLevelItem(QTreeWidgetItem([NOTE._note.header,
+                                                                PATH + f"/{self.dialog.lineEdit.text()}.json"]))
+
+        with open(f"{PATH}\\{NOTE._note.header}" + ".json", 'w'):
+            pass
         #     добавить выделение нового элемента в списке
 
         self.dialog_window.close()
@@ -199,16 +222,18 @@ class NotesApp(QMainWindow):
 
         if os.path.exists(f"Notes\\{NOTE}"):
             os.remove(f"Notes\\{NOTE}")
-            self.research_notes()
+            self.find_notes()
             NOTE = None
 
             self.flags_check()
 
-    def open_note(self, name):
+    def open_note(self, element):
         global NOTE, STORAGE
 
         self.saveNote()
-        NOTE = STORAGE.get_note(name.text(0))
+        # a = element.text(0), element.text(1),  element.text(2)
+        # b = element.data(0, 0)
+        NOTE = STORAGE.get_note(FileEntry(element.text(0), element.text(1)))
 
         self.ui.textEdit.setText(NOTE.read())
 
