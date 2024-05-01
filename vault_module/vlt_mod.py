@@ -1,11 +1,12 @@
 import os
 from base64 import b64encode, b64decode
 import json
+from random import randint
 import enc_mod as encryption
 
 
 class FEWrongArguments(Exception):
-    "Wrong arguments ere given to FileExplorer method"
+    "Wrong arguments are given to FileExplorer method"
 
 
 class FileFormatError(Exception):
@@ -21,12 +22,28 @@ class NoteParametersError(Exception):
     "Some of notes parameters are empty or incorrectly presented"
 
 
+class NoteWrapperError(Exception):
+    "Wrong protection argument were given to NoteWrapper"
+
+
 class FileEntry:
     """Basic (file) entry class for file hierarchy search
     """
     def __init__(self, name: str,  path: str):
         self.name = name
         self.path = path
+
+    def __repr__(self) -> str:
+        return "File: " + self.path
+
+    def set_new_path(self, new: str):
+        """changes path to entry
+
+        Args:
+            new (str): updated path
+        """
+        self.path = new
+        self.name = self.path.split('/')[-1]
 
 
 class DirEntry(FileEntry):
@@ -36,6 +53,10 @@ class DirEntry(FileEntry):
         super().__init__(name, path)
         self.contents = contents
         self.structure = []
+
+    def __repr__(self) -> str:
+        return f"Dir: {self.path}\nContents: " \
+                    + " ".join((i for i in self.contents))
 
 
 class _FileExplorer():
@@ -199,6 +220,18 @@ class Note:
         self.enc_parameters = list()
         self.data = str()
 
+    def __dict__(self):
+        records = {}
+        records["header"] = self.header
+        records["user"] = self.user
+        records["id"] = self.note_id
+        records["encryption"] = [0, 0]
+        records["encryption"][0] = self.enc_flag
+        if self.enc_flag != 0:
+            records["encryption"][1] = self.enc_parameters
+        records["data"] = self.data
+        return records
+
     def open(self):
         """opens note's .json file and loads note's data
 
@@ -228,16 +261,7 @@ class Note:
         if self.path is not None:
             if self.path.split(".")[-1] != "json":
                 raise FileFormatError
-            records = {}
-            records["header"] = self.header
-            records["user"] = self.user
-            records["id"] = self.note_id
-            records["encryption"] = [0, 0]
-            records["encryption"][0] = self.enc_flag
-            if self.enc_flag != 0:
-                records["encryption"][1] = self.enc_parameters
-            records["data"] = self.data
-            dmp = json.dumps(records, ensure_ascii=False, indent=2)
+            dmp = json.dumps(self.__dict__, ensure_ascii=False, indent=2)
             with open(self.path, 'w', encoding="utf-8") as file:
                 file.write(dmp)
 
@@ -298,6 +322,17 @@ class Note:
         self.enc_parameters = []
 
     @staticmethod
+    def new_note():
+        """creates new note with random id
+
+        Returns:
+            Note: new empty note
+        """
+        new = Note(None)
+        new.note_id = randint(1, 10 ** 10 - 1)
+        return new
+
+    @staticmethod
     def load_from_entry(note_entry: FileEntry):
         """creates Note from search entry
 
@@ -307,9 +342,48 @@ class Note:
         Returns:
             Note: new note with loaded data
         """
-        new_note = Note(note_entry.path)
-        new_note.open()
-        return new_note
+        read_note = Note(note_entry.path)
+        read_note.open()
+        return read_note
+    
+    def copy(self):
+        new = Note.new_note()
+        new.header = self.header
+        new.data = self.data
+        new.enc_flag = self.enc_flag
+        new.enc_parameters = self.enc_parameters
+        new.user = self.user
+        return new
+
+
+class NoteWrapper():
+    def __init__(self, note: Note, protection):
+        self._note = note
+        self.protection_flag = protection
+
+    def change_header(self, header):
+        self._note.header = header
+
+    def change_path(self, path):
+        self._note.path = path
+
+    def write(self, new_data: str):
+        self._note.data = new_data
+
+    def read(self):
+        return self._note.data
+
+    def save(self, key=None):
+        if self.protection_flag and key is None:
+            raise NoteWrapperError
+        if self.protection_flag:
+            self._note.protect(key)
+        self._note.save()
+        if self.protection_flag:
+            self._note.unprotect(key)
+
+    def copy(self):
+        return NoteWrapper(self._note.copy(), self.protection_flag)
 
 
 class Storage():
@@ -319,6 +393,7 @@ class Storage():
         self.name = str()
         self.user = str()
         self.path = path
+        self.protection = bool()
         self.storage_entry = list()
 
     def json_load(self, storage_data: dict):
@@ -329,6 +404,7 @@ class Storage():
         """
         self.name = storage_data["name"]
         self.user = storage_data["user"]
+        self.protection = storage_data["protection"]
 
     def load_structure(self):
         """creates DirEntry of storage
@@ -336,3 +412,34 @@ class Storage():
         if self.path is not None:
             st_expl = StorageExplorer()
             self.storage_entry = st_expl.get_structure(self.path)
+
+    @staticmethod
+    def new_storage(name: str, path: str, protection: bool):
+        """creates new storage object (not a dir)
+
+        Args:
+            name (str): name of storage
+            path (str): path to storage
+            protection (bool): tells if stoarge should be protected
+
+        Returns:
+            Storage: new storage object
+        """
+        new = Storage(path)
+        new.protection = protection
+        new.name = name
+        new.load_structure()
+        return new
+
+    def get_note(self, file: FileEntry) -> NoteWrapper:
+        return NoteWrapper(Note.load_from_entry(file), self.protection)
+
+    def create_note(self) -> NoteWrapper:
+        new = Note.new_note()
+        new.user = self.user
+        return NoteWrapper(new, self.protection)
+    
+    def save_as(self, note: NoteWrapper, path: str, key=None):
+        new = note.copy()
+        new.change_path(path)
+        new.save(key)
