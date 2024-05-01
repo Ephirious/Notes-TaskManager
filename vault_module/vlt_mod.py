@@ -2,7 +2,7 @@ import os
 from base64 import b64encode, b64decode
 import json
 from random import randint
-import enc_mod as encryption
+import enc_module.enc_mod as encryption
 
 
 class FEWrongArguments(Exception):
@@ -345,7 +345,7 @@ class Note:
         read_note = Note(note_entry.path)
         read_note.open()
         return read_note
-    
+
     def copy(self):
         new = Note.new_note()
         new.header = self.header
@@ -412,6 +412,7 @@ class Storage():
         if self.path is not None:
             st_expl = StorageExplorer()
             self.storage_entry = st_expl.get_structure(self.path)
+            return self.storage_entry
 
     @staticmethod
     def new_storage(name: str, path: str, protection: bool):
@@ -438,7 +439,7 @@ class Storage():
         new = Note.new_note()
         new.user = self.user
         return NoteWrapper(new, self.protection)
-    
+
     def save_as(self, note: NoteWrapper, path: str, key=None):
         new = note.copy()
         new.change_path(path)

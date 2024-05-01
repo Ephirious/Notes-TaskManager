@@ -15,9 +15,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QListWidget,
-    QListWidgetItem, QMainWindow, QPushButton, QSizePolicy,
-    QSpacerItem, QTextEdit, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QHBoxLayout,
+    QHeaderView, QLabel, QMainWindow, QPushButton,
+    QSizePolicy, QSpacerItem, QTextEdit, QTreeWidget,
+    QTreeWidgetItem, QVBoxLayout, QWidget)
 import res_rc
 
 class Ui_MainWindow(object):
@@ -160,17 +161,36 @@ class Ui_MainWindow(object):
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(-1, -1, 12, -1)
-        self.listWidget = QListWidget(self.centralwidget)
-        self.listWidget.setObjectName(u"listWidget")
-        self.listWidget.setMinimumSize(QSize(100, 0))
-        self.listWidget.setMaximumSize(QSize(100, 16777215))
-        self.listWidget.setStyleSheet(u"background-color: rgb(216, 193, 219)")
+        self.treeWidget = QTreeWidget(self.centralwidget)
+        self.treeWidget.setObjectName(u"treeWidget")
+        self.treeWidget.setMaximumSize(QSize(150, 16777215))
+        font2 = QFont()
+        font2.setPointSize(10)
+        font2.setBold(False)
+        font2.setItalic(False)
+        self.treeWidget.setFont(font2)
+        self.treeWidget.setFrameShadow(QFrame.Shadow.Plain)
+        self.treeWidget.setDragEnabled(True)
+        self.treeWidget.setDragDropOverwriteMode(False)
+        self.treeWidget.setDragDropMode(QAbstractItemView.DragDropMode.InternalMove)
+        self.treeWidget.setAlternatingRowColors(False)
+        self.treeWidget.setSortingEnabled(True)
+        self.treeWidget.setAnimated(True)
+        self.treeWidget.setAllColumnsShowFocus(False)
+        self.treeWidget.setWordWrap(False)
+        self.treeWidget.setHeaderHidden(True)
+        self.treeWidget.header().setVisible(False)
+        self.treeWidget.header().setCascadingSectionResizes(False)
+        self.treeWidget.header().setDefaultSectionSize(100)
+        self.treeWidget.header().setHighlightSections(False)
+        self.treeWidget.header().setProperty("showSortIndicator", True)
 
-        self.horizontalLayout.addWidget(self.listWidget)
+        self.horizontalLayout.addWidget(self.treeWidget)
 
         self.textEdit = QTextEdit(self.centralwidget)
         self.textEdit.setObjectName(u"textEdit")
         self.textEdit.setStyleSheet(u"background: white")
+        self.textEdit.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.horizontalLayout.addWidget(self.textEdit)
 
