@@ -76,3 +76,18 @@ def registration(login, password, data=None):
               (login, password, data,))
     close_table(db, c)
     return User(login, password, data)
+
+#Таблица для хранения данных о заметке
+#db = sqlite3.connect('user.db')
+# Создание крусора
+#c = db.cursor()
+# закомитить таблицу чтобы при каждом запуске она еще раз не крафтилась
+
+#c.execute("""CREATE TABLE notes (
+#   user_name text,
+#   artical text,
+#   text_artical text,
+#   last_save text
+# )""")
+#db.commit()
+#db.close()
