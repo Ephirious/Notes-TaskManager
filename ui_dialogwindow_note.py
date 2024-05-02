@@ -35,15 +35,16 @@ class Ui_Dialog(object):
         self.label = QLabel(Dialog)
         self.label.setObjectName(u"label")
         font = QFont()
-        font.setFamilies([u"Sitka Text Semibold"])
-        font.setPointSize(19)
+        font.setFamilies([u"Segoe UI Black"])
+        font.setPointSize(18)
         font.setBold(False)
         font.setItalic(False)
         self.label.setFont(font)
         self.label.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         self.label.setAutoFillBackground(False)
-        self.label.setStyleSheet(u"font: 19pt \"Sitka Text Semibold\";\n"
+        self.label.setStyleSheet(u"font: 18pt \"Segoe UI Black\";\n"
 "background-color: none;\n"
+"color: rgb(91, 61, 107);\n"
 "")
 
         self.verticalLayout.addWidget(self.label, 0, Qt.AlignmentFlag.AlignHCenter)
@@ -64,8 +65,18 @@ class Ui_Dialog(object):
 
         self.pushButton = QPushButton(Dialog)
         self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setStyleSheet(u"background-color: white;\n"
-"font: 600 11pt \"Sitka Text Semibold\";")
+        self.pushButton.setStyleSheet(u"QPushButton {\n"
+"background-color: white;\n"
+"font: 600 11pt \"Segoe UI Black\";\n"
+"color: rgb(91, 61, 107);\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgb(225, 225, 225);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(225, 225, 225);\n"
+"}")
 
         self.verticalLayout.addWidget(self.pushButton)
 
@@ -77,9 +88,9 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0444\u0430\u0439\u043b\u0430", None))
-        self.label.setText(QCoreApplication.translate("Dialog", u"Enter the name of new file:", None))
+        self.label.setText(QCoreApplication.translate("Dialog", u"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0438\u043c\u044f \u043d\u043e\u0432\u043e\u0433\u043e \u0444\u0430\u0439\u043b\u0430:", None))
         self.labelError.setText("")
         self.lineEdit.setText("")
-        self.pushButton.setText(QCoreApplication.translate("Dialog", u"Ok", None))
+        self.pushButton.setText(QCoreApplication.translate("Dialog", u"\u0413\u043e\u0442\u043e\u0432\u043e", None))
     # retranslateUi
 

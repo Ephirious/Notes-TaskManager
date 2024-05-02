@@ -32,7 +32,7 @@ class Ui_LoginWindow(object):
         LoginWindow.setStyleSheet(u"background-color: rgb(216, 193, 219)")
         self.label_error = QLabel(LoginWindow)
         self.label_error.setObjectName(u"label_error")
-        self.label_error.setGeometry(QRect(40, 250, 421, 121))
+        self.label_error.setGeometry(QRect(40, 240, 421, 121))
         self.label_error.setStyleSheet(u"background-color: none;\n"
 "")
         self.layoutWidget = QWidget(LoginWindow)
@@ -43,20 +43,39 @@ class Ui_LoginWindow(object):
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.btn_reg = QPushButton(self.layoutWidget)
         self.btn_reg.setObjectName(u"btn_reg")
-        self.btn_reg.setStyleSheet(u"background-color: white;\n"
+        self.btn_reg.setStyleSheet(u"QPushButton {\n"
+"background-color: white;\n"
 "font: 11pt \"Sitka\";\n"
-"")
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgb(225, 225, 225);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(225, 225, 225);\n"
+"}")
 
         self.verticalLayout_2.addWidget(self.btn_reg)
 
         self.btn_login = QPushButton(self.layoutWidget)
         self.btn_login.setObjectName(u"btn_login")
-        self.btn_login.setStyleSheet(u"background-color: white;\n"
+        self.btn_login.setStyleSheet(u"QPushButton {\n"
+"background-color: white;\n"
 "font: 11pt \"Sitka\";\n"
-"")
+"color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgb(225, 225, 225);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(225, 225, 225);\n"
+"}")
 
         self.verticalLayout_2.addWidget(self.btn_login)
 
+        self.btn_login.raise_()
+        self.btn_reg.raise_()
         self.layoutWidget1 = QWidget(LoginWindow)
         self.layoutWidget1.setObjectName(u"layoutWidget1")
         self.layoutWidget1.setGeometry(QRect(40, 100, 421, 131))
@@ -77,6 +96,7 @@ class Ui_LoginWindow(object):
         self.label_name.setFont(font)
         self.label_name.setStyleSheet(u"font: 13pt \"Sitka\";\n"
 "background-color: none;\n"
+"color: rgb(91, 61, 107)\n"
 "")
 
         self.verticalLayout.addWidget(self.label_name)
@@ -84,7 +104,19 @@ class Ui_LoginWindow(object):
         self.lineEdit_name = QLineEdit(self.layoutWidget1)
         self.lineEdit_name.setObjectName(u"lineEdit_name")
         self.lineEdit_name.setMinimumSize(QSize(345, 22))
-        self.lineEdit_name.setStyleSheet(u"background-color: white;")
+        self.lineEdit_name.setStyleSheet(u"QLineEdit {\n"
+"background-color: white;\n"
+"font: 11pt \"Sitka\";\n"
+"color: black;\n"
+"}\n"
+"QLineEdit:hover {\n"
+"background-color: rgb(225, 225, 225);\n"
+"}\n"
+"\n"
+"QLineEdit:pressed {\n"
+"background-color: white;\n"
+"}")
+        self.lineEdit_name.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
         self.lineEdit_name.setClearButtonEnabled(True)
 
         self.verticalLayout.addWidget(self.lineEdit_name)
@@ -100,15 +132,27 @@ class Ui_LoginWindow(object):
         self.label_password.setMaximumSize(QSize(400, 300))
         self.label_password.setFont(font)
         self.label_password.setStyleSheet(u"font: 13pt \"Sitka\";\n"
-"background-color: none;")
+"background-color: none;\n"
+"color: rgb(91, 61, 107)")
 
         self.verticalLayout_3.addWidget(self.label_password)
 
         self.lineEdit_password = QLineEdit(self.layoutWidget1)
         self.lineEdit_password.setObjectName(u"lineEdit_password")
-        self.lineEdit_password.setStyleSheet(u"background-color: white;\n"
-"")
+        self.lineEdit_password.setStyleSheet(u"QLineEdit {\n"
+"background-color: white;\n"
+"font: 11pt \"Sitka\";\n"
+"color: black;\n"
+"}\n"
+"QLineEdit:hover {\n"
+"background-color: rgb(225, 225, 225);\n"
+"}\n"
+"\n"
+"QLineEdit:pressed {\n"
+"background-color: white;\n"
+"}")
         self.lineEdit_password.setEchoMode(QLineEdit.EchoMode.PasswordEchoOnEdit)
+        self.lineEdit_password.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
         self.lineEdit_password.setClearButtonEnabled(True)
 
         self.verticalLayout_3.addWidget(self.lineEdit_password)
@@ -118,33 +162,41 @@ class Ui_LoginWindow(object):
 
         self.layoutWidget2 = QWidget(LoginWindow)
         self.layoutWidget2.setObjectName(u"layoutWidget2")
-        self.layoutWidget2.setGeometry(QRect(140, 10, 211, 81))
+        self.layoutWidget2.setGeometry(QRect(140, 10, 220, 81))
         self.verticalLayout_5 = QVBoxLayout(self.layoutWidget2)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
         self.label_App = QLabel(self.layoutWidget2)
         self.label_App.setObjectName(u"label_App")
         font1 = QFont()
-        font1.setFamilies([u"Snap ITC"])
+        font1.setFamilies([u"Ravie"])
         font1.setPointSize(17)
         font1.setBold(False)
         font1.setItalic(False)
         font1.setUnderline(False)
         self.label_App.setFont(font1)
-        self.label_App.setStyleSheet(u"font: 17pt \"Snap ITC\";\n"
+        self.label_App.setStyleSheet(u"font: 17pt \"Ravie\";\n"
 "background-color: none;")
         self.label_App.setTextFormat(Qt.TextFormat.AutoText)
         self.label_App.setScaledContents(True)
+        self.label_App.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.verticalLayout_5.addWidget(self.label_App)
 
         self.label_log = QLabel(self.layoutWidget2)
         self.label_log.setObjectName(u"label_log")
-        self.label_log.setFont(font)
+        font2 = QFont()
+        font2.setFamilies([u"Sitka"])
+        font2.setPointSize(15)
+        font2.setBold(False)
+        font2.setItalic(False)
+        self.label_log.setFont(font2)
         self.label_log.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
-        self.label_log.setStyleSheet(u"font: 13pt \"Sitka\";;\n"
+        self.label_log.setStyleSheet(u"font: 15pt \"Sitka\";;\n"
 "background-color: none;\n"
+"color: rgb(91, 61, 107)\n"
 "")
+        self.label_log.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.verticalLayout_5.addWidget(self.label_log, 0, Qt.AlignmentFlag.AlignHCenter)
 
@@ -157,14 +209,16 @@ class Ui_LoginWindow(object):
     def retranslateUi(self, LoginWindow):
         LoginWindow.setWindowTitle(QCoreApplication.translate("LoginWindow", u"Axolot's Notes - Login window", None))
         self.label_error.setText("")
-        self.btn_reg.setText(QCoreApplication.translate("LoginWindow", u"Sign up", None))
-        self.btn_login.setText(QCoreApplication.translate("LoginWindow", u"Log in", None))
-        self.label_name.setText(QCoreApplication.translate("LoginWindow", u"Name:", None))
-        self.label_password.setText(QCoreApplication.translate("LoginWindow", u"Password:", None))
+        self.btn_reg.setText(QCoreApplication.translate("LoginWindow", u"\u0417\u0430\u0440\u0435\u0433\u0435\u0441\u0442\u0440\u0438\u0440\u043e\u0432\u0430\u0442\u044c\u0441\u044f", None))
+        self.btn_login.setText(QCoreApplication.translate("LoginWindow", u"\u0412\u043e\u0439\u0442\u0438", None))
+        self.label_name.setText(QCoreApplication.translate("LoginWindow", u"\u0418\u043c\u044f \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f:", None))
+        self.lineEdit_name.setPlaceholderText("")
+        self.label_password.setText(QCoreApplication.translate("LoginWindow", u"\u041f\u0430\u0440\u043e\u043b\u044c:", None))
+        self.lineEdit_password.setPlaceholderText("")
         self.label_App.setText(QCoreApplication.translate("LoginWindow", u"Axolot's Notes", None))
 #if QT_CONFIG(whatsthis)
         self.label_log.setWhatsThis(QCoreApplication.translate("LoginWindow", u"<html><head/><body><p align=\"center\"><br/></p></body></html>", None))
 #endif // QT_CONFIG(whatsthis)
-        self.label_log.setText(QCoreApplication.translate("LoginWindow", u"LOG IN", None))
+        self.label_log.setText(QCoreApplication.translate("LoginWindow", u"\u0410\u0432\u0442\u043e\u0440\u0438\u0437\u0430\u0446\u0438\u044f", None))
     # retranslateUi
 

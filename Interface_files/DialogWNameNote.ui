@@ -37,8 +37,8 @@
     <widget class="QLabel" name="label">
      <property name="font">
       <font>
-       <family>Sitka Text Semibold</family>
-       <pointsize>19</pointsize>
+       <family>Segoe UI Black</family>
+       <pointsize>18</pointsize>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -50,12 +50,13 @@
       <bool>false</bool>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 19pt &quot;Sitka Text Semibold&quot;;
+      <string notr="true">font: 18pt &quot;Segoe UI Black&quot;;
 background-color: none;
+color: rgb(91, 61, 107);
 </string>
      </property>
      <property name="text">
-      <string>Enter the name of new file:</string>
+      <string>Введите имя нового файла:</string>
      </property>
     </widget>
    </item>
@@ -88,11 +89,21 @@ background-color: none;
    <item>
     <widget class="QPushButton" name="pushButton">
      <property name="styleSheet">
-      <string notr="true">background-color: white;
-font: 600 11pt &quot;Sitka Text Semibold&quot;;</string>
+      <string notr="true">QPushButton {
+background-color: white;
+font: 600 11pt &quot;Segoe UI Black&quot;;
+color: rgb(91, 61, 107);
+}
+QPushButton:hover {
+background-color: rgb(225, 225, 225);
+}
+
+QPushButton:pressed {
+background-color: rgb(225, 225, 225);
+}</string>
      </property>
      <property name="text">
-      <string>Ok</string>
+      <string>Готово</string>
      </property>
     </widget>
    </item>

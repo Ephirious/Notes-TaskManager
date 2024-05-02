@@ -36,7 +36,7 @@
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>250</y>
+     <y>240</y>
      <width>421</width>
      <height>121</height>
     </rect>
@@ -62,28 +62,47 @@
     <item>
      <widget class="QPushButton" name="btn_reg">
       <property name="styleSheet">
-       <string notr="true">background-color: white;
+       <string notr="true">QPushButton {
+background-color: white;
 font: 11pt &quot;Sitka&quot;;
-</string>
+}
+QPushButton:hover {
+background-color: rgb(225, 225, 225);
+}
+
+QPushButton:pressed {
+background-color: rgb(225, 225, 225);
+}</string>
       </property>
       <property name="text">
-       <string>Sign up</string>
+       <string>Зарегестрироваться</string>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QPushButton" name="btn_login">
       <property name="styleSheet">
-       <string notr="true">background-color: white;
+       <string notr="true">QPushButton {
+background-color: white;
 font: 11pt &quot;Sitka&quot;;
-</string>
+color: black;
+}
+QPushButton:hover {
+background-color: rgb(225, 225, 225);
+}
+
+QPushButton:pressed {
+background-color: rgb(225, 225, 225);
+}</string>
       </property>
       <property name="text">
-       <string>Log in</string>
+       <string>Войти</string>
       </property>
      </widget>
     </item>
    </layout>
+   <zorder>btn_login</zorder>
+   <zorder>btn_reg</zorder>
   </widget>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
@@ -122,10 +141,11 @@ font: 11pt &quot;Sitka&quot;;
         <property name="styleSheet">
          <string notr="true">font: 13pt &quot;Sitka&quot;;
 background-color: none;
+color: rgb(91, 61, 107)
 </string>
         </property>
         <property name="text">
-         <string>Name:</string>
+         <string>Имя пользователя:</string>
         </property>
        </widget>
       </item>
@@ -138,7 +158,24 @@ background-color: none;
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: white;</string>
+         <string notr="true">QLineEdit {
+background-color: white;
+font: 11pt &quot;Sitka&quot;;
+color: black;
+}
+QLineEdit:hover {
+background-color: rgb(225, 225, 225);
+}
+
+QLineEdit:pressed {
+background-color: white;
+}</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string/>
         </property>
         <property name="clearButtonEnabled">
          <bool>true</bool>
@@ -173,21 +210,38 @@ background-color: none;
         </property>
         <property name="styleSheet">
          <string notr="true">font: 13pt &quot;Sitka&quot;;
-background-color: none;</string>
+background-color: none;
+color: rgb(91, 61, 107)</string>
         </property>
         <property name="text">
-         <string>Password:</string>
+         <string>Пароль:</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLineEdit" name="lineEdit_password">
         <property name="styleSheet">
-         <string notr="true">background-color: white;
-</string>
+         <string notr="true">QLineEdit {
+background-color: white;
+font: 11pt &quot;Sitka&quot;;
+color: black;
+}
+QLineEdit:hover {
+background-color: rgb(225, 225, 225);
+}
+
+QLineEdit:pressed {
+background-color: white;
+}</string>
         </property>
         <property name="echoMode">
          <enum>QLineEdit::EchoMode::PasswordEchoOnEdit</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string/>
         </property>
         <property name="clearButtonEnabled">
          <bool>true</bool>
@@ -203,7 +257,7 @@ background-color: none;</string>
     <rect>
      <x>140</x>
      <y>10</y>
-     <width>211</width>
+     <width>220</width>
      <height>81</height>
     </rect>
    </property>
@@ -212,7 +266,7 @@ background-color: none;</string>
      <widget class="QLabel" name="label_App">
       <property name="font">
        <font>
-        <family>Snap ITC</family>
+        <family>Ravie</family>
         <pointsize>17</pointsize>
         <italic>false</italic>
         <bold>false</bold>
@@ -220,7 +274,7 @@ background-color: none;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: 17pt &quot;Snap ITC&quot;;
+       <string notr="true">font: 17pt &quot;Ravie&quot;;
 background-color: none;</string>
       </property>
       <property name="text">
@@ -232,6 +286,9 @@ background-color: none;</string>
       <property name="scaledContents">
        <bool>true</bool>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
      </widget>
     </item>
     <item alignment="Qt::AlignmentFlag::AlignHCenter">
@@ -239,7 +296,7 @@ background-color: none;</string>
       <property name="font">
        <font>
         <family>Sitka</family>
-        <pointsize>13</pointsize>
+        <pointsize>15</pointsize>
         <italic>false</italic>
         <bold>false</bold>
        </font>
@@ -251,12 +308,16 @@ background-color: none;</string>
        <enum>Qt::LayoutDirection::LeftToRight</enum>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: 13pt &quot;Sitka&quot;;;
+       <string notr="true">font: 15pt &quot;Sitka&quot;;;
 background-color: none;
+color: rgb(91, 61, 107)
 </string>
       </property>
       <property name="text">
-       <string>LOG IN</string>
+       <string>Авторизация</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
     </item>

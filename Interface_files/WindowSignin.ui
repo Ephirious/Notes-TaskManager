@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>580</height>
+    <height>600</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -39,14 +39,14 @@
       <widget class="QLabel" name="label">
        <property name="font">
         <font>
-         <family>Arial</family>
+         <family>Ravie</family>
          <pointsize>27</pointsize>
          <italic>false</italic>
          <bold>false</bold>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: url(:/fonts/fonts/Snap ITC.ttf);
+        <string notr="true">font: 27pt &quot;Ravie&quot;;
 background-color: none;</string>
        </property>
        <property name="text">
@@ -99,10 +99,10 @@ background-color: none;</string>
           <property name="styleSheet">
            <string notr="true">font: 25pt &quot;Sitka&quot;;
 background-color: none;
-color: rgb(91, 61, 107)</string>
+color: black</string>
           </property>
           <property name="text">
-           <string>Register</string>
+           <string>Регистрация</string>
           </property>
          </widget>
         </item>
@@ -137,14 +137,25 @@ color: rgb(91, 61, 107)</string>
 color: rgb(91, 61, 107)</string>
           </property>
           <property name="text">
-           <string>Login:</string>
+           <string>Придумайте логин:</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QLineEdit" name="lineEdit_login">
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255);</string>
+           <string notr="true">QLineEdit {
+background-color: white;
+font: 11pt &quot;Sitka&quot;;
+color: black;
+}
+QLineEdit:hover {
+background-color: rgb(225, 225, 225);
+}
+
+QLineEdit:pressed {
+background-color: white;
+}</string>
           </property>
           <property name="inputMask">
            <string/>
@@ -157,6 +168,9 @@ color: rgb(91, 61, 107)</string>
           </property>
           <property name="readOnly">
            <bool>false</bool>
+          </property>
+          <property name="placeholderText">
+           <string>Имя пользователя</string>
           </property>
           <property name="clearButtonEnabled">
            <bool>true</bool>
@@ -194,17 +208,31 @@ color: rgb(91, 61, 107)</string>
 color: rgb(91, 61, 107)</string>
           </property>
           <property name="text">
-           <string>Password:</string>
+           <string>Введите пароль:</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QLineEdit" name="lineEdit_password">
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255);</string>
+           <string notr="true">QLineEdit {
+background-color: white;
+font: 11pt &quot;Sitka&quot;;
+color: black;
+}
+QLineEdit:hover {
+background-color: rgb(225, 225, 225);
+}
+
+QLineEdit:pressed {
+background-color: white;
+}</string>
           </property>
           <property name="echoMode">
            <enum>QLineEdit::EchoMode::PasswordEchoOnEdit</enum>
+          </property>
+          <property name="placeholderText">
+           <string>Пароль</string>
           </property>
           <property name="clearButtonEnabled">
            <bool>true</bool>
@@ -214,13 +242,6 @@ color: rgb(91, 61, 107)</string>
        </layout>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_error">
-     <property name="text">
-      <string/>
-     </property>
     </widget>
    </item>
    <item>
@@ -247,11 +268,20 @@ color: rgb(91, 61, 107)</string>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255);
-font: 15pt &quot;Sitka&quot;;</string>
+      <string notr="true">QPushButton {
+background-color: white;
+font: 15pt &quot;Sitka&quot;;
+}
+QPushButton:hover {
+background-color: rgb(225, 225, 225);
+}
+
+QPushButton:pressed {
+background-color: rgb(225, 225, 225);
+}</string>
      </property>
      <property name="text">
-      <string>Sign up</string>
+      <string>Зарегестрироваться</string>
      </property>
     </widget>
    </item>
