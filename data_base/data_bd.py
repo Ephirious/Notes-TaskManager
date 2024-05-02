@@ -27,12 +27,12 @@ class User:
         self.data = data
 
 
-def search_user(login, password) -> User:
+def search_user(login, password):
     # Подключение к базе, создание курсора
     db = sqlite3.connect('data_base/user.db')
     c = db.cursor()
 
-    c.execute("SELECT * FROM users WHERE login=?", (login,))
+    c.execute(f"SELECT * FROM users WHERE login={login}")
     value = c.fetchall()
     close_table(db, c)
     if value and (value[0][0] == login and value[0][1] == password):
