@@ -29,7 +29,8 @@ class NoteWrapperError(Exception):
 class FileEntry:
     """Basic (file) entry class for file hierarchy search
     """
-    def __init__(self, name: str,  path: str):
+
+    def __init__(self, name: str, path: str):
         self.name = name
         self.path = path
 
@@ -49,6 +50,7 @@ class FileEntry:
 class DirEntry(FileEntry):
     """Directory entry class for file hierarchy search
     """
+
     def __init__(self, name: str, path: str, contents: list):
         super().__init__(name, path)
         self.contents = contents
@@ -56,12 +58,13 @@ class DirEntry(FileEntry):
 
     def __repr__(self) -> str:
         return f"Dir: {self.path}\nContents: " \
-                    + " ".join((i for i in self.contents))
+            + " ".join((i for i in self.contents))
 
 
 class _FileExplorer():
     """works with paths, files and dirs
     """
+
     def __init__(self):
         self.curr_path = None
         self.dest_path = None
@@ -172,6 +175,7 @@ class _FileExplorer():
 class StorageExplorer(_FileExplorer):
     """File system explorer with Storage creating functionality
     """
+
     def check_for_storage(self) -> bool:
         """checks if current path leads to storage
 
@@ -182,7 +186,7 @@ class StorageExplorer(_FileExplorer):
             return False
         self.dest_path = self.curr_path + "/.storage/storage.json"
         if (self.check_existance(self.dest_path, "file") and
-           os.path.getsize(self.dest_path) > 0):
+                os.path.getsize(self.dest_path) > 0):
             return True
         return False
 
@@ -211,6 +215,7 @@ class StorageExplorer(_FileExplorer):
 class Note:
     """represents notes in program
     """
+
     def __init__(self, path: str) -> None:
         self.header = str()
         self.user = str()
@@ -240,7 +245,7 @@ class Note:
         """
         if self.path is not None:
             if self.path.split(".")[-1] != "json" or \
-               not os.path.isfile(self.path):
+                    not os.path.isfile(self.path):
                 raise FileFormatError
             with open(self.path, 'rb') as file:
                 records = json.load(file)
@@ -281,18 +286,18 @@ class Note:
         alg = encryption.EncChaCha()
         salt = encryption.get_random_bytes(16)
         e_data, tag, nonce, _ = alg.encrypt(
-                                            self.data.encode("utf-8"),
-                                            encryption.bcrypt(
-                                                password,
-                                                cost=12,
-                                                salt=salt))
+            self.data.encode("utf-8"),
+            encryption.bcrypt(
+                password,
+                cost=12,
+                salt=salt))
         self.enc_flag = 1
         self.data = b64encode(e_data).decode("utf-8")
         self.enc_parameters = list(map(
-                                       lambda x: b64encode(x).decode("utf-8"),
-                                       [tag,
-                                        nonce,
-                                        salt]))
+            lambda x: b64encode(x).decode("utf-8"),
+            [tag,
+             nonce,
+             salt]))
 
     def unprotect(self, password):
         """decrypt note's data
@@ -309,8 +314,8 @@ class Note:
         alg = encryption.EncChaCha()
         self.data = b64decode(self.data.encode("utf-8"))
         self.enc_parameters = list(map(
-                                       lambda x: b64decode(x.encode("utf-8")),
-                                       self.enc_parameters))
+            lambda x: b64decode(x.encode("utf-8")),
+            self.enc_parameters))
         self.data, auth = alg.decrypt(self.data,
                                       self.enc_parameters[0],
                                       self.enc_parameters[1],
@@ -390,6 +395,7 @@ class NoteWrapper():
 class Storage():
     """ represent storage of notes
     """
+
     def __init__(self, path: str):
         self.user = str()
         self.name = path.split('/')[-1]
