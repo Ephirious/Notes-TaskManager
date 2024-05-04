@@ -150,6 +150,9 @@ class _FileExplorer():
         if f_type == 2:
             return FileEntry(path.split("/")[-1], path)
         return None
+    
+    def cmp(self, entry: FileEntry):
+        return isinstance(entry, FileEntry)
 
     def get_structure(self, path: str) -> DirEntry:
         """generates hierarchy of Entries
@@ -164,7 +167,7 @@ class _FileExplorer():
         for entry in root.contents:
             if self.type_check(entry) == 1:
                 root.structure.append(self.get_structure(entry))
-            elif self.type_check(entry) == 2:
+            elif self.type_check(entry) == 2 and self.cmp(entry):
                 root.structure.append(self.get_contents(entry))
         return root
 
@@ -172,6 +175,12 @@ class _FileExplorer():
 class StorageExplorer(_FileExplorer):
     """File system explorer with Storage creating functionality
     """
+
+    def cmp(self, entry: FileEntry):
+        if entry.split('.')[-1] == "json":
+            return True
+        return False
+
     def check_for_storage(self) -> bool:
         """checks if current path leads to storage
 
@@ -367,6 +376,12 @@ class NoteWrapper():
     def change_path(self, path):
         self._note.path = path
 
+    def get_header(self):
+        return self._note.header
+    
+    def get_path(self):
+        return self._note.path
+
     def write(self, new_data: str):
         self._note.data = new_data
 
@@ -394,7 +409,7 @@ class Storage():
         self.user = str()
         self.path = path
         self.protection = bool()
-        self.storage_entry = list()
+        self.storage_entry = None
 
     def json_load(self, storage_data: dict):
         """loads storage data from read json (dict)
@@ -425,6 +440,7 @@ class Storage():
         Returns:
             Storage: new storage object
         """
+           
         new = Storage(path)
         new.protection = protection
         new.name = name
@@ -443,3 +459,5 @@ class Storage():
         new = note.copy()
         new.change_path(path)
         new.save(key)
+
+
