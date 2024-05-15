@@ -4,6 +4,8 @@ import json
 from random import randint
 import enc_mod as encryption
 
+NOTE_JSON_STRUCTURE = {"user", "header", "id", "encryption", "data"}
+
 
 class FEWrongArguments(Exception):
     "Wrong arguments are given to FileExplorer method"
@@ -177,9 +179,11 @@ class StorageExplorer(_FileExplorer):
     """
 
     def cmp(self, entry: FileEntry):
-        if entry.split('.')[-1] == "json":
-            return True
-        return False
+        with open(entry.path, 'r', encoding="UTF-8") as file:
+            chk = all(isinstance(entry, FileEntry),
+                      entry.path.split('.')[-1] == 'json',
+                      set(json.load(file).keys()) == NOTE_JSON_STRUCTURE)
+            return chk
 
     def check_for_storage(self) -> bool:
         """checks if current path leads to storage
@@ -356,6 +360,11 @@ class Note:
         return read_note
     
     def copy(self):
+        """creates note object that copies original note (except for id)
+
+        Returns:
+            Note: note's copy
+        """
         new = Note.new_note()
         new.header = self.header
         new.data = self.data
@@ -366,29 +375,69 @@ class Note:
 
 
 class NoteWrapper():
+    """Class that provides wrapper for Note object
+    """
     def __init__(self, note: Note, protection):
         self._note = note
         self.protection_flag = protection
 
-    def change_header(self, header):
+    def change_header(self, header: str):
+        """changes header of note to provided one
+
+        Args:
+            header (str): new header of note
+        """
         self._note.header = header
 
     def change_path(self, path):
+        """changes path to note's file to provided one
+
+        Args:
+            path (str): new path
+        """
         self._note.path = path
 
-    def get_header(self):
+    def get_header(self) -> str:
+        """get header of note
+
+        Returns:
+            str: header of note
+        """
         return self._note.header
-    
-    def get_path(self):
+
+    def get_path(self) -> str:
+        """get path to note
+
+        Returns:
+            str: path to note
+        """
         return self._note.path
 
     def write(self, new_data: str):
+        """change note's contents
+
+        Args:
+            new_data (str): new contents of note
+        """
         self._note.data = new_data
 
-    def read(self):
+    def read(self) -> str:
+        """read note's contents
+
+        Returns:
+            str: note's data
+        """
         return self._note.data
 
     def save(self, key=None):
+        """saves note to file
+
+        Args:
+            key (str, optional): key used for encryption. Defaults to None.
+
+        Raises:
+            NoteWrapperError: raised if wrong set of args were given
+        """
         if self.protection_flag and key is None:
             raise NoteWrapperError
         if self.protection_flag:
@@ -398,6 +447,11 @@ class NoteWrapper():
             self._note.unprotect(key)
 
     def copy(self):
+        """creates copy of note (only id differs)
+
+        Returns:
+            NoteWrapper: Wrapper of note's copy
+        """
         return NoteWrapper(self._note.copy(), self.protection_flag)
 
 
@@ -440,7 +494,7 @@ class Storage():
         Returns:
             Storage: new storage object
         """
-           
+
         new = Storage(path)
         new.protection = protection
         new.name = name
@@ -448,14 +502,34 @@ class Storage():
         return new
 
     def get_note(self, file: FileEntry) -> NoteWrapper:
+        """creates Notewrapper from note's FileEntry
+
+        Args:
+            file (FileEntry): _description_
+
+        Returns:
+            NoteWrapper: _description_
+        """
         return NoteWrapper(Note.load_from_entry(file), self.protection)
 
     def create_note(self) -> NoteWrapper:
+        """creates new notewrapper object (not a file)
+
+        Returns:
+            NoteWrapper: _description_
+        """
         new = Note.new_note()
         new.user = self.user
         return NoteWrapper(new, self.protection)
-    
+
     def save_as(self, note: NoteWrapper, path: str, key=None):
+        """writes note as file to a proveded path
+
+        Args:
+            note (NoteWrapper): note that will be written
+            path (str): path of new file
+            key (str, optional): encryption key. Defaults to None.
+        """
         new = note.copy()
         new.change_path(path)
         new.save(key)
