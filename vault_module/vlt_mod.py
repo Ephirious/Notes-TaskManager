@@ -130,6 +130,14 @@ class _FileExplorer():
         if os.path.isfile(path):
             return 2
         return 0
+    
+    def get_entry(self, path):
+        f_type = self.type_check(path)
+        if f_type == 1:
+            return DirEntry(path.split("/")[-1], path, [])
+        if f_type == 2:
+            return FileEntry(path.split("/")[-1], path)
+        return None
 
     def get_contents(self, path):
         """Creates Entry object for entered path
@@ -143,14 +151,18 @@ class _FileExplorer():
             None: if path is incorrect or leads to neither dir nor file
         """
         contents = []
-        f_type = self.type_check(path)
-        if f_type == 1:
+        structure = []
+        x = self.get_entry(path)
+        if isinstance(x, DirEntry):
             entries = os.listdir(path)
             for name in entries:
                 contents.append(path + '/' + name)
-            return DirEntry(path.split("/")[-1], path, contents)
-        if f_type == 2:
-            return FileEntry(path.split("/")[-1], path)
+                structure.append(self.get_entry(path + '/' + name))
+            x.structure = structure
+            x.contents = contents
+            return x
+        if isinstance(x, FileEntry):
+            return x
         return None
     
     def cmp(self, entry: FileEntry):
@@ -172,6 +184,88 @@ class _FileExplorer():
             elif self.type_check(entry) == 2 and self.cmp(entry):
                 root.structure.append(self.get_contents(entry))
         return root
+
+    def delete(self, entry):
+        """recursively deletes substructure
+
+        Args:
+            entry (FileEntry|DirEntry): entry that needs to be deleted
+
+        Raises:
+            FEWrongArguments: if entry was ot given
+
+        Returns:
+            int: 0 if deletion is succesfull, 1 if entry already does not exist
+        """
+        if isinstance(entry, FileEntry):
+            if self.check_existance(entry.path, "file"):
+                os.remove(self.fix_path(entry.path))
+                return 0
+            return 1
+        if isinstance(entry, DirEntry):
+            if self.check_existance(entry.path, "dir"):
+                entry = self.get_structure(entry.path)
+                for elem in entry.contents:
+                    self.delete(elem)
+                os.rmdir(self.fix_path(entry.path))
+                return 0
+            return 1
+        raise FEWrongArguments
+
+
+class Hierarchy:
+    """Represent file system hierarchy
+    """
+    def __init__(self, root: str):
+        f_e = _FileExplorer()
+        self.root = f_e.get_contents(root)
+        self.loaded = {}
+        self._f_e = _FileExplorer()
+    
+    def load(self, dr_e: DirEntry) -> DirEntry:
+        """Loads structure of DirEntry
+
+        Args:
+            dr_e (DirEntry): DirEntry that needs to be loaded
+
+        Returns:
+            DirEntry: Loaded DirEntry
+        """
+        root = self._f_e.get_contents(dr_e.path)
+        for entry in root.contents:
+            if self._f_e.type_check(entry) in {1, 2}:
+                root.structure.append(self._f_e.get_contents(entry))
+        if self._f_e.check_existance(dr_e.path, "dir"):
+            self.loaded[dr_e.path] = root
+        return root
+    
+    def update(self, path: str):
+        """Updates(reloads) structure of DirEntry
+
+        Args:
+            path (str): path of DirEntry that needs to be updated.
+        """
+        if path in self.loaded:
+            self.loaded[path] = self.load(self.loaded[path])
+
+    def delete(self, path: str):
+        """deletes entry from disk and hierarchy
+
+        Args:
+            path (str): path to entry for deletion.
+        """
+        if path in self.loaded:
+            self._f_e.delete(self.loaded[path])
+            stc = [self.loaded[path]]
+            while (len(stc)):
+                x = stc.pop()
+                for i in x.contents:
+                    if i in self.loaded:
+                        stc.append(self.loaded[i])
+                self.loaded.pop(x)
+        else:
+            self._f_e.delete(self._f_e.get_contents(path))
+        self.update("/".join(path.split("/")[-1]))
 
 
 class StorageExplorer(_FileExplorer):
@@ -358,7 +452,7 @@ class Note:
         read_note = Note(note_entry.path)
         read_note.open()
         return read_note
-    
+
     def copy(self):
         """creates note object that copies original note (except for id)
 
@@ -464,6 +558,7 @@ class Storage():
         self.path = path
         self.protection = bool()
         self.storage_entry = None
+        self.hierarchy = None
 
     def json_load(self, storage_data: dict):
         """loads storage data from read json (dict)
@@ -479,8 +574,8 @@ class Storage():
         """creates DirEntry of storage
         """
         if self.path is not None:
-            st_expl = StorageExplorer()
-            self.storage_entry = st_expl.get_structure(self.path)
+            self.hierarchy = Hierarchy(self.path)
+            self.storage_entry = self.hierarchy.root
 
     @staticmethod
     def new_storage(name: str, path: str, protection: bool):
@@ -533,5 +628,13 @@ class Storage():
         new = note.copy()
         new.change_path(path)
         new.save(key)
+
+    def remove(self, entry):
+        """deletes entry from hierarchy and file system
+
+        Args:
+            entry (FileEntry|DirEntry): Entry that needs to be deleted.
+        """
+        self.hierarchy.delete(entry.path)
 
 
