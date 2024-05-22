@@ -18,347 +18,439 @@
     <normaloff>:/icons/icons/axolot.png</normaloff>:/icons/icons/axolot.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(161, 134, 165)</string>
+   <string notr="true">background-color: qlineargradient(spread:repeat, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(255, 227, 195, 255), stop:1 rgba(245, 78, 140, 255));
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <property name="leftMargin">
-       <number>12</number>
+     <widget class="QFrame" name="frame1">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(255, 255, 255, 30);
+border-radius: 7px;</string>
       </property>
-      <property name="rightMargin">
-       <number>12</number>
-      </property>
-      <item>
-       <widget class="QPushButton" name="btn_back">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>90</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Segoe UI Black</family>
-          <pointsize>11</pointsize>
-          <italic>false</italic>
-          <strikeout>false</strikeout>
-          <fontweight>Black</fontweight>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton {
-background-color: rgb(216, 193, 219);
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <property name="leftMargin">
+        <number>12</number>
+       </property>
+       <property name="rightMargin">
+        <number>12</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="btn_back">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>80</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>120</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Segoe UI Black</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <strikeout>false</strikeout>
+           <fontweight>Black</fontweight>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+background-color: rgba(216, 193, 219, 180);
+border: 1px solid rgba(255, 255, 255, 70);
+border-radius: 5px;
 font: 900 11pt &quot;Segoe UI Black&quot;;
 color: rgb(91, 61, 107)
 }
 QPushButton:hover {
-background-color: rgb(191, 171, 194);
+background-color: rgba(216, 193, 219, 230);
 }
 
 QPushButton:pressed {
-background-color: rgb(191, 171, 194);
+background-color: rgba(216, 193, 219, 255);
 }</string>
-        </property>
-        <property name="text">
-         <string>Назад</string>
-        </property>
-        <property name="icon">
-         <iconset resource="res.qrc">
-          <normaloff>:/icons/icons/arrow_back_ios_FILL0_wght400_GRAD0_opsz24.svg</normaloff>:/icons/icons/arrow_back_ios_FILL0_wght400_GRAD0_opsz24.svg</iconset>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Orientation::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QLabel" name="label">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>300</width>
-          <height>100</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Ravie</family>
-          <pointsize>15</pointsize>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">font: 15pt &quot;Ravie&quot;;
+         </property>
+         <property name="text">
+          <string>Назад</string>
+         </property>
+         <property name="icon">
+          <iconset resource="res.qrc">
+           <normaloff>:/icons/icons/arrow_back_ios_FILL0_wght400_GRAD0_opsz24.svg</normaloff>:/icons/icons/arrow_back_ios_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>300</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Ravie</family>
+           <pointsize>30</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 30pt &quot;Ravie&quot;;
+font-weight: bold;
 background-color: none;
-color: white;
-
-</string>
-        </property>
-        <property name="text">
-         <string>Axolot's Notes</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Orientation::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btn_theme">
-        <property name="styleSheet">
-         <string notr="true">QPushButton {
-background-color: rgb(133, 110, 136);
+color: white;</string>
+         </property>
+         <property name="text">
+          <string>Axolot's Notes</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btn_theme">
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+background-color: rgba(216, 193, 219, 60);
+border: 1px solid rgba(255, 255, 255, 70);
+border-radius: 5px;
+font: 900 11pt &quot;Segoe UI Black&quot;;
+color: rgb(91, 61, 107)
 }
 QPushButton:hover {
-background-color: rgb(109, 90, 111);
+background-color: rgba(216, 193, 219, 130);
 }
 
 QPushButton:pressed {
-background-color: rgb(109, 90, 111);
+background-color: rgba(216, 193, 219, 150);
 }</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset resource="res.qrc">
-          <normaloff>:/icons/icons/dark_mode_FILL0_wght400_GRAD0_opsz24.svg</normaloff>:/icons/icons/dark_mode_FILL0_wght400_GRAD0_opsz24.svg</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>25</width>
-          <height>25</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_3">
-        <property name="maximumSize">
-         <size>
-          <width>60</width>
-          <height>60</height>
-         </size>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap resource="res.qrc">:/icons/icons/axolot.png</pixmap>
-        </property>
-        <property name="scaledContents">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="res.qrc">
+           <normaloff>:/icons/icons/dark_mode_FILL0_wght400_GRAD0_opsz24.svg</normaloff>:/icons/icons/dark_mode_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>25</width>
+           <height>25</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="maximumSize">
+          <size>
+           <width>60</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: none;</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="res.qrc">:/icons/icons/axolot.png</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
-       <layout class="QVBoxLayout" name="buttonsLayout">
-        <property name="spacing">
-         <number>6</number>
+       <widget class="QFrame" name="frame">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(255, 255, 255, 70);
+border: 1px solid rgba(255, 255, 255, 40);
+border-radius: 7px;</string>
         </property>
-        <property name="leftMargin">
-         <number>12</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>12</number>
-        </property>
-        <item>
-         <widget class="QPushButton" name="btn_add_note">
-          <property name="maximumSize">
-           <size>
-            <width>90</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton {
-background-color: rgb(216, 193, 219);
-font: 900 10 pt &quot;Segoe UI Black&quot;;
-color: rgb(91, 61, 107)
-}
-QPushButton:hover {
-background-color: rgb(191, 171, 194);
-}
-
-QPushButton:pressed {
-background-color: rgb(191, 171, 194);
-}</string>
-          </property>
-          <property name="text">
-           <string>Добавить</string>
-          </property>
-          <property name="icon">
-           <iconset resource="res.qrc">
-            <normaloff>:/icons/icons/add_box_FILL0_wght400_GRAD0_opsz24.svg</normaloff>:/icons/icons/add_box_FILL0_wght400_GRAD0_opsz24.svg</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>16</width>
-            <height>16</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="btn_storage">
-          <property name="maximumSize">
-           <size>
-            <width>90</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton {
-background-color: rgb(216, 193, 219);
+        <layout class="QVBoxLayout" name="buttonsLayout">
+         <property name="spacing">
+          <number>6</number>
+         </property>
+         <property name="leftMargin">
+          <number>12</number>
+         </property>
+         <property name="topMargin">
+          <number>1</number>
+         </property>
+         <property name="rightMargin">
+          <number>6</number>
+         </property>
+         <property name="bottomMargin">
+          <number>12</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="btn_add_note">
+           <property name="maximumSize">
+            <size>
+             <width>120</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+background-color: rgba(216, 193, 219, 60);
+border: 1px solid rgba(255, 255, 255, 70);
+border-radius: 5px;
 font: 900 11pt &quot;Segoe UI Black&quot;;
 color: rgb(91, 61, 107)
 }
 QPushButton:hover {
-background-color: rgb(191, 171, 194);
+background-color: rgba(216, 193, 219, 130);
 }
 
 QPushButton:pressed {
-background-color: rgb(191, 171, 194);
+background-color: rgba(216, 193, 219, 150);
 }</string>
-          </property>
-          <property name="text">
-           <string>Папки</string>
-          </property>
-          <property name="icon">
-           <iconset resource="res.qrc">
-            <normaloff>:/icons/icons/create_new_folder_FILL0_wght400_GRAD0_opsz24.svg</normaloff>:/icons/icons/create_new_folder_FILL0_wght400_GRAD0_opsz24.svg</iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="btn_settings">
-          <property name="maximumSize">
-           <size>
-            <width>90</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton {
-background-color: rgb(216, 193, 219);
-font: 900 10 pt &quot;Segoe UI Black&quot;;
+           </property>
+           <property name="text">
+            <string>Добавить</string>
+           </property>
+           <property name="icon">
+            <iconset resource="res.qrc">
+             <normaloff>:/icons/icons/add_box_FILL0_wght400_GRAD0_opsz24.svg</normaloff>:/icons/icons/add_box_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>16</width>
+             <height>16</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_storage">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>120</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+background-color: rgba(216, 193, 219, 60);
+border: 1px solid rgba(255, 255, 255, 70);
+border-radius: 5px;
+font: 900 11pt &quot;Segoe UI Black&quot;;
 color: rgb(91, 61, 107)
 }
 QPushButton:hover {
-background-color: rgb(191, 171, 194);
+background-color: rgba(216, 193, 219, 130);
 }
 
 QPushButton:pressed {
-background-color: rgb(191, 171, 194);
+background-color: rgba(216, 193, 219, 150);
 }</string>
-          </property>
-          <property name="text">
-           <string>Настройки</string>
-          </property>
-          <property name="icon">
-           <iconset resource="res.qrc">
-            <normaloff>:/icons/icons/settings_FILL0_wght400_GRAD0_opsz24.svg</normaloff>:/icons/icons/settings_FILL0_wght400_GRAD0_opsz24.svg</iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Orientation::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
+           </property>
+           <property name="text">
+            <string>Папки</string>
+           </property>
+           <property name="icon">
+            <iconset resource="res.qrc">
+             <normaloff>:/icons/icons/create_new_folder_FILL0_wght400_GRAD0_opsz24.svg</normaloff>:/icons/icons/create_new_folder_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_settings">
+           <property name="maximumSize">
+            <size>
+             <width>120</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+background-color: rgba(216, 193, 219, 60);
+border: 1px solid rgba(255, 255, 255, 70);
+border-radius: 5px;
+font: 900 11pt &quot;Segoe UI Black&quot;;
+color: rgb(91, 61, 107);
+}
+QPushButton:hover {
+background-color: rgba(216, 193, 219, 130);
+}
+
+QPushButton:pressed {
+background-color: rgba(216, 193, 219, 150);
+}</string>
+           </property>
+           <property name="text">
+            <string>Настройки</string>
+           </property>
+           <property name="icon">
+            <iconset resource="res.qrc">
+             <normaloff>:/icons/icons/settings_FILL0_wght400_GRAD0_opsz24.svg</normaloff>:/icons/icons/settings_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Orientation::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <property name="rightMargin">
-           <number>12</number>
+         <widget class="QFrame" name="frame2">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgba(255, 255, 255, 160);
+border: 1px solid rgba(255, 255, 255, 40);
+border-radius: 7px;</string>
           </property>
-          <item>
-           <widget class="QListWidget" name="listWidget">
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>100</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(216, 193, 219)</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QTextEdit" name="textEdit">
-            <property name="styleSheet">
-             <string notr="true">background: white</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <property name="rightMargin">
+            <number>12</number>
+           </property>
+           <item>
+            <widget class="QTreeWidget" name="treeWidget">
+             <property name="maximumSize">
+              <size>
+               <width>150</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+               <italic>false</italic>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Shadow::Plain</enum>
+             </property>
+             <property name="dragEnabled">
+              <bool>true</bool>
+             </property>
+             <property name="dragDropOverwriteMode">
+              <bool>false</bool>
+             </property>
+             <property name="dragDropMode">
+              <enum>QAbstractItemView::DragDropMode::InternalMove</enum>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>false</bool>
+             </property>
+             <property name="sortingEnabled">
+              <bool>true</bool>
+             </property>
+             <property name="animated">
+              <bool>true</bool>
+             </property>
+             <property name="allColumnsShowFocus">
+              <bool>false</bool>
+             </property>
+             <property name="wordWrap">
+              <bool>false</bool>
+             </property>
+             <property name="headerHidden">
+              <bool>true</bool>
+             </property>
+             <attribute name="headerVisible">
+              <bool>false</bool>
+             </attribute>
+             <attribute name="headerCascadingSectionResizes">
+              <bool>false</bool>
+             </attribute>
+             <attribute name="headerDefaultSectionSize">
+              <number>100</number>
+             </attribute>
+             <attribute name="headerHighlightSections">
+              <bool>false</bool>
+             </attribute>
+             <attribute name="headerShowSortIndicator" stdset="0">
+              <bool>true</bool>
+             </attribute>
+             <column>
+              <property name="text">
+               <string notr="true">1</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="textEdit">
+             <property name="styleSheet">
+              <string notr="true">background: white</string>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Shadow::Sunken</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -392,6 +484,11 @@ background-color: rgb(191, 171, 194);
               <height>50</height>
              </size>
             </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: none;
+
+</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -401,18 +498,19 @@ background-color: rgb(191, 171, 194);
            <widget class="QPushButton" name="btn_delete_note">
             <property name="styleSheet">
              <string notr="true">QPushButton {
-background-color: rgb(216, 193, 219);
+background-color: rgba(216, 193, 219, 180);
+border: 1px solid rgba(255, 255, 255, 70);
+border-radius: 5px;
 font: 900 11pt &quot;Segoe UI Black&quot;;
 color: rgb(91, 61, 107)
 }
 QPushButton:hover {
-background-color: rgb(191, 171, 194);
+background-color: rgba(216, 193, 219, 230);
 }
 
 QPushButton:pressed {
-background-color: rgb(191, 171, 194);
-}
-</string>
+background-color: rgba(216, 193, 219, 255);
+}</string>
             </property>
             <property name="text">
              <string>Удалить</string>
@@ -427,16 +525,18 @@ background-color: rgb(191, 171, 194);
            <widget class="QPushButton" name="btn_save">
             <property name="styleSheet">
              <string notr="true">QPushButton {
-background-color: rgb(216, 193, 219);
+background-color: rgba(216, 193, 219, 180);
+border: 1px solid rgba(255, 255, 255, 70);
+border-radius: 5px;
 font: 900 11pt &quot;Segoe UI Black&quot;;
 color: rgb(91, 61, 107)
 }
 QPushButton:hover {
-background-color: rgb(191, 171, 194);
+background-color: rgba(216, 193, 219, 230);
 }
 
 QPushButton:pressed {
-background-color: rgb(191, 171, 194);
+background-color: rgba(216, 193, 219, 255);
 }</string>
             </property>
             <property name="text">

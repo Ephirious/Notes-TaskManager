@@ -24,9 +24,9 @@
     <normaloff>:/icons/icons/axolot.png</normaloff>:/icons/icons/axolot.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(216, 193, 219);</string>
+   <string notr="true">background-color:qlineargradient(spread:repeat, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(255, 227, 195, 255), stop:1 rgba(245, 78, 140, 255))</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_6">
+  <layout class="QVBoxLayout" name="verticalLayout_7">
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <property name="leftMargin">
@@ -40,17 +40,40 @@
        <property name="font">
         <font>
          <family>Ravie</family>
-         <pointsize>27</pointsize>
+         <pointsize>30</pointsize>
+         <italic>false</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 30pt &quot;Ravie&quot;;
+font-weight: bold;
+background-color: none;
+color: white;</string>
+       </property>
+       <property name="text">
+        <string>Axolot's Notes</string>
+       </property>
+      </widget>
+     </item>
+     <item alignment="Qt::AlignmentFlag::AlignHCenter">
+      <widget class="QLabel" name="label_3">
+       <property name="font">
+        <font>
+         <family>Sitka</family>
+         <pointsize>20</pointsize>
          <italic>false</italic>
          <bold>false</bold>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 27pt &quot;Ravie&quot;;
-background-color: none;</string>
+        <string notr="true">font: 20pt &quot;Sitka&quot;;;
+background-color: none;
+color: rgb(91, 61, 107)
+</string>
        </property>
        <property name="text">
-        <string>Axolot's Notes</string>
+        <string>Регистрация</string>
        </property>
       </widget>
      </item>
@@ -75,7 +98,9 @@ background-color: none;</string>
    <item>
     <widget class="QFrame" name="Frame">
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">background-color: rgba(255, 255, 255, 70);
+border: 1px solid rgba(255, 255, 255, 40);
+border-radius: 7px;</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
@@ -86,26 +111,6 @@ background-color: none;</string>
         <property name="rightMargin">
          <number>30</number>
         </property>
-        <item alignment="Qt::AlignmentFlag::AlignHCenter">
-         <widget class="QLabel" name="label_3">
-          <property name="font">
-           <font>
-            <family>Sitka</family>
-            <pointsize>25</pointsize>
-            <italic>false</italic>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">font: 25pt &quot;Sitka&quot;;
-background-color: none;
-color: black</string>
-          </property>
-          <property name="text">
-           <string>Регистрация</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </item>
       <item>
@@ -245,6 +250,16 @@ background-color: white;
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="label_error">
+     <property name="styleSheet">
+      <string notr="true">background: none;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Orientation::Vertical</enum>
@@ -258,19 +273,27 @@ background-color: white;
     </spacer>
    </item>
    <item>
-    <widget class="QPushButton" name="btn_signup">
-     <property name="font">
-      <font>
-       <family>Sitka</family>
-       <pointsize>15</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
+    <widget class="QFrame" name="verticalFrame">
      <property name="styleSheet">
-      <string notr="true">QPushButton {
+      <string notr="true">background-color: rgba(255, 255, 255, 30);
+border: 1px solid rgba(255, 255, 255, 40);
+border-radius: 7px;</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_6">
+      <item>
+       <widget class="QPushButton" name="btn_signup">
+        <property name="font">
+         <font>
+          <family>Sitka</family>
+          <pointsize>14</pointsize>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
 background-color: white;
-font: 15pt &quot;Sitka&quot;;
+font: 14pt &quot;Sitka&quot;;
 }
 QPushButton:hover {
 background-color: rgb(225, 225, 225);
@@ -279,10 +302,13 @@ background-color: rgb(225, 225, 225);
 QPushButton:pressed {
 background-color: rgb(225, 225, 225);
 }</string>
-     </property>
-     <property name="text">
-      <string>Зарегестрироваться</string>
-     </property>
+        </property>
+        <property name="text">
+         <string>Зарегестрироваться</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
