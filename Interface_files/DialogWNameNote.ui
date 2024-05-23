@@ -30,15 +30,15 @@
     <normaloff>:/icons/icons/axolot.png</normaloff>:/icons/icons/axolot.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(216, 193, 219)</string>
+   <string notr="true">background:  qlineargradient(spread:repeat, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(255, 227, 195, 255), stop:1 rgba(245, 78, 140, 255))</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item alignment="Qt::AlignmentFlag::AlignHCenter">
     <widget class="QLabel" name="label">
      <property name="font">
       <font>
-       <family>Segoe UI Black</family>
-       <pointsize>18</pointsize>
+       <family>Sitka</family>
+       <pointsize>15</pointsize>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -50,10 +50,10 @@
       <bool>false</bool>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 18pt &quot;Segoe UI Black&quot;;
+      <string notr="true">font: 15pt &quot;Sitka&quot;;
 background-color: none;
-color: rgb(91, 61, 107);
-</string>
+color: black;
+border-radius: 7px;</string>
      </property>
      <property name="text">
       <string>Введите имя нового файла:</string>
@@ -71,28 +71,52 @@ color: rgb(91, 61, 107);
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="lineEdit">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="mouseTracking">
-      <bool>true</bool>
-     </property>
+    <widget class="QFrame" name="frame">
      <property name="styleSheet">
-      <string notr="true">background-color: white;</string>
+      <string notr="true">background-color: rgba(216, 193, 219, 60);
+border: 1px solid rgba(255, 255, 255, 70);
+border-radius: 5px;
+font: 900 11pt &quot;Segoe UI Black&quot;;
+color: rgb(91, 61, 107)</string>
      </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="pushButton">
-     <property name="styleSheet">
-      <string notr="true">QPushButton {
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLineEdit" name="lineEdit">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="mouseTracking">
+         <bool>true</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLineEdit {
 background-color: white;
-font: 600 11pt &quot;Segoe UI Black&quot;;
-color: rgb(91, 61, 107);
+font: 11pt &quot;Sitka&quot;;
+color: black;
+}
+QLineEdit:hover {
+background-color: rgb(225, 225, 225);
+}
+
+QLineEdit:pressed {
+background-color: white;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Новая заметка</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+background-color: white;
+font: 600 11pt &quot;Sitka&quot;;
+color: black;
 }
 QPushButton:hover {
 background-color: rgb(225, 225, 225);
@@ -101,10 +125,13 @@ background-color: rgb(225, 225, 225);
 QPushButton:pressed {
 background-color: rgb(225, 225, 225);
 }</string>
-     </property>
-     <property name="text">
-      <string>Готово</string>
-     </property>
+        </property>
+        <property name="text">
+         <string>Готово</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>

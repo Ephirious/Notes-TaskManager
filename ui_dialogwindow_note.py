@@ -15,8 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QDialog, QLabel, QLineEdit,
-    QPushButton, QSizePolicy, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QLabel,
+    QLineEdit, QPushButton, QSizePolicy, QVBoxLayout,
+    QWidget)
 import res_rc
 
 class Ui_Dialog(object):
@@ -29,46 +30,66 @@ class Ui_Dialog(object):
         icon = QIcon()
         icon.addFile(u":/icons/icons/axolot.png", QSize(), QIcon.Normal, QIcon.Off)
         Dialog.setWindowIcon(icon)
-        Dialog.setStyleSheet(u"background-color: rgb(216, 193, 219)")
-        self.verticalLayout = QVBoxLayout(Dialog)
-        self.verticalLayout.setObjectName(u"verticalLayout")
+        Dialog.setStyleSheet(u"background:  qlineargradient(spread:repeat, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(255, 227, 195, 255), stop:1 rgba(245, 78, 140, 255))")
+        self.verticalLayout_2 = QVBoxLayout(Dialog)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.label = QLabel(Dialog)
         self.label.setObjectName(u"label")
         font = QFont()
-        font.setFamilies([u"Segoe UI Black"])
-        font.setPointSize(18)
+        font.setFamilies([u"Sitka"])
+        font.setPointSize(15)
         font.setBold(False)
         font.setItalic(False)
         self.label.setFont(font)
         self.label.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         self.label.setAutoFillBackground(False)
-        self.label.setStyleSheet(u"font: 18pt \"Segoe UI Black\";\n"
+        self.label.setStyleSheet(u"font: 15pt \"Sitka\";\n"
 "background-color: none;\n"
-"color: rgb(91, 61, 107);\n"
-"")
+"color: black;\n"
+"border-radius: 7px;")
 
-        self.verticalLayout.addWidget(self.label, 0, Qt.AlignmentFlag.AlignHCenter)
+        self.verticalLayout_2.addWidget(self.label, 0, Qt.AlignmentFlag.AlignHCenter)
 
         self.labelError = QLabel(Dialog)
         self.labelError.setObjectName(u"labelError")
         self.labelError.setStyleSheet(u"background-color: none;")
 
-        self.verticalLayout.addWidget(self.labelError)
+        self.verticalLayout_2.addWidget(self.labelError)
 
-        self.lineEdit = QLineEdit(Dialog)
+        self.frame = QFrame(Dialog)
+        self.frame.setObjectName(u"frame")
+        self.frame.setStyleSheet(u"background-color: rgba(216, 193, 219, 60);\n"
+"border: 1px solid rgba(255, 255, 255, 70);\n"
+"border-radius: 5px;\n"
+"font: 900 11pt \"Segoe UI Black\";\n"
+"color: rgb(91, 61, 107)")
+        self.verticalLayout = QVBoxLayout(self.frame)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.lineEdit = QLineEdit(self.frame)
         self.lineEdit.setObjectName(u"lineEdit")
         self.lineEdit.setEnabled(True)
         self.lineEdit.setMouseTracking(True)
-        self.lineEdit.setStyleSheet(u"background-color: white;")
+        self.lineEdit.setStyleSheet(u"QLineEdit {\n"
+"background-color: white;\n"
+"font: 11pt \"Sitka\";\n"
+"color: black;\n"
+"}\n"
+"QLineEdit:hover {\n"
+"background-color: rgb(225, 225, 225);\n"
+"}\n"
+"\n"
+"QLineEdit:pressed {\n"
+"background-color: white;\n"
+"}")
 
         self.verticalLayout.addWidget(self.lineEdit)
 
-        self.pushButton = QPushButton(Dialog)
+        self.pushButton = QPushButton(self.frame)
         self.pushButton.setObjectName(u"pushButton")
         self.pushButton.setStyleSheet(u"QPushButton {\n"
 "background-color: white;\n"
-"font: 600 11pt \"Segoe UI Black\";\n"
-"color: rgb(91, 61, 107);\n"
+"font: 600 11pt \"Sitka\";\n"
+"color: black;\n"
 "}\n"
 "QPushButton:hover {\n"
 "background-color: rgb(225, 225, 225);\n"
@@ -81,6 +102,9 @@ class Ui_Dialog(object):
         self.verticalLayout.addWidget(self.pushButton)
 
 
+        self.verticalLayout_2.addWidget(self.frame)
+
+
         self.retranslateUi(Dialog)
 
         QMetaObject.connectSlotsByName(Dialog)
@@ -91,6 +115,7 @@ class Ui_Dialog(object):
         self.label.setText(QCoreApplication.translate("Dialog", u"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0438\u043c\u044f \u043d\u043e\u0432\u043e\u0433\u043e \u0444\u0430\u0439\u043b\u0430:", None))
         self.labelError.setText("")
         self.lineEdit.setText("")
+        self.lineEdit.setPlaceholderText(QCoreApplication.translate("Dialog", u"\u041d\u043e\u0432\u0430\u044f \u0437\u0430\u043c\u0435\u0442\u043a\u0430", None))
         self.pushButton.setText(QCoreApplication.translate("Dialog", u"\u0413\u043e\u0442\u043e\u0432\u043e", None))
     # retranslateUi
 

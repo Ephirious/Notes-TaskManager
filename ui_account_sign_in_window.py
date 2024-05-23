@@ -29,9 +29,9 @@ class Ui_SigninWindow(object):
         icon = QIcon()
         icon.addFile(u":/icons/icons/axolot.png", QSize(), QIcon.Normal, QIcon.Off)
         SigninWindow.setWindowIcon(icon)
-        SigninWindow.setStyleSheet(u"background-color: rgb(216, 193, 219);")
-        self.verticalLayout_6 = QVBoxLayout(SigninWindow)
-        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        SigninWindow.setStyleSheet(u"background-color:qlineargradient(spread:repeat, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(255, 227, 195, 255), stop:1 rgba(245, 78, 140, 255))")
+        self.verticalLayout_7 = QVBoxLayout(SigninWindow)
+        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
         self.verticalLayout_3 = QVBoxLayout()
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.verticalLayout_3.setContentsMargins(50, -1, 50, -1)
@@ -39,44 +39,49 @@ class Ui_SigninWindow(object):
         self.label.setObjectName(u"label")
         font = QFont()
         font.setFamilies([u"Ravie"])
-        font.setPointSize(27)
-        font.setBold(False)
+        font.setPointSize(30)
+        font.setBold(True)
         font.setItalic(False)
         self.label.setFont(font)
-        self.label.setStyleSheet(u"font: 27pt \"Ravie\";\n"
-"background-color: none;")
+        self.label.setStyleSheet(u"font: 30pt \"Ravie\";\n"
+"font-weight: bold;\n"
+"background-color: none;\n"
+"color: white;")
 
         self.verticalLayout_3.addWidget(self.label, 0, Qt.AlignmentFlag.AlignHCenter)
 
+        self.label_3 = QLabel(SigninWindow)
+        self.label_3.setObjectName(u"label_3")
+        font1 = QFont()
+        font1.setFamilies([u"Sitka"])
+        font1.setPointSize(20)
+        font1.setBold(False)
+        font1.setItalic(False)
+        self.label_3.setFont(font1)
+        self.label_3.setStyleSheet(u"font: 20pt \"Sitka\";\n"
+"background-color: none;\n"
+"color: black;\n"
+"")
 
-        self.verticalLayout_6.addLayout(self.verticalLayout_3)
+        self.verticalLayout_3.addWidget(self.label_3, 0, Qt.AlignmentFlag.AlignHCenter)
+
+
+        self.verticalLayout_7.addLayout(self.verticalLayout_3)
 
         self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
-        self.verticalLayout_6.addItem(self.verticalSpacer_2)
+        self.verticalLayout_7.addItem(self.verticalSpacer_2)
 
         self.Frame = QFrame(SigninWindow)
         self.Frame.setObjectName(u"Frame")
-        self.Frame.setStyleSheet(u"")
+        self.Frame.setStyleSheet(u"background-color: rgba(255, 255, 255, 70);\n"
+"border: 1px solid rgba(255, 255, 255, 40);\n"
+"border-radius: 7px;")
         self.verticalLayout_4 = QVBoxLayout(self.Frame)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.verticalLayout_5 = QVBoxLayout()
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.verticalLayout_5.setContentsMargins(30, -1, 30, -1)
-        self.label_3 = QLabel(self.Frame)
-        self.label_3.setObjectName(u"label_3")
-        font1 = QFont()
-        font1.setFamilies([u"Sitka"])
-        font1.setPointSize(25)
-        font1.setBold(False)
-        font1.setItalic(False)
-        self.label_3.setFont(font1)
-        self.label_3.setStyleSheet(u"font: 25pt \"Sitka\";\n"
-"background-color: none;\n"
-"color: black")
-
-        self.verticalLayout_5.addWidget(self.label_3, 0, Qt.AlignmentFlag.AlignHCenter)
-
 
         self.verticalLayout_4.addLayout(self.verticalLayout_5)
 
@@ -92,7 +97,7 @@ class Ui_SigninWindow(object):
         font2.setItalic(False)
         self.label_login.setFont(font2)
         self.label_login.setStyleSheet(u"font: 17pt \"Sitka\";\n"
-"color: rgb(91, 61, 107)")
+"color: black;")
 
         self.verticalLayout.addWidget(self.label_login)
 
@@ -126,7 +131,7 @@ class Ui_SigninWindow(object):
         self.label_password.setObjectName(u"label_password")
         self.label_password.setFont(font2)
         self.label_password.setStyleSheet(u"font: 17pt \"Sitka\";\n"
-"color: rgb(91, 61, 107)")
+"color: black;")
 
         self.verticalLayout_2.addWidget(self.label_password)
 
@@ -153,7 +158,13 @@ class Ui_SigninWindow(object):
         self.verticalLayout_4.addLayout(self.verticalLayout_2)
 
 
-        self.verticalLayout_6.addWidget(self.Frame)
+        self.verticalLayout_7.addWidget(self.Frame)
+
+        self.label_error = QLabel(SigninWindow)
+        self.label_error.setObjectName(u"label_error")
+        self.label_error.setStyleSheet(u"background: none;")
+
+        self.verticalLayout_7.addWidget(self.label_error)
 
         self.label_error = QLabel(SigninWindow)
         self.label_error.setObjectName(u"label_error")
@@ -163,19 +174,26 @@ class Ui_SigninWindow(object):
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
-        self.verticalLayout_6.addItem(self.verticalSpacer)
+        self.verticalLayout_7.addItem(self.verticalSpacer)
 
-        self.btn_signup = QPushButton(SigninWindow)
+        self.verticalFrame = QFrame(SigninWindow)
+        self.verticalFrame.setObjectName(u"verticalFrame")
+        self.verticalFrame.setStyleSheet(u"background-color: rgba(255, 255, 255, 30);\n"
+"border: 1px solid rgba(255, 255, 255, 40);\n"
+"border-radius: 7px;")
+        self.verticalLayout_6 = QVBoxLayout(self.verticalFrame)
+        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        self.btn_signup = QPushButton(self.verticalFrame)
         self.btn_signup.setObjectName(u"btn_signup")
         font3 = QFont()
         font3.setFamilies([u"Sitka"])
-        font3.setPointSize(15)
+        font3.setPointSize(14)
         font3.setBold(False)
         font3.setItalic(False)
         self.btn_signup.setFont(font3)
         self.btn_signup.setStyleSheet(u"QPushButton {\n"
 "background-color: white;\n"
-"font: 15pt \"Sitka\";\n"
+"font: 14pt \"Sitka\";\n"
 "}\n"
 "QPushButton:hover {\n"
 "background-color: rgb(225, 225, 225);\n"
@@ -186,6 +204,9 @@ class Ui_SigninWindow(object):
 "}")
 
         self.verticalLayout_6.addWidget(self.btn_signup)
+
+
+        self.verticalLayout_7.addWidget(self.verticalFrame)
 
 
         self.retranslateUi(SigninWindow)
