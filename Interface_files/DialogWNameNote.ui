@@ -37,7 +37,7 @@
     <widget class="QLabel" name="label">
      <property name="font">
       <font>
-       <family>Segoe UI Black</family>
+       <family>Sitka</family>
        <pointsize>15</pointsize>
        <italic>false</italic>
        <bold>false</bold>
@@ -50,9 +50,9 @@
       <bool>false</bool>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 15pt &quot;Segoe UI Black&quot;;
+      <string notr="true">font: 15pt &quot;Sitka&quot;;
 background-color: none;
-color: rgb(83, 47, 95);
+color: black;
 border-radius: 7px;</string>
      </property>
      <property name="text">
@@ -106,7 +106,7 @@ background-color: white;
          <string/>
         </property>
         <property name="placeholderText">
-         <string>Новая записка</string>
+         <string>Новая заметка</string>
         </property>
        </widget>
       </item>
@@ -115,8 +115,8 @@ background-color: white;
         <property name="styleSheet">
          <string notr="true">QPushButton {
 background-color: white;
-font: 600 11pt &quot;Segoe UI Black&quot;;
-color: rgb(91, 61, 107);
+font: 600 11pt &quot;Sitka&quot;;
+color: black;
 }
 QPushButton:hover {
 background-color: rgb(225, 225, 225);

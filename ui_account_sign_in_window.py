@@ -58,9 +58,9 @@ class Ui_SigninWindow(object):
         font1.setBold(False)
         font1.setItalic(False)
         self.label_3.setFont(font1)
-        self.label_3.setStyleSheet(u"font: 20pt \"Sitka\";;\n"
+        self.label_3.setStyleSheet(u"font: 20pt \"Sitka\";\n"
 "background-color: none;\n"
-"color: rgb(91, 61, 107)\n"
+"color: black;\n"
 "")
 
         self.verticalLayout_3.addWidget(self.label_3, 0, Qt.AlignmentFlag.AlignHCenter)
@@ -97,7 +97,7 @@ class Ui_SigninWindow(object):
         font2.setItalic(False)
         self.label_login.setFont(font2)
         self.label_login.setStyleSheet(u"font: 17pt \"Sitka\";\n"
-"color: rgb(91, 61, 107)")
+"color: black;")
 
         self.verticalLayout.addWidget(self.label_login)
 
@@ -131,7 +131,7 @@ class Ui_SigninWindow(object):
         self.label_password.setObjectName(u"label_password")
         self.label_password.setFont(font2)
         self.label_password.setStyleSheet(u"font: 17pt \"Sitka\";\n"
-"color: rgb(91, 61, 107)")
+"color: black;")
 
         self.verticalLayout_2.addWidget(self.label_password)
 

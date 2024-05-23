@@ -67,9 +67,9 @@ color: white;</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Sitka&quot;;;
+        <string notr="true">font: 20pt &quot;Sitka&quot;;
 background-color: none;
-color: rgb(91, 61, 107)
+color: black;
 </string>
        </property>
        <property name="text">
@@ -139,7 +139,7 @@ border-radius: 7px;</string>
           </property>
           <property name="styleSheet">
            <string notr="true">font: 17pt &quot;Sitka&quot;;
-color: rgb(91, 61, 107)</string>
+color: black;</string>
           </property>
           <property name="text">
            <string>Придумайте логин:</string>
@@ -210,7 +210,7 @@ background-color: white;
           </property>
           <property name="styleSheet">
            <string notr="true">font: 17pt &quot;Sitka&quot;;
-color: rgb(91, 61, 107)</string>
+color: black;</string>
           </property>
           <property name="text">
            <string>Введите пароль:</string>

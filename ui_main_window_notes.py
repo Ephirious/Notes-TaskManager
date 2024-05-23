@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(737, 643)
+        MainWindow.resize(647, 686)
         icon = QIcon()
         icon.addFile(u":/icons/icons/axolot.png", QSize(), QIcon.Normal, QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -52,18 +52,18 @@ class Ui_MainWindow(object):
         self.btn_back.setMinimumSize(QSize(80, 25))
         self.btn_back.setMaximumSize(QSize(120, 25))
         font = QFont()
-        font.setFamilies([u"Segoe UI Black"])
-        font.setPointSize(11)
-        font.setWeight(QFont.Black)
+        font.setFamilies([u"Sitka"])
+        font.setPointSize(13)
+        font.setBold(False)
         font.setItalic(False)
         font.setStrikeOut(False)
         self.btn_back.setFont(font)
         self.btn_back.setStyleSheet(u"QPushButton {\n"
-"background-color: rgba(216, 193, 219, 180);\n"
+"background-color: rgb(255, 255, 245);\n"
 "border: 1px solid rgba(255, 255, 255, 70);\n"
 "border-radius: 5px;\n"
-"font: 900 11pt \"Segoe UI Black\";\n"
-"color: rgb(91, 61, 107)\n"
+"font: 13pt \"Sitka\";\n"
+"color: black;\n"
 "}\n"
 "QPushButton:hover {\n"
 "background-color: rgba(216, 193, 219, 230);\n"
@@ -154,11 +154,11 @@ class Ui_MainWindow(object):
         self.btn_add_note.setObjectName(u"btn_add_note")
         self.btn_add_note.setMaximumSize(QSize(120, 25))
         self.btn_add_note.setStyleSheet(u"QPushButton {\n"
-"background-color: rgba(216, 193, 219, 60);\n"
+"background-color: rgb(255, 255, 245);\n"
 "border: 1px solid rgba(255, 255, 255, 70);\n"
 "border-radius: 5px;\n"
-"font: 900 11pt \"Segoe UI Black\";\n"
-"color: rgb(91, 61, 107)\n"
+"font: 13pt \"Sitka\";\n"
+"color: black;\n"
 "}\n"
 "QPushButton:hover {\n"
 "background-color: rgba(216, 193, 219, 130);\n"
@@ -183,11 +183,11 @@ class Ui_MainWindow(object):
         self.btn_storage.setSizePolicy(sizePolicy1)
         self.btn_storage.setMaximumSize(QSize(120, 25))
         self.btn_storage.setStyleSheet(u"QPushButton {\n"
-"background-color: rgba(216, 193, 219, 60);\n"
+"background-color: rgb(255, 255, 245);\n"
 "border: 1px solid rgba(255, 255, 255, 70);\n"
 "border-radius: 5px;\n"
-"font: 900 11pt \"Segoe UI Black\";\n"
-"color: rgb(91, 61, 107)\n"
+"font: 13pt \"Sitka\";\n"
+"color: black;\n"
 "}\n"
 "QPushButton:hover {\n"
 "background-color: rgba(216, 193, 219, 130);\n"
@@ -206,11 +206,11 @@ class Ui_MainWindow(object):
         self.btn_settings.setObjectName(u"btn_settings")
         self.btn_settings.setMaximumSize(QSize(120, 25))
         self.btn_settings.setStyleSheet(u"QPushButton {\n"
-"background-color: rgba(216, 193, 219, 60);\n"
+"background-color: rgb(255, 255, 245);\n"
 "border: 1px solid rgba(255, 255, 255, 70);\n"
 "border-radius: 5px;\n"
-"font: 900 11pt \"Segoe UI Black\";\n"
-"color: rgb(91, 61, 107);\n"
+"font: 13pt \"Sitka\";\n"
+"color: black;\n"
 "}\n"
 "QPushButton:hover {\n"
 "background-color: rgba(216, 193, 219, 130);\n"
@@ -301,11 +301,11 @@ class Ui_MainWindow(object):
         self.btn_delete_note = QPushButton(self.centralwidget)
         self.btn_delete_note.setObjectName(u"btn_delete_note")
         self.btn_delete_note.setStyleSheet(u"QPushButton {\n"
-"background-color: rgba(216, 193, 219, 180);\n"
+"background-color: rgb(255, 255, 245);\n"
 "border: 1px solid rgba(255, 255, 255, 70);\n"
 "border-radius: 5px;\n"
-"font: 900 11pt \"Segoe UI Black\";\n"
-"color: rgb(91, 61, 107)\n"
+"font: 13pt \"Sitka\";\n"
+"color: black;\n"
 "}\n"
 "QPushButton:hover {\n"
 "background-color: rgba(216, 193, 219, 230);\n"
@@ -323,11 +323,11 @@ class Ui_MainWindow(object):
         self.btn_save = QPushButton(self.centralwidget)
         self.btn_save.setObjectName(u"btn_save")
         self.btn_save.setStyleSheet(u"QPushButton {\n"
-"background-color: rgba(216, 193, 219, 180);\n"
+"background-color: rgb(255, 255, 245);\n"
 "border: 1px solid rgba(255, 255, 255, 70);\n"
 "border-radius: 5px;\n"
-"font: 900 11pt \"Segoe UI Black\";\n"
-"color: rgb(91, 61, 107)\n"
+"font: 13pt \"Sitka\";\n"
+"color: black;\n"
 "}\n"
 "QPushButton:hover {\n"
 "background-color: rgba(216, 193, 219, 230);\n"

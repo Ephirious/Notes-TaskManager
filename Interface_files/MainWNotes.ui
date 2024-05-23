@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>737</width>
-    <height>643</height>
+    <width>647</width>
+    <height>686</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -58,20 +58,20 @@ border-radius: 7px;</string>
          </property>
          <property name="font">
           <font>
-           <family>Segoe UI Black</family>
-           <pointsize>11</pointsize>
+           <family>Sitka</family>
+           <pointsize>13</pointsize>
            <italic>false</italic>
+           <bold>false</bold>
            <strikeout>false</strikeout>
-           <fontweight>Black</fontweight>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">QPushButton {
-background-color: rgba(216, 193, 219, 180);
+background-color: rgb(255, 255, 245);
 border: 1px solid rgba(255, 255, 255, 70);
 border-radius: 5px;
-font: 900 11pt &quot;Segoe UI Black&quot;;
-color: rgb(91, 61, 107)
+font: 13pt &quot;Sitka&quot;;
+color: black;
 }
 QPushButton:hover {
 background-color: rgba(216, 193, 219, 230);
@@ -242,11 +242,11 @@ border-radius: 7px;</string>
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton {
-background-color: rgba(216, 193, 219, 60);
+background-color: rgb(255, 255, 245);
 border: 1px solid rgba(255, 255, 255, 70);
 border-radius: 5px;
-font: 900 11pt &quot;Segoe UI Black&quot;;
-color: rgb(91, 61, 107)
+font: 13pt &quot;Sitka&quot;;
+color: black;
 }
 QPushButton:hover {
 background-color: rgba(216, 193, 219, 130);
@@ -287,11 +287,11 @@ background-color: rgba(216, 193, 219, 150);
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton {
-background-color: rgba(216, 193, 219, 60);
+background-color: rgb(255, 255, 245);
 border: 1px solid rgba(255, 255, 255, 70);
 border-radius: 5px;
-font: 900 11pt &quot;Segoe UI Black&quot;;
-color: rgb(91, 61, 107)
+font: 13pt &quot;Sitka&quot;;
+color: black;
 }
 QPushButton:hover {
 background-color: rgba(216, 193, 219, 130);
@@ -320,11 +320,11 @@ background-color: rgba(216, 193, 219, 150);
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton {
-background-color: rgba(216, 193, 219, 60);
+background-color: rgb(255, 255, 245);
 border: 1px solid rgba(255, 255, 255, 70);
 border-radius: 5px;
-font: 900 11pt &quot;Segoe UI Black&quot;;
-color: rgb(91, 61, 107);
+font: 13pt &quot;Sitka&quot;;
+color: black;
 }
 QPushButton:hover {
 background-color: rgba(216, 193, 219, 130);
@@ -498,11 +498,11 @@ border-radius: 7px;</string>
            <widget class="QPushButton" name="btn_delete_note">
             <property name="styleSheet">
              <string notr="true">QPushButton {
-background-color: rgba(216, 193, 219, 180);
+background-color: rgb(255, 255, 245);
 border: 1px solid rgba(255, 255, 255, 70);
 border-radius: 5px;
-font: 900 11pt &quot;Segoe UI Black&quot;;
-color: rgb(91, 61, 107)
+font: 13pt &quot;Sitka&quot;;
+color: black;
 }
 QPushButton:hover {
 background-color: rgba(216, 193, 219, 230);
@@ -525,11 +525,11 @@ background-color: rgba(216, 193, 219, 255);
            <widget class="QPushButton" name="btn_save">
             <property name="styleSheet">
              <string notr="true">QPushButton {
-background-color: rgba(216, 193, 219, 180);
+background-color: rgb(255, 255, 245);
 border: 1px solid rgba(255, 255, 255, 70);
 border-radius: 5px;
-font: 900 11pt &quot;Segoe UI Black&quot;;
-color: rgb(91, 61, 107)
+font: 13pt &quot;Sitka&quot;;
+color: black;
 }
 QPushButton:hover {
 background-color: rgba(216, 193, 219, 230);

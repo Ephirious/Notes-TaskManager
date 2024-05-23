@@ -354,11 +354,11 @@ border-radius: 7px;</string>
         <property name="styleSheet">
          <string notr="true">font: 16pt &quot;Sitka&quot;;
 background-color: none;
-color: rgb(91, 61, 107)
+color: black
 </string>
         </property>
         <property name="text">
-         <string>Имя пользователя:</string>
+         <string>Введите имя пользователя:</string>
         </property>
        </widget>
       </item>
@@ -424,10 +424,11 @@ background-color: white;
         <property name="styleSheet">
          <string notr="true">font: 16pt &quot;Sitka&quot;;
 background-color: none;
-color: rgb(91, 61, 107)</string>
+color: black;
+</string>
         </property>
         <property name="text">
-         <string>Пароль:</string>
+         <string>Введите пароль:</string>
         </property>
        </widget>
       </item>
@@ -530,9 +531,9 @@ color: white;</string>
        <enum>Qt::LayoutDirection::LeftToRight</enum>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: 20pt &quot;Sitka&quot;;;
+       <string notr="true">font: 20pt &quot;Sitka&quot;;
 background-color: none;
-color: rgb(91, 61, 107)
+color: black;
 </string>
       </property>
       <property name="text">
