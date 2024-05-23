@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>647</width>
+    <width>1003</width>
     <height>686</height>
    </rect>
   </property>
@@ -74,11 +74,11 @@ font: 13pt &quot;Sitka&quot;;
 color: black;
 }
 QPushButton:hover {
-background-color: rgba(216, 193, 219, 230);
+background-color: rgb(227, 227, 227);
 }
 
 QPushButton:pressed {
-background-color: rgba(216, 193, 219, 255);
+background-color: rgb(255, 255, 245);
 }</string>
          </property>
          <property name="text">
@@ -150,39 +150,6 @@ color: white;</string>
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="btn_theme">
-         <property name="styleSheet">
-          <string notr="true">QPushButton {
-background-color: rgba(216, 193, 219, 60);
-border: 1px solid rgba(255, 255, 255, 70);
-border-radius: 5px;
-font: 900 11pt &quot;Segoe UI Black&quot;;
-color: rgb(91, 61, 107)
-}
-QPushButton:hover {
-background-color: rgba(216, 193, 219, 130);
-}
-
-QPushButton:pressed {
-background-color: rgba(216, 193, 219, 150);
-}</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="res.qrc">
-           <normaloff>:/icons/icons/dark_mode_FILL0_wght400_GRAD0_opsz24.svg</normaloff>:/icons/icons/dark_mode_FILL0_wght400_GRAD0_opsz24.svg</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>25</width>
-           <height>25</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QLabel" name="label_3">
          <property name="maximumSize">
           <size>
@@ -249,11 +216,11 @@ font: 13pt &quot;Sitka&quot;;
 color: black;
 }
 QPushButton:hover {
-background-color: rgba(216, 193, 219, 130);
+background-color: rgb(227, 227, 227);
 }
 
 QPushButton:pressed {
-background-color: rgba(216, 193, 219, 150);
+background-color: rgb(255, 255, 245);
 }</string>
            </property>
            <property name="text">
@@ -294,11 +261,11 @@ font: 13pt &quot;Sitka&quot;;
 color: black;
 }
 QPushButton:hover {
-background-color: rgba(216, 193, 219, 130);
+background-color: rgb(227, 227, 227);
 }
 
 QPushButton:pressed {
-background-color: rgba(216, 193, 219, 150);
+background-color: rgb(255, 255, 245);
 }</string>
            </property>
            <property name="text">
@@ -327,11 +294,11 @@ font: 13pt &quot;Sitka&quot;;
 color: black;
 }
 QPushButton:hover {
-background-color: rgba(216, 193, 219, 130);
+background-color: rgb(227, 227, 227);
 }
 
 QPushButton:pressed {
-background-color: rgba(216, 193, 219, 150);
+background-color: rgb(255, 255, 245);
 }</string>
            </property>
            <property name="text">
@@ -505,11 +472,11 @@ font: 13pt &quot;Sitka&quot;;
 color: black;
 }
 QPushButton:hover {
-background-color: rgba(216, 193, 219, 230);
+background-color: rgb(227, 227, 227);
 }
 
 QPushButton:pressed {
-background-color: rgba(216, 193, 219, 255);
+background-color: rgb(255, 255, 245);
 }</string>
             </property>
             <property name="text">
@@ -532,11 +499,11 @@ font: 13pt &quot;Sitka&quot;;
 color: black;
 }
 QPushButton:hover {
-background-color: rgba(216, 193, 219, 230);
+background-color: rgb(227, 227, 227);
 }
 
 QPushButton:pressed {
-background-color: rgba(216, 193, 219, 255);
+background-color: rgb(255, 255, 245);
 }</string>
             </property>
             <property name="text">

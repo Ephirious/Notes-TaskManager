@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(647, 686)
+        MainWindow.resize(1003, 686)
         icon = QIcon()
         icon.addFile(u":/icons/icons/axolot.png", QSize(), QIcon.Normal, QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -66,11 +66,11 @@ class Ui_MainWindow(object):
 "color: black;\n"
 "}\n"
 "QPushButton:hover {\n"
-"background-color: rgba(216, 193, 219, 230);\n"
+"background-color: rgb(227, 227, 227);\n"
 "}\n"
 "\n"
 "QPushButton:pressed {\n"
-"background-color: rgba(216, 193, 219, 255);\n"
+"background-color: rgb(255, 255, 245);\n"
 "}")
         icon1 = QIcon()
         icon1.addFile(u":/icons/icons/arrow_back_ios_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
@@ -103,29 +103,6 @@ class Ui_MainWindow(object):
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_3.addItem(self.horizontalSpacer)
-
-        self.btn_theme = QPushButton(self.frame1)
-        self.btn_theme.setObjectName(u"btn_theme")
-        self.btn_theme.setStyleSheet(u"QPushButton {\n"
-"background-color: rgba(216, 193, 219, 60);\n"
-"border: 1px solid rgba(255, 255, 255, 70);\n"
-"border-radius: 5px;\n"
-"font: 900 11pt \"Segoe UI Black\";\n"
-"color: rgb(91, 61, 107)\n"
-"}\n"
-"QPushButton:hover {\n"
-"background-color: rgba(216, 193, 219, 130);\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"background-color: rgba(216, 193, 219, 150);\n"
-"}")
-        icon2 = QIcon()
-        icon2.addFile(u":/icons/icons/dark_mode_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_theme.setIcon(icon2)
-        self.btn_theme.setIconSize(QSize(25, 25))
-
-        self.horizontalLayout_3.addWidget(self.btn_theme)
 
         self.label_3 = QLabel(self.frame1)
         self.label_3.setObjectName(u"label_3")
@@ -161,15 +138,15 @@ class Ui_MainWindow(object):
 "color: black;\n"
 "}\n"
 "QPushButton:hover {\n"
-"background-color: rgba(216, 193, 219, 130);\n"
+"background-color: rgb(227, 227, 227);\n"
 "}\n"
 "\n"
 "QPushButton:pressed {\n"
-"background-color: rgba(216, 193, 219, 150);\n"
+"background-color: rgb(255, 255, 245);\n"
 "}")
-        icon3 = QIcon()
-        icon3.addFile(u":/icons/icons/add_box_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_add_note.setIcon(icon3)
+        icon2 = QIcon()
+        icon2.addFile(u":/icons/icons/add_box_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_add_note.setIcon(icon2)
         self.btn_add_note.setIconSize(QSize(16, 16))
 
         self.buttonsLayout.addWidget(self.btn_add_note)
@@ -190,15 +167,15 @@ class Ui_MainWindow(object):
 "color: black;\n"
 "}\n"
 "QPushButton:hover {\n"
-"background-color: rgba(216, 193, 219, 130);\n"
+"background-color: rgb(227, 227, 227);\n"
 "}\n"
 "\n"
 "QPushButton:pressed {\n"
-"background-color: rgba(216, 193, 219, 150);\n"
+"background-color: rgb(255, 255, 245);\n"
 "}")
-        icon4 = QIcon()
-        icon4.addFile(u":/icons/icons/create_new_folder_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_storage.setIcon(icon4)
+        icon3 = QIcon()
+        icon3.addFile(u":/icons/icons/create_new_folder_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_storage.setIcon(icon3)
 
         self.buttonsLayout.addWidget(self.btn_storage)
 
@@ -213,15 +190,15 @@ class Ui_MainWindow(object):
 "color: black;\n"
 "}\n"
 "QPushButton:hover {\n"
-"background-color: rgba(216, 193, 219, 130);\n"
+"background-color: rgb(227, 227, 227);\n"
 "}\n"
 "\n"
 "QPushButton:pressed {\n"
-"background-color: rgba(216, 193, 219, 150);\n"
+"background-color: rgb(255, 255, 245);\n"
 "}")
-        icon5 = QIcon()
-        icon5.addFile(u":/icons/icons/settings_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_settings.setIcon(icon5)
+        icon4 = QIcon()
+        icon4.addFile(u":/icons/icons/settings_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_settings.setIcon(icon4)
 
         self.buttonsLayout.addWidget(self.btn_settings)
 
@@ -308,15 +285,15 @@ class Ui_MainWindow(object):
 "color: black;\n"
 "}\n"
 "QPushButton:hover {\n"
-"background-color: rgba(216, 193, 219, 230);\n"
+"background-color: rgb(227, 227, 227);\n"
 "}\n"
 "\n"
 "QPushButton:pressed {\n"
-"background-color: rgba(216, 193, 219, 255);\n"
+"background-color: rgb(255, 255, 245);\n"
 "}")
-        icon6 = QIcon()
-        icon6.addFile(u":/icons/icons/scan_delete_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_delete_note.setIcon(icon6)
+        icon5 = QIcon()
+        icon5.addFile(u":/icons/icons/scan_delete_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_delete_note.setIcon(icon5)
 
         self.horizontalLayout_2.addWidget(self.btn_delete_note)
 
@@ -330,15 +307,15 @@ class Ui_MainWindow(object):
 "color: black;\n"
 "}\n"
 "QPushButton:hover {\n"
-"background-color: rgba(216, 193, 219, 230);\n"
+"background-color: rgb(227, 227, 227);\n"
 "}\n"
 "\n"
 "QPushButton:pressed {\n"
-"background-color: rgba(216, 193, 219, 255);\n"
+"background-color: rgb(255, 255, 245);\n"
 "}")
-        icon7 = QIcon()
-        icon7.addFile(u":/icons/icons/save_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_save.setIcon(icon7)
+        icon6 = QIcon()
+        icon6.addFile(u":/icons/icons/save_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_save.setIcon(icon6)
 
         self.horizontalLayout_2.addWidget(self.btn_save)
 
@@ -362,7 +339,6 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Axolot's Notes", None))
         self.btn_back.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0437\u0430\u0434", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Axolot's Notes", None))
-        self.btn_theme.setText("")
         self.label_3.setText("")
         self.btn_add_note.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
         self.btn_storage.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0430\u043f\u043a\u0438", None))
