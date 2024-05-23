@@ -231,11 +231,11 @@ class NotesApp(QMainWindow):
 
     def open_note(self, element):
         global NOTE, STORAGE
-
         self.saveNote()
-        NOTE = STORAGE.get_note(FileEntry(element.text(0), element.text(2)))
-
-        self.ui.textEdit.setText(NOTE.read())
+        file_object = StorageExplorer().get_contents(element.text(2))
+        if type(file_object) is FileEntry:
+            NOTE = STORAGE.get_note(file_object)
+            self.ui.textEdit.setText(NOTE.read())
 
         self.flags_check()
 

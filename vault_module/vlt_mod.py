@@ -267,7 +267,7 @@ class Note:
             if self.path.split(".")[-1] != "json":
                 raise FileFormatError
             data = self.dict_fix()
-            dmp = json.dumps(data, indent=2)
+            dmp = json.dumps(data, ensure_ascii=False, indent=2)
             with open(self.path, 'w', encoding="utf-8") as file:
                 file.write(dmp)
 
