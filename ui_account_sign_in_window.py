@@ -170,7 +170,7 @@ class Ui_SigninWindow(object):
         self.label_error.setObjectName(u"label_error")
         self.label_error.setStyleSheet(u"color: rgb(0, 0, 0);")
 
-        self.verticalLayout_6.addWidget(self.label_error)
+        self.verticalLayout_2.addWidget(self.label_error)
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
