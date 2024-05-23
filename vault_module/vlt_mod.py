@@ -4,6 +4,8 @@ import json
 from random import randint
 import enc_module.enc_mod as encryption
 
+NOTE_JSON_STRUCTURE = {"user", "header", "id", "encryption", "data"}
+
 
 class FEWrongArguments(Exception):
     "Wrong arguments are given to FileExplorer method"
@@ -29,8 +31,7 @@ class NoteWrapperError(Exception):
 class FileEntry:
     """Basic (file) entry class for file hierarchy search
     """
-
-    def __init__(self, name: str, path: str):
+    def __init__(self, name: str,  path: str):
         self.name = name
         self.path = path
 
@@ -50,7 +51,6 @@ class FileEntry:
 class DirEntry(FileEntry):
     """Directory entry class for file hierarchy search
     """
-
     def __init__(self, name: str, path: str, contents: list):
         super().__init__(name, path)
         self.contents = contents
@@ -64,7 +64,6 @@ class DirEntry(FileEntry):
 class _FileExplorer():
     """works with paths, files and dirs
     """
-
     def __init__(self):
         self.curr_path = None
         self.dest_path = None
@@ -132,6 +131,14 @@ class _FileExplorer():
             return 2
         return 0
 
+    def get_entry(self, path):
+        f_type = self.type_check(path)
+        if f_type == 1:
+            return DirEntry(path.split("/")[-1], path, [])
+        if f_type == 2:
+            return FileEntry(path.split("/")[-1], path)
+        return None
+
     def get_contents(self, path):
         """Creates Entry object for entered path
 
@@ -144,15 +151,22 @@ class _FileExplorer():
             None: if path is incorrect or leads to neither dir nor file
         """
         contents = []
-        f_type = self.type_check(path)
-        if f_type == 1:
+        structure = []
+        x = self.get_entry(path)
+        if isinstance(x, DirEntry):
             entries = os.listdir(path)
             for name in entries:
                 contents.append(path + '/' + name)
-            return DirEntry(path.split("/")[-1], path, contents)
-        if f_type == 2:
-            return FileEntry(path.split("/")[-1], path)
+                structure.append(self.get_entry(path + '/' + name))
+            x.structure = structure
+            x.contents = contents
+            return x
+        if isinstance(x, FileEntry):
+            return x
         return None
+
+    def cmp(self, entry: FileEntry):
+        return isinstance(entry, FileEntry)
 
     def get_structure(self, path: str) -> DirEntry:
         """generates hierarchy of Entries
@@ -167,14 +181,103 @@ class _FileExplorer():
         for entry in root.contents:
             if self.type_check(entry) == 1:
                 root.structure.append(self.get_structure(entry))
-            elif self.type_check(entry) == 2:
+            elif self.type_check(entry) == 2 and self.cmp(entry):
                 root.structure.append(self.get_contents(entry))
         return root
+
+    def delete(self, entry):
+        """recursively deletes substructure
+
+        Args:
+            entry (FileEntry|DirEntry): entry that needs to be deleted
+
+        Raises:
+            FEWrongArguments: if entry was ot given
+
+        Returns:
+            int: 0 if deletion is succesfull, 1 if entry already does not exist
+        """
+        if isinstance(entry, FileEntry):
+            if self.check_existance(entry.path, "file"):
+                os.remove(self.fix_path(entry.path))
+                return 0
+            return 1
+        if isinstance(entry, DirEntry):
+            if self.check_existance(entry.path, "dir"):
+                entry = self.get_structure(entry.path)
+                for elem in entry.contents:
+                    self.delete(elem)
+                os.rmdir(self.fix_path(entry.path))
+                return 0
+            return 1
+        raise FEWrongArguments
+
+
+class Hierarchy:
+    """Represent file system hierarchy
+    """
+    def __init__(self, root: str):
+        f_e = _FileExplorer()
+        self.root = f_e.get_contents(root)
+        self.loaded = {}
+        self._f_e = _FileExplorer()
+
+    def load(self, dr_e: DirEntry) -> DirEntry:
+        """Loads structure of DirEntry
+
+        Args:
+            dr_e (DirEntry): DirEntry that needs to be loaded
+
+        Returns:
+            DirEntry: Loaded DirEntry
+        """
+        root = self._f_e.get_contents(dr_e.path)
+        for entry in root.contents:
+            if self._f_e.type_check(entry) in {1, 2}:
+                root.structure.append(self._f_e.get_contents(entry))
+        if self._f_e.check_existance(dr_e.path, "dir"):
+            self.loaded[dr_e.path] = root
+        return root
+
+    def update(self, path: str):
+        """Updates(reloads) structure of DirEntry
+
+        Args:
+            path (str): path of DirEntry that needs to be updated.
+        """
+        if path in self.loaded:
+            self.loaded[path] = self.load(self.loaded[path])
+
+    def delete(self, path: str):
+        """deletes entry from disk and hierarchy
+
+        Args:
+            path (str): path to entry for deletion.
+        """
+        if path in self.loaded:
+            self._f_e.delete(self.loaded[path])
+            stc = [self.loaded[path]]
+            while (len(stc)):
+                x = stc.pop()
+                for i in x.contents:
+                    if i in self.loaded:
+                        stc.append(self.loaded[i])
+                self.loaded.pop(x)
+        else:
+            self._f_e.delete(self._f_e.get_contents(path))
+        self.update("/".join(path.split("/")[-1]))
 
 
 class StorageExplorer(_FileExplorer):
     """File system explorer with Storage creating functionality
     """
+
+    def cmp(self, entry: FileEntry):
+        with open(entry.path, 'r', encoding="UTF-8") as file:
+            chk = all(isinstance(entry, FileEntry),
+                      entry.path.split('.')[-1] == 'json',
+                      set(json.load(file).keys()) == NOTE_JSON_STRUCTURE)
+            return chk
 
     def check_for_storage(self) -> bool:
         """checks if current path leads to storage
@@ -186,7 +289,7 @@ class StorageExplorer(_FileExplorer):
             return False
         self.dest_path = self.curr_path + "/.storage/storage.json"
         if (self.check_existance(self.dest_path, "file") and
-                os.path.getsize(self.dest_path) > 0):
+           os.path.getsize(self.dest_path) > 0):
             return True
         return False
 
@@ -215,7 +318,6 @@ class StorageExplorer(_FileExplorer):
 class Note:
     """represents notes in program
     """
-
     def __init__(self, path: str) -> None:
         self.header = str()
         self.user = str()
@@ -225,7 +327,7 @@ class Note:
         self.enc_parameters = list()
         self.data = str()
 
-    def dict_fix(self):
+    def __dict__(self):
         records = {}
         records["header"] = self.header
         records["user"] = self.user
@@ -245,7 +347,7 @@ class Note:
         """
         if self.path is not None:
             if self.path.split(".")[-1] != "json" or \
-                    not os.path.isfile(self.path):
+               not os.path.isfile(self.path):
                 raise FileFormatError
             with open(self.path, 'rb') as file:
                 records = json.load(file)
@@ -266,8 +368,7 @@ class Note:
         if self.path is not None:
             if self.path.split(".")[-1] != "json":
                 raise FileFormatError
-            data = self.dict_fix()
-            dmp = json.dumps(data, ensure_ascii=False, indent=2)
+            dmp = json.dumps(self.__dict__, ensure_ascii=False, indent=2)
             with open(self.path, 'w', encoding="utf-8") as file:
                 file.write(dmp)
 
@@ -286,18 +387,18 @@ class Note:
         alg = encryption.EncChaCha()
         salt = encryption.get_random_bytes(16)
         e_data, tag, nonce, _ = alg.encrypt(
-            self.data.encode("utf-8"),
-            encryption.bcrypt(
-                password,
-                cost=12,
-                salt=salt))
+                                            self.data.encode("utf-8"),
+                                            encryption.bcrypt(
+                                                password,
+                                                cost=12,
+                                                salt=salt))
         self.enc_flag = 1
         self.data = b64encode(e_data).decode("utf-8")
         self.enc_parameters = list(map(
-            lambda x: b64encode(x).decode("utf-8"),
-            [tag,
-             nonce,
-             salt]))
+                                       lambda x: b64encode(x).decode("utf-8"),
+                                       [tag,
+                                        nonce,
+                                        salt]))
 
     def unprotect(self, password):
         """decrypt note's data
@@ -314,8 +415,8 @@ class Note:
         alg = encryption.EncChaCha()
         self.data = b64decode(self.data.encode("utf-8"))
         self.enc_parameters = list(map(
-            lambda x: b64decode(x.encode("utf-8")),
-            self.enc_parameters))
+                                       lambda x: b64decode(x.encode("utf-8")),
+                                       self.enc_parameters))
         self.data, auth = alg.decrypt(self.data,
                                       self.enc_parameters[0],
                                       self.enc_parameters[1],
@@ -328,13 +429,13 @@ class Note:
         self.enc_parameters = []
 
     @staticmethod
-    def new_note(path=None):
+    def new_note():
         """creates new note with random id
 
         Returns:
             Note: new empty note
         """
-        new = Note(path)
+        new = Note(None)
         new.note_id = randint(1, 10 ** 10 - 1)
         return new
 
@@ -353,6 +454,11 @@ class Note:
         return read_note
 
     def copy(self):
+        """creates note object that copies original note (except for id)
+
+        Returns:
+            Note: note's copy
+        """
         new = Note.new_note()
         new.header = self.header
         new.data = self.data
@@ -363,23 +469,69 @@ class Note:
 
 
 class NoteWrapper():
+    """Class that provides wrapper for Note object
+    """
     def __init__(self, note: Note, protection):
         self._note = note
         self.protection_flag = protection
 
-    def change_header(self, header):
+    def change_header(self, header: str):
+        """changes header of note to provided one
+
+        Args:
+            header (str): new header of note
+        """
         self._note.header = header
 
     def change_path(self, path):
+        """changes path to note's file to provided one
+
+        Args:
+            path (str): new path
+        """
         self._note.path = path
 
+    def get_header(self) -> str:
+        """get header of note
+
+        Returns:
+            str: header of note
+        """
+        return self._note.header
+
+    def get_path(self) -> str:
+        """get path to note
+
+        Returns:
+            str: path to note
+        """
+        return self._note.path
+
     def write(self, new_data: str):
+        """change note's contents
+
+        Args:
+            new_data (str): new contents of note
+        """
         self._note.data = new_data
 
-    def read(self):
+    def read(self) -> str:
+        """read note's contents
+
+        Returns:
+            str: note's data
+        """
         return self._note.data
 
     def save(self, key=None):
+        """saves note to file
+
+        Args:
+            key (str, optional): key used for encryption. Defaults to None.
+
+        Raises:
+            NoteWrapperError: raised if wrong set of args were given
+        """
         if self.protection_flag and key is None:
             raise NoteWrapperError
         if self.protection_flag:
@@ -389,6 +541,11 @@ class NoteWrapper():
             self._note.unprotect(key)
 
     def copy(self):
+        """creates copy of note (only id differs)
+
+        Returns:
+            NoteWrapper: Wrapper of note's copy
+        """
         return NoteWrapper(self._note.copy(), self.protection_flag)
 
 
@@ -397,11 +554,12 @@ class Storage():
     """
 
     def __init__(self, path: str):
+        self.name = str()
         self.user = str()
-        self.name = path.split('/')[-1]
         self.path = path
         self.protection = bool()
-        self.storage_entry = list()
+        self.storage_entry = None
+        self.hierarchy = None
 
     def json_load(self, storage_data: dict):
         """loads storage data from read json (dict)
@@ -417,8 +575,8 @@ class Storage():
         """creates DirEntry of storage
         """
         if self.path is not None:
-            st_expl = StorageExplorer()
-            self.storage_entry = st_expl.get_structure(self.path)
+            self.hierarchy = Hierarchy(self.path)
+            self.storage_entry = self.hierarchy.root
 
     @staticmethod
     def new_storage(name: str, path: str, protection: bool):
@@ -432,6 +590,7 @@ class Storage():
         Returns:
             Storage: new storage object
         """
+
         new = Storage(path)
         new.protection = protection
         new.name = name
@@ -439,14 +598,44 @@ class Storage():
         return new
 
     def get_note(self, file: FileEntry) -> NoteWrapper:
+        """creates Notewrapper from note's FileEntry
+
+        Args:
+            file (FileEntry): _description_
+
+        Returns:
+            NoteWrapper: _description_
+        """
         return NoteWrapper(Note.load_from_entry(file), self.protection)
 
-    def create_note(self, path) -> NoteWrapper:
-        new = Note.new_note(path)
+    def create_note(self) -> NoteWrapper:
+        """creates new notewrapper object (not a file)
+
+        Returns:
+            NoteWrapper: _description_
+        """
+        new = Note.new_note()
         new.user = self.user
         return NoteWrapper(new, self.protection)
-
+    
     def save_as(self, note: NoteWrapper, path: str, key=None):
+        """writes note as file to a proveded path
+
+        Args:
+            note (NoteWrapper): note that will be written
+            path (str): path of new file
+            key (str, optional): encryption key. Defaults to None.
+        """
         new = note.copy()
         new.change_path(path)
         new.save(key)
+
+    def remove(self, entry):
+        """deletes entry from hierarchy and file system
+
+        Args:
+            entry (FileEntry|DirEntry): Entry that needs to be deleted.
+        """
+        self.hierarchy.delete(entry.path)
+
+
