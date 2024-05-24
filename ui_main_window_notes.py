@@ -220,9 +220,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(-1, -1, 12, -1)
         self.treeWidget = QTreeWidget(self.frame2)
-        __qtreewidgetitem = QTreeWidgetItem()
-        __qtreewidgetitem.setText(0, u"1");
-        self.treeWidget.setHeaderItem(__qtreewidgetitem)
         self.treeWidget.setObjectName(u"treeWidget")
         self.treeWidget.setMaximumSize(QSize(150, 16777215))
         font2 = QFont()
@@ -239,8 +236,8 @@ class Ui_MainWindow(object):
         self.treeWidget.setAnimated(True)
         self.treeWidget.setAllColumnsShowFocus(False)
         self.treeWidget.setWordWrap(False)
-        self.treeWidget.setHeaderHidden(True)
-        self.treeWidget.header().setVisible(False)
+        self.treeWidget.setHeaderHidden(False)
+        self.treeWidget.header().setVisible(True)
         self.treeWidget.header().setCascadingSectionResizes(False)
         self.treeWidget.header().setDefaultSectionSize(100)
         self.treeWidget.header().setHighlightSections(False)
@@ -343,6 +340,10 @@ class Ui_MainWindow(object):
         self.btn_add_note.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
         self.btn_storage.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0430\u043f\u043a\u0438", None))
         self.btn_settings.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438", None))
+        ___qtreewidgetitem = self.treeWidget.headerItem()
+        ___qtreewidgetitem.setText(2, QCoreApplication.translate("MainWindow", u"CreateDate", None));
+        ___qtreewidgetitem.setText(1, QCoreApplication.translate("MainWindow", u"Type", None));
+        ___qtreewidgetitem.setText(0, QCoreApplication.translate("MainWindow", u"Data", None));
         self.label_save_or_del.setText("")
         self.btn_delete_note.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.btn_save.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))

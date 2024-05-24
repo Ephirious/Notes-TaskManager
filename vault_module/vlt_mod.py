@@ -1,3 +1,4 @@
+import datetime
 import os
 from base64 import b64encode, b64decode
 import json
@@ -31,7 +32,8 @@ class NoteWrapperError(Exception):
 class FileEntry:
     """Basic (file) entry class for file hierarchy search
     """
-    def __init__(self, name: str,  path: str):
+
+    def __init__(self, name: str, path: str):
         self.name = name
         self.path = path
 
@@ -51,6 +53,7 @@ class FileEntry:
 class DirEntry(FileEntry):
     """Directory entry class for file hierarchy search
     """
+
     def __init__(self, name: str, path: str, contents: list):
         super().__init__(name, path)
         self.contents = contents
@@ -64,6 +67,7 @@ class DirEntry(FileEntry):
 class _FileExplorer():
     """works with paths, files and dirs
     """
+
     def __init__(self):
         self.curr_path = None
         self.dest_path = None
@@ -178,11 +182,7 @@ class _FileExplorer():
             DirEntry: root of structure
         """
         root = self.get_contents(path)
-        for entry in root.contents:
-            if self.type_check(entry) == 1:
-                root.structure.append(self.get_structure(entry))
-            elif self.type_check(entry) == 2 and self.cmp(entry):
-                root.structure.append(self.get_contents(entry))
+
         return root
 
     def delete(self, entry):
@@ -216,13 +216,14 @@ class _FileExplorer():
 class Hierarchy:
     """Represent file system hierarchy
     """
+
     def __init__(self, root: str):
         f_e = _FileExplorer()
         self.root = f_e.get_contents(root)
         self.loaded = {}
         self._f_e = _FileExplorer()
 
-    def load(self, dr_e: DirEntry) -> DirEntry:
+    def load(self, path: str) -> DirEntry:
         """Loads structure of DirEntry
 
         Args:
@@ -231,12 +232,14 @@ class Hierarchy:
         Returns:
             DirEntry: Loaded DirEntry
         """
-        root = self._f_e.get_contents(dr_e.path)
+
+        root = self._f_e.get_contents(path)
+        root.structure = []
         for entry in root.contents:
             if self._f_e.type_check(entry) in {1, 2}:
                 root.structure.append(self._f_e.get_contents(entry))
-        if self._f_e.check_existance(dr_e.path, "dir"):
-            self.loaded[dr_e.path] = root
+        if self._f_e.check_existance(path, "dir"):
+            self.loaded[path] = root
         return root
 
     def update(self, path: str):
@@ -272,12 +275,18 @@ class StorageExplorer(_FileExplorer):
     """File system explorer with Storage creating functionality
     """
 
-    def cmp(self, entry: FileEntry):
-        with open(entry.path, 'r', encoding="UTF-8") as file:
-            chk = all(isinstance(entry, FileEntry),
-                      entry.path.split('.')[-1] == 'json',
-                      set(json.load(file).keys()) == NOTE_JSON_STRUCTURE)
-            return chk
+    # def cmp(self, entry: FileEntry):
+    #     if isinstance(entry, FileEntry):
+    #         path = entry.path
+    #     elif isinstance(entry, str):
+    #         path = entry
+    #
+    #     with open(path, 'r', encoding="UTF-8") as file:
+    #         a = isinstance(entry, FileEntry)
+    #         b = path.split('.')[-1] == 'json'
+    #         c = set(json.load(file).keys()) == NOTE_JSON_STRUCTURE
+    #         chk = all(a, b, c)
+    #     return chk
 
     def check_for_storage(self) -> bool:
         """checks if current path leads to storage
@@ -289,7 +298,7 @@ class StorageExplorer(_FileExplorer):
             return False
         self.dest_path = self.curr_path + "/.storage/storage.json"
         if (self.check_existance(self.dest_path, "file") and
-           os.path.getsize(self.dest_path) > 0):
+                os.path.getsize(self.dest_path) > 0):
             return True
         return False
 
@@ -318,6 +327,7 @@ class StorageExplorer(_FileExplorer):
 class Note:
     """represents notes in program
     """
+
     def __init__(self, path: str) -> None:
         self.header = str()
         self.user = str()
@@ -326,17 +336,20 @@ class Note:
         self.enc_flag = int()
         self.enc_parameters = list()
         self.data = str()
+        self.createtime = str(datetime.datetime.now())
 
-    def __dict__(self):
-        records = {}
-        records["header"] = self.header
-        records["user"] = self.user
-        records["id"] = self.note_id
-        records["encryption"] = [0, 0]
+    def dict_fix(self):
+        records = {"header": self.header,
+                   "user": self.user,
+                   "id": self.note_id,
+                   "encryption": [0, 0],
+                   "data": self.data,
+                   "createtime": self.createtime}
+
         records["encryption"][0] = self.enc_flag
         if self.enc_flag != 0:
             records["encryption"][1] = self.enc_parameters
-        records["data"] = self.data
+
         return records
 
     def open(self):
@@ -347,7 +360,7 @@ class Note:
         """
         if self.path is not None:
             if self.path.split(".")[-1] != "json" or \
-               not os.path.isfile(self.path):
+                    not os.path.isfile(self.path):
                 raise FileFormatError
             with open(self.path, 'rb') as file:
                 records = json.load(file)
@@ -358,6 +371,7 @@ class Note:
             if self.enc_flag != 0:
                 self.enc_parameters = records["encryption"][1]
             self.data = records["data"]
+            self.createtime = records["createtime"]
 
     def save(self):
         """writes note's contents into .json file
@@ -368,7 +382,7 @@ class Note:
         if self.path is not None:
             if self.path.split(".")[-1] != "json":
                 raise FileFormatError
-            dmp = json.dumps(self.__dict__, ensure_ascii=False, indent=2)
+            dmp = json.dumps(self.dict_fix(), ensure_ascii=False, indent=2)
             with open(self.path, 'w', encoding="utf-8") as file:
                 file.write(dmp)
 
@@ -387,18 +401,18 @@ class Note:
         alg = encryption.EncChaCha()
         salt = encryption.get_random_bytes(16)
         e_data, tag, nonce, _ = alg.encrypt(
-                                            self.data.encode("utf-8"),
-                                            encryption.bcrypt(
-                                                password,
-                                                cost=12,
-                                                salt=salt))
+            self.data.encode("utf-8"),
+            encryption.bcrypt(
+                password,
+                cost=12,
+                salt=salt))
         self.enc_flag = 1
         self.data = b64encode(e_data).decode("utf-8")
         self.enc_parameters = list(map(
-                                       lambda x: b64encode(x).decode("utf-8"),
-                                       [tag,
-                                        nonce,
-                                        salt]))
+            lambda x: b64encode(x).decode("utf-8"),
+            [tag,
+             nonce,
+             salt]))
 
     def unprotect(self, password):
         """decrypt note's data
@@ -415,8 +429,8 @@ class Note:
         alg = encryption.EncChaCha()
         self.data = b64decode(self.data.encode("utf-8"))
         self.enc_parameters = list(map(
-                                       lambda x: b64decode(x.encode("utf-8")),
-                                       self.enc_parameters))
+            lambda x: b64decode(x.encode("utf-8")),
+            self.enc_parameters))
         self.data, auth = alg.decrypt(self.data,
                                       self.enc_parameters[0],
                                       self.enc_parameters[1],
@@ -429,13 +443,13 @@ class Note:
         self.enc_parameters = []
 
     @staticmethod
-    def new_note():
+    def new_note(path=None):
         """creates new note with random id
 
         Returns:
             Note: new empty note
         """
-        new = Note(None)
+        new = Note(path)
         new.note_id = randint(1, 10 ** 10 - 1)
         return new
 
@@ -465,12 +479,14 @@ class Note:
         new.enc_flag = self.enc_flag
         new.enc_parameters = self.enc_parameters
         new.user = self.user
+        new.createtime = datetime.datetime.now()
         return new
 
 
 class NoteWrapper():
     """Class that provides wrapper for Note object
     """
+
     def __init__(self, note: Note, protection):
         self._note = note
         self.protection_flag = protection
@@ -554,7 +570,7 @@ class Storage():
     """
 
     def __init__(self, path: str):
-        self.name = str()
+        self.name = path.split('/')[-1]
         self.user = str()
         self.path = path
         self.protection = bool()
@@ -608,16 +624,16 @@ class Storage():
         """
         return NoteWrapper(Note.load_from_entry(file), self.protection)
 
-    def create_note(self) -> NoteWrapper:
+    def create_note(self, path) -> NoteWrapper:
         """creates new notewrapper object (not a file)
 
         Returns:
             NoteWrapper: _description_
         """
-        new = Note.new_note()
+        new = Note.new_note(path)
         new.user = self.user
         return NoteWrapper(new, self.protection)
-    
+
     def save_as(self, note: NoteWrapper, path: str, key=None):
         """writes note as file to a proveded path
 
@@ -637,5 +653,3 @@ class Storage():
             entry (FileEntry|DirEntry): Entry that needs to be deleted.
         """
         self.hierarchy.delete(entry.path)
-
-
