@@ -1,12 +1,3 @@
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'Btn_add_dir.ui'
-##
-## Created by: Qt User Interface Compiler version 6.7.0
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
 
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
@@ -20,20 +11,20 @@ from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QLabel,
     QWidget)
 import res_rc
 
-class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        if not Dialog.objectName():
-            Dialog.setObjectName(u"Dialog")
-        Dialog.resize(367, 212)
-        Dialog.setMinimumSize(QSize(367, 212))
-        Dialog.setMaximumSize(QSize(367, 212))
+class Ui_WinDirAdd(object):
+    def setupUi(self, WinDirAdd):
+        if not WinDirAdd.objectName():
+            WinDirAdd.setObjectName(u"WinDirAdd")
+        WinDirAdd.resize(367, 212)
+        WinDirAdd.setMinimumSize(QSize(367, 212))
+        WinDirAdd.setMaximumSize(QSize(367, 212))
         icon = QIcon()
         icon.addFile(u":/icons/icons/axolot.png", QSize(), QIcon.Normal, QIcon.Off)
-        Dialog.setWindowIcon(icon)
-        Dialog.setStyleSheet(u"background:  qlineargradient(spread:repeat, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(255, 227, 195, 255), stop:1 rgba(245, 78, 140, 255))")
-        self.verticalLayout_2 = QVBoxLayout(Dialog)
+        WinDirAdd.setWindowIcon(icon)
+        WinDirAdd.setStyleSheet(u"background:  qlineargradient(spread:repeat, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(255, 227, 195, 255), stop:1 rgba(245, 78, 140, 255))")
+        self.verticalLayout_2 = QVBoxLayout(WinDirAdd)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.label = QLabel(Dialog)
+        self.label = QLabel(WinDirAdd)
         self.label.setObjectName(u"label")
         font = QFont()
         font.setFamilies([u"Sitka"])
@@ -50,13 +41,13 @@ class Ui_Dialog(object):
 
         self.verticalLayout_2.addWidget(self.label, 0, Qt.AlignmentFlag.AlignHCenter)
 
-        self.labelError = QLabel(Dialog)
+        self.labelError = QLabel(WinDirAdd)
         self.labelError.setObjectName(u"labelError")
         self.labelError.setStyleSheet(u"background-color: none;")
 
         self.verticalLayout_2.addWidget(self.labelError)
 
-        self.frame = QFrame(Dialog)
+        self.frame = QFrame(WinDirAdd)
         self.frame.setObjectName(u"frame")
         self.frame.setStyleSheet(u"background-color: rgba(216, 193, 219, 60);\n"
 "border: 1px solid rgba(255, 255, 255, 70);\n"
@@ -84,9 +75,9 @@ class Ui_Dialog(object):
 
         self.verticalLayout.addWidget(self.lineEdit)
 
-        self.pushButton = QPushButton(self.frame)
-        self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setStyleSheet(u"QPushButton {\n"
+        self.btn_add_dir = QPushButton(self.frame)
+        self.btn_add_dir.setObjectName(u"btn_add_dir")
+        self.btn_add_dir.setStyleSheet(u"QPushButton {\n"
 "background-color: white;\n"
 "font: 600 11pt \"Sitka\";\n"
 "color: black;\n"
@@ -99,23 +90,23 @@ class Ui_Dialog(object):
 "background-color: rgb(225, 225, 225);\n"
 "}")
 
-        self.verticalLayout.addWidget(self.pushButton)
+        self.verticalLayout.addWidget(self.btn_add_dir)
 
 
         self.verticalLayout_2.addWidget(self.frame)
 
 
-        self.retranslateUi(Dialog)
+        self.retranslateUi(WinDirAdd)
 
-        QMetaObject.connectSlotsByName(Dialog)
+        QMetaObject.connectSlotsByName(WinDirAdd)
     # setupUi
 
-    def retranslateUi(self, Dialog):
-        Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0444\u0430\u0439\u043b\u0430", None))
-        self.label.setText(QCoreApplication.translate("Dialog", u"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0438\u043c\u044f \u043d\u043e\u0432\u043e\u0439 \u043f\u0430\u043f\u043a\u0438:", None))
+    def retranslateUi(self, WinDirAdd):
+        WinDirAdd.setWindowTitle(QCoreApplication.translate("WinDirAdd", u"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0444\u0430\u0439\u043b\u0430", None))
+        self.label.setText(QCoreApplication.translate("WinDirAdd", u"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0438\u043c\u044f \u043d\u043e\u0432\u043e\u0439 \u043f\u0430\u043f\u043a\u0438:", None))
         self.labelError.setText("")
         self.lineEdit.setText("")
-        self.lineEdit.setPlaceholderText(QCoreApplication.translate("Dialog", u"\u041d\u043e\u0432\u0430\u044f \u043f\u0430\u043f\u043a\u0430", None))
-        self.pushButton.setText(QCoreApplication.translate("Dialog", u"\u0413\u043e\u0442\u043e\u0432\u043e", None))
+        self.lineEdit.setPlaceholderText(QCoreApplication.translate("WinDirAdd", u"\u041d\u043e\u0432\u0430\u044f \u043f\u0430\u043f\u043a\u0430", None))
+        self.btn_add_dir.setText(QCoreApplication.translate("WinDirAdd", u"\u0413\u043e\u0442\u043e\u0432\u043e", None))
     # retranslateUi
 

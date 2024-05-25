@@ -1,6 +1,7 @@
 <RCC>
   <qresource prefix="icons">
     <file>icons/dark_mode_FILL0_wght400_GRAD0_opsz24.svg</file>
+    <file>icons/folder_open_24dp_FILL0_wght400_GRAD0_opsz24.svg</file>
     <file>icons/scan_delete_FILL0_wght400_GRAD0_opsz24.svg</file>
     <file>icons/save_FILL0_wght400_GRAD0_opsz24.svg</file>
     <file>icons/axolot.png</file>

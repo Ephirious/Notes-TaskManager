@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1047, 716)
+        MainWindow.resize(875, 597)
         icon = QIcon()
         icon.addFile(u":/icons/icons/axolot.png", QSize(), QIcon.Normal, QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -119,10 +119,9 @@ class Ui_MainWindow(object):
 
         self.tabWidget = QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName(u"tabWidget")
-        self.tabWidget.setStyleSheet(u"border: 1px solid rgba(255, 255, 255, 70);\n"
-"border-radius: 5px;\n"
-"font: 13pt \"Sitka\";\n"
-"color: black;\n"
+        self.tabWidget.setStyleSheet(u"border-radius: 5px;\n"
+"font: 11pt \"Sitka\";\n"
+"\n"
 "")
         self.tab_7 = QWidget()
         self.tab_7.setObjectName(u"tab_7")
@@ -138,10 +137,10 @@ class Ui_MainWindow(object):
         self.buttonsLayout = QVBoxLayout(self.frame)
         self.buttonsLayout.setSpacing(6)
         self.buttonsLayout.setObjectName(u"buttonsLayout")
-        self.buttonsLayout.setContentsMargins(12, 1, 6, 12)
+        self.buttonsLayout.setContentsMargins(12, 12, 6, 12)
         self.btn_add_note = QPushButton(self.frame)
         self.btn_add_note.setObjectName(u"btn_add_note")
-        self.btn_add_note.setMaximumSize(QSize(120, 25))
+        self.btn_add_note.setMaximumSize(QSize(16777215, 25))
         self.btn_add_note.setStyleSheet(u"QPushButton {\n"
 "background-color: rgb(255, 255, 245);\n"
 "border: 1px solid rgba(255, 255, 255, 70);\n"
@@ -163,15 +162,9 @@ class Ui_MainWindow(object):
 
         self.buttonsLayout.addWidget(self.btn_add_note)
 
-        self.btn_storage = QPushButton(self.frame)
-        self.btn_storage.setObjectName(u"btn_storage")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.btn_storage.sizePolicy().hasHeightForWidth())
-        self.btn_storage.setSizePolicy(sizePolicy1)
-        self.btn_storage.setMaximumSize(QSize(120, 25))
-        self.btn_storage.setStyleSheet(u"QPushButton {\n"
+        self.btn_add_dir = QPushButton(self.frame)
+        self.btn_add_dir.setObjectName(u"btn_add_dir")
+        self.btn_add_dir.setStyleSheet(u"QPushButton {\n"
 "background-color: rgb(255, 255, 245);\n"
 "border: 1px solid rgba(255, 255, 255, 70);\n"
 "border-radius: 5px;\n"
@@ -187,14 +180,19 @@ class Ui_MainWindow(object):
 "}")
         icon3 = QIcon()
         icon3.addFile(u":/icons/icons/create_new_folder_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_storage.setIcon(icon3)
+        self.btn_add_dir.setIcon(icon3)
 
-        self.buttonsLayout.addWidget(self.btn_storage)
+        self.buttonsLayout.addWidget(self.btn_add_dir)
 
-        self.btn_settings = QPushButton(self.frame)
-        self.btn_settings.setObjectName(u"btn_settings")
-        self.btn_settings.setMaximumSize(QSize(120, 25))
-        self.btn_settings.setStyleSheet(u"QPushButton {\n"
+        self.btn_storage = QPushButton(self.frame)
+        self.btn_storage.setObjectName(u"btn_storage")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.btn_storage.sizePolicy().hasHeightForWidth())
+        self.btn_storage.setSizePolicy(sizePolicy1)
+        self.btn_storage.setMaximumSize(QSize(16777215, 25))
+        self.btn_storage.setStyleSheet(u"QPushButton {\n"
 "background-color: rgb(255, 255, 245);\n"
 "border: 1px solid rgba(255, 255, 255, 70);\n"
 "border-radius: 5px;\n"
@@ -209,8 +207,31 @@ class Ui_MainWindow(object):
 "background-color: rgb(255, 255, 245);\n"
 "}")
         icon4 = QIcon()
-        icon4.addFile(u":/icons/icons/settings_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_settings.setIcon(icon4)
+        icon4.addFile(u":/icons/icons/folder_open_24dp_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_storage.setIcon(icon4)
+
+        self.buttonsLayout.addWidget(self.btn_storage)
+
+        self.btn_settings = QPushButton(self.frame)
+        self.btn_settings.setObjectName(u"btn_settings")
+        self.btn_settings.setMaximumSize(QSize(16777215, 25))
+        self.btn_settings.setStyleSheet(u"QPushButton {\n"
+"background-color: rgb(255, 255, 245);\n"
+"border: 1px solid rgba(255, 255, 255, 70);\n"
+"border-radius: 5px;\n"
+"font: 13pt \"Sitka\";\n"
+"color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgb(222, 222, 213);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(255, 255, 245);\n"
+"}")
+        icon5 = QIcon()
+        icon5.addFile(u":/icons/icons/settings_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_settings.setIcon(icon5)
 
         self.buttonsLayout.addWidget(self.btn_settings)
 
@@ -232,16 +253,20 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(-1, -1, 12, -1)
         self.treeWidget = QTreeWidget(self.frame2)
+        __qtreewidgetitem = QTreeWidgetItem()
+        __qtreewidgetitem.setText(0, u"Data");
+        self.treeWidget.setHeaderItem(__qtreewidgetitem)
         self.treeWidget.setObjectName(u"treeWidget")
         self.treeWidget.setMaximumSize(QSize(150, 16777215))
         font2 = QFont()
         font2.setFamilies([u"Sitka"])
-        font2.setPointSize(13)
+        font2.setPointSize(11)
         font2.setBold(False)
         font2.setItalic(False)
         self.treeWidget.setFont(font2)
         self.treeWidget.setFrameShadow(QFrame.Shadow.Plain)
-        self.treeWidget.setDragEnabled(True)
+        self.treeWidget.setProperty("showDropIndicator", False)
+        self.treeWidget.setDragEnabled(False)
         self.treeWidget.setDragDropOverwriteMode(False)
         self.treeWidget.setDragDropMode(QAbstractItemView.DragDropMode.InternalMove)
         self.treeWidget.setAlternatingRowColors(False)
@@ -280,8 +305,7 @@ class Ui_MainWindow(object):
         self.label_save_or_del.setMinimumSize(QSize(0, 0))
         self.label_save_or_del.setMaximumSize(QSize(250, 50))
         self.label_save_or_del.setStyleSheet(u"background-color: none;\n"
-"\n"
-"")
+"border: none;")
 
         self.horizontalLayout_2.addWidget(self.label_save_or_del)
 
@@ -301,9 +325,9 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 "background-color: rgb(255, 255, 245);\n"
 "}")
-        icon5 = QIcon()
-        icon5.addFile(u":/icons/icons/scan_delete_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_delete_note.setIcon(icon5)
+        icon6 = QIcon()
+        icon6.addFile(u":/icons/icons/scan_delete_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_delete_note.setIcon(icon6)
 
         self.horizontalLayout_2.addWidget(self.btn_delete_note)
 
@@ -323,9 +347,9 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 "background-color: rgb(255, 255, 245);\n"
 "}")
-        icon6 = QIcon()
-        icon6.addFile(u":/icons/icons/save_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_save.setIcon(icon6)
+        icon7 = QIcon()
+        icon7.addFile(u":/icons/icons/save_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_save.setIcon(icon7)
 
         self.horizontalLayout_2.addWidget(self.btn_save)
 
@@ -348,22 +372,26 @@ class Ui_MainWindow(object):
         self.frame_2.setStyleSheet(u"background-color: rgb(255, 255, 255);")
         self.frame_2.setFrameShape(QFrame.Shape.StyledPanel)
         self.frame_2.setFrameShadow(QFrame.Shadow.Raised)
+        self.verticalLayout_4 = QVBoxLayout(self.frame_2)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.frame_3 = QFrame(self.frame_2)
         self.frame_3.setObjectName(u"frame_3")
-        self.frame_3.setGeometry(QRect(10, 10, 981, 80))
         self.frame_3.setStyleSheet(u"background-color: rgb(253, 200, 185)")
         self.frame_3.setFrameShape(QFrame.Shape.StyledPanel)
         self.frame_3.setFrameShadow(QFrame.Shadow.Raised)
+        self.horizontalLayout_5 = QHBoxLayout(self.frame_3)
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
         self.label_2 = QLabel(self.frame_3)
         self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(0, 0, 321, 81))
         self.label_2.setStyleSheet(u"font: 20pt \"Ravie\";\n"
 "background-color: none;\n"
 "color: white;\n"
 "")
+
+        self.horizontalLayout_5.addWidget(self.label_2)
+
         self.pushButton = QPushButton(self.frame_3)
         self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setGeometry(QRect(800, 30, 171, 31))
         self.pushButton.setStyleSheet(u"QPushButton {\n"
 "background-color: rgb(255, 255, 245);\n"
 "border: 1px solid rgba(255, 255, 255, 70);\n"
@@ -378,26 +406,14 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 "background-color: rgb(255, 255, 245);\n"
 "}")
-        self.pushButton_2 = QPushButton(self.frame_2)
-        self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setGeometry(QRect(780, 530, 101, 24))
-        self.pushButton_2.setStyleSheet(u"QPushButton {\n"
-"background-color: rgb(251, 198, 184);\n"
-"border: 1px solid rgba(255, 255, 255, 70);\n"
-"border-radius: 5px;\n"
-"font: 13pt \"Sitka\";\n"
-"color: black;\n"
-"}\n"
-"QPushButton:hover {\n"
-"background-color: rgb(209, 164, 153);\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"background-color: rgb(251, 198, 184);\n"
-"}")
+
+        self.horizontalLayout_5.addWidget(self.pushButton)
+
+
+        self.verticalLayout_4.addWidget(self.frame_3)
+
         self.pushButton_3 = QPushButton(self.frame_2)
         self.pushButton_3.setObjectName(u"pushButton_3")
-        self.pushButton_3.setGeometry(QRect(890, 530, 101, 24))
         self.pushButton_3.setStyleSheet(u"QPushButton {\n"
 "background-color: rgb(251, 198, 184);\n"
 "border: 1px solid rgba(255, 255, 255, 70);\n"
@@ -413,6 +429,28 @@ class Ui_MainWindow(object):
 "background-color: rgb(251, 198, 184);\n"
 "}")
 
+        self.verticalLayout_4.addWidget(self.pushButton_3)
+
+        self.pushButton_2 = QPushButton(self.frame_2)
+        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.pushButton_2.setStyleSheet(u"QPushButton {\n"
+"background-color: rgb(251, 198, 184);\n"
+"border: 1px solid rgba(255, 255, 255, 70);\n"
+"border-radius: 5px;\n"
+"font: 13pt \"Sitka\";\n"
+"color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgb(209, 164, 153);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(251, 198, 184);\n"
+"}")
+
+        self.verticalLayout_4.addWidget(self.pushButton_2)
+
+
         self.verticalLayout_3.addWidget(self.frame_2)
 
         self.tabWidget.addTab(self.tab_8, "")
@@ -423,7 +461,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -434,21 +472,21 @@ class Ui_MainWindow(object):
         self.btn_back.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0437\u0430\u0434", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Axolot's Notes", None))
         self.label_3.setText("")
-        self.btn_add_note.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
+        self.btn_add_note.setText(QCoreApplication.translate("MainWindow", u"\u041d\u043e\u0432\u0430\u044f \u0437\u0430\u043c\u0435\u0442\u043a\u0430", None))
+        self.btn_add_dir.setText(QCoreApplication.translate("MainWindow", u"\u041d\u043e\u0432\u0430\u044f \u043f\u0430\u043f\u043a\u0430", None))
         self.btn_storage.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0430\u043f\u043a\u0438", None))
         self.btn_settings.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438", None))
         ___qtreewidgetitem = self.treeWidget.headerItem()
-        ___qtreewidgetitem.setText(2, QCoreApplication.translate("MainWindow", u"CreateDate", None));
+        ___qtreewidgetitem.setText(2, QCoreApplication.translate("MainWindow", u"Time of creation", None));
         ___qtreewidgetitem.setText(1, QCoreApplication.translate("MainWindow", u"Type", None));
-        ___qtreewidgetitem.setText(0, QCoreApplication.translate("MainWindow", u"Data", None));
         self.label_save_or_del.setText("")
         self.btn_delete_note.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.btn_save.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_7), QCoreApplication.translate("MainWindow", u"\u0417\u0430\u043c\u0435\u0442\u043a\u0438", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"   Task Manager", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0437\u0430\u0434\u0430\u0447\u0443", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
+        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_8), QCoreApplication.translate("MainWindow", u"\u0417\u0430\u0434\u0430\u0447\u0438", None))
     # retranslateUi
 

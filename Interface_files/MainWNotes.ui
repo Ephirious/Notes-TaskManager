@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1047</width>
-    <height>716</height>
+    <width>875</width>
+    <height>597</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -177,14 +177,13 @@ color: white;</string>
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="styleSheet">
-       <string notr="true">border: 1px solid rgba(255, 255, 255, 70);
-border-radius: 5px;
-font: 13pt &quot;Sitka&quot;;
-color: black;
+       <string notr="true">border-radius: 5px;
+font: 11pt &quot;Sitka&quot;;
+
 </string>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_7">
        <attribute name="title">
@@ -208,7 +207,7 @@ border-radius: 7px;</string>
               <number>12</number>
              </property>
              <property name="topMargin">
-              <number>1</number>
+              <number>12</number>
              </property>
              <property name="rightMargin">
               <number>6</number>
@@ -220,7 +219,7 @@ border-radius: 7px;</string>
               <widget class="QPushButton" name="btn_add_note">
                <property name="maximumSize">
                 <size>
-                 <width>120</width>
+                 <width>16777215</width>
                  <height>25</height>
                 </size>
                </property>
@@ -241,7 +240,7 @@ background-color: rgb(255, 255, 245);
 }</string>
                </property>
                <property name="text">
-                <string>Добавить</string>
+                <string>Новая заметка</string>
                </property>
                <property name="icon">
                 <iconset resource="res.qrc">
@@ -256,6 +255,33 @@ background-color: rgb(255, 255, 245);
               </widget>
              </item>
              <item>
+              <widget class="QPushButton" name="btn_add_dir">
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+background-color: rgb(255, 255, 245);
+border: 1px solid rgba(255, 255, 255, 70);
+border-radius: 5px;
+font: 13pt &quot;Sitka&quot;;
+color: black;
+}
+QPushButton:hover {
+background-color: rgb(222, 222, 213);
+}
+
+QPushButton:pressed {
+background-color: rgb(255, 255, 245);
+}</string>
+               </property>
+               <property name="text">
+                <string>Новая папка</string>
+               </property>
+               <property name="icon">
+                <iconset resource="res.qrc">
+                 <normaloff>:/icons/icons/create_new_folder_FILL0_wght400_GRAD0_opsz24.svg</normaloff>:/icons/icons/create_new_folder_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QPushButton" name="btn_storage">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -265,7 +291,7 @@ background-color: rgb(255, 255, 245);
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>120</width>
+                 <width>16777215</width>
                  <height>25</height>
                 </size>
                </property>
@@ -290,7 +316,7 @@ background-color: rgb(255, 255, 245);
                </property>
                <property name="icon">
                 <iconset resource="res.qrc">
-                 <normaloff>:/icons/icons/create_new_folder_FILL0_wght400_GRAD0_opsz24.svg</normaloff>:/icons/icons/create_new_folder_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+                 <normaloff>:/icons/icons/folder_open_24dp_FILL0_wght400_GRAD0_opsz24.svg</normaloff>:/icons/icons/folder_open_24dp_FILL0_wght400_GRAD0_opsz24.svg</iconset>
                </property>
               </widget>
              </item>
@@ -298,7 +324,7 @@ background-color: rgb(255, 255, 245);
               <widget class="QPushButton" name="btn_settings">
                <property name="maximumSize">
                 <size>
-                 <width>120</width>
+                 <width>16777215</width>
                  <height>25</height>
                 </size>
                </property>
@@ -367,7 +393,7 @@ border-radius: 7px;</string>
                  <property name="font">
                   <font>
                    <family>Sitka</family>
-                   <pointsize>13</pointsize>
+                   <pointsize>11</pointsize>
                    <italic>false</italic>
                    <bold>false</bold>
                   </font>
@@ -375,8 +401,11 @@ border-radius: 7px;</string>
                  <property name="frameShadow">
                   <enum>QFrame::Shadow::Plain</enum>
                  </property>
+                 <property name="showDropIndicator" stdset="0">
+                  <bool>false</bool>
+                 </property>
                  <property name="dragEnabled">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                  <property name="dragDropOverwriteMode">
                   <bool>false</bool>
@@ -400,10 +429,10 @@ border-radius: 7px;</string>
                   <bool>false</bool>
                  </property>
                  <property name="headerHidden">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                  <attribute name="headerVisible">
-                  <bool>false</bool>
+                  <bool>true</bool>
                  </attribute>
                  <attribute name="headerCascadingSectionResizes">
                   <bool>false</bool>
@@ -419,7 +448,17 @@ border-radius: 7px;</string>
                  </attribute>
                  <column>
                   <property name="text">
-                   <string notr="true">1</string>
+                   <string notr="true">Data</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Type</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Time of creation</string>
                   </property>
                  </column>
                 </widget>
@@ -471,8 +510,7 @@ border-radius: 7px;</string>
                 </property>
                 <property name="styleSheet">
                  <string notr="true">background-color: none;
-
-</string>
+border: none;</string>
                 </property>
                 <property name="text">
                  <string/>
@@ -557,54 +595,36 @@ background-color: rgb(255, 255, 245);
           <property name="frameShadow">
            <enum>QFrame::Shadow::Raised</enum>
           </property>
-          <widget class="QFrame" name="frame_3">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>10</y>
-             <width>981</width>
-             <height>80</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(253, 200, 185)</string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::Shape::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Shadow::Raised</enum>
-           </property>
-           <widget class="QLabel" name="label_2">
-            <property name="geometry">
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>321</width>
-              <height>81</height>
-             </rect>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: 20pt &quot;Ravie&quot;;
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <widget class="QFrame" name="frame_3">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(253, 200, 185)</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Shape::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Shadow::Raised</enum>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_5">
+              <item>
+               <widget class="QLabel" name="label_2">
+                <property name="styleSheet">
+                 <string notr="true">font: 20pt &quot;Ravie&quot;;
 background-color: none;
 color: white;
 </string>
-            </property>
-            <property name="text">
-             <string>   Task Manager</string>
-            </property>
-           </widget>
-           <widget class="QPushButton" name="pushButton">
-            <property name="geometry">
-             <rect>
-              <x>800</x>
-              <y>30</y>
-              <width>171</width>
-              <height>31</height>
-             </rect>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QPushButton {
+                </property>
+                <property name="text">
+                 <string>   Task Manager</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton">
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
 background-color: rgb(255, 255, 245);
 border: 1px solid rgba(255, 255, 255, 70);
 border-radius: 5px;
@@ -618,23 +638,19 @@ background-color: rgb(222, 222, 213);
 QPushButton:pressed {
 background-color: rgb(255, 255, 245);
 }</string>
-            </property>
-            <property name="text">
-             <string>Добавить задачу</string>
-            </property>
-           </widget>
-          </widget>
-          <widget class="QPushButton" name="pushButton_2">
-           <property name="geometry">
-            <rect>
-             <x>780</x>
-             <y>530</y>
-             <width>101</width>
-             <height>24</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QPushButton {
+                </property>
+                <property name="text">
+                 <string>Добавить задачу</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_3">
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
 background-color: rgb(251, 198, 184);
 border: 1px solid rgba(255, 255, 255, 70);
 border-radius: 5px;
@@ -648,22 +664,16 @@ background-color: rgb(209, 164, 153);
 QPushButton:pressed {
 background-color: rgb(251, 198, 184);
 }</string>
-           </property>
-           <property name="text">
-            <string>Удалить</string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="pushButton_3">
-           <property name="geometry">
-            <rect>
-             <x>890</x>
-             <y>530</y>
-             <width>101</width>
-             <height>24</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QPushButton {
+             </property>
+             <property name="text">
+              <string>Сохранить</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_2">
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
 background-color: rgb(251, 198, 184);
 border: 1px solid rgba(255, 255, 255, 70);
 border-radius: 5px;
@@ -677,11 +687,13 @@ background-color: rgb(209, 164, 153);
 QPushButton:pressed {
 background-color: rgb(251, 198, 184);
 }</string>
-           </property>
-           <property name="text">
-            <string>Сохранить</string>
-           </property>
-          </widget>
+             </property>
+             <property name="text">
+              <string>Удалить</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
