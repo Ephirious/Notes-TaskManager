@@ -386,16 +386,19 @@ class Note:
         if self.enc_flag != 0:
             raise ProtectionError
         alg = encryption.EncChaCha()
-        salt = encryption.get_random_bytes(16)
-        e_data, tag, nonce, _ = alg.encrypt(self.data.encode("utf-8"),
-                                            password)
+        e_data, d_tag, d_nonce, _ = alg.encrypt(self.data.encode("utf-8"),
+                                                password)
+        e_header, h_tag, h_nonce, _ = alg.encrypt(self.data.encode("utf-8"),
+                                                  password)
         self.enc_flag = 1
         self.data = b64encode(e_data).decode("utf-8")
+        self.header = b64encode(e_header).decode("utf-8")
         self.enc_parameters = list(map(
             lambda x: b64encode(x).decode("utf-8"),
-            [tag,
-             nonce,
-             salt]))
+            [d_tag,
+             d_nonce,
+             h_tag,
+             h_nonce]))
 
     def unprotect(self, password):
         """decrypt note's data
@@ -411,6 +414,7 @@ class Note:
             raise ProtectionError
         alg = encryption.EncChaCha()
         self.data = b64decode(self.data.encode("utf-8"))
+        self.header = b64decode(self.header.encode("utf-8")) 
         self.enc_parameters = list(map(
             lambda x: b64decode(x.encode("utf-8")),
             self.enc_parameters))
@@ -420,7 +424,14 @@ class Note:
                                       password)
         if not auth:
             raise encryption.EncAuthError
+        self.header, auth = alg.decrypt(self.header,
+                                        self.enc_parameters[2],
+                                        self.enc_parameters[3],
+                                        password)
+        if not auth:
+            raise encryption.EncAuthError
         self.data = self.data.decode("utf-8")
+        self.header = self.header.decode("utf-8")
         self.enc_flag = 0
         self.enc_parameters = []
 
@@ -469,9 +480,11 @@ class NoteWrapper():
     """Class that provides wrapper for Note object
     """
 
-    def __init__(self, note: Note, protection):
+    def __init__(self, note: Note, protection, key=None):
         self._note = note
         self.protection_flag = protection
+        if protection and key is not None:
+            self._note.unprotect(key)
 
     def change_header(self, header: str):
         """changes header of note to provided one
