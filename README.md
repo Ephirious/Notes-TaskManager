@@ -69,7 +69,7 @@
 - [Игорь Савков](https://github.com/GoldGlaid) - fullstack-Разработчик, Тимлид
 - [Егор Якубович](https://github.com/soules-one) - backend-Разработчик
 - [Алёна Сергеева](https://github.com/ваш-аккаунт) - frontend-Разработчик
-- [Анна Амелина](https://github.com/ваш-аккаунт) - fullstack-Разработчик
+- [Анна Амелина](https://github.com/anegamelina) - fullstack-Разработчик
 
 Студенты Московского авиационного института (МАИ).
 
