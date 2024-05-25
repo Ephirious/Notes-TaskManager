@@ -244,12 +244,12 @@ class Ui_LoginWindow(object):
         self.label_App.setObjectName(u"label_App")
         font1 = QFont()
         font1.setFamilies([u"Ravie"])
-        font1.setPointSize(30)
+        font1.setPointSize(23)
         font1.setBold(True)
         font1.setItalic(False)
         font1.setUnderline(False)
         self.label_App.setFont(font1)
-        self.label_App.setStyleSheet(u"font: 30pt \"Ravie\";\n"
+        self.label_App.setStyleSheet(u"font: 23pt \"Ravie\";\n"
 "font-weight: bold;\n"
 "background-color: none;\n"
 "color: white;")

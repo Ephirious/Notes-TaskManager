@@ -40,13 +40,13 @@
        <property name="font">
         <font>
          <family>Ravie</family>
-         <pointsize>30</pointsize>
+         <pointsize>29</pointsize>
          <italic>false</italic>
          <bold>true</bold>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 30pt &quot;Ravie&quot;;
+        <string notr="true">font: 29pt &quot;Ravie&quot;;
 font-weight: bold;
 background-color: none;
 color: white;</string>

@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1043, 712)
+        MainWindow.resize(1047, 716)
         icon = QIcon()
         icon.addFile(u":/icons/icons/axolot.png", QSize(), QIcon.Normal, QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -87,7 +87,7 @@ class Ui_MainWindow(object):
         self.label.setObjectName(u"label")
         sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
         self.label.setSizePolicy(sizePolicy)
-        self.label.setMaximumSize(QSize(300, 100))
+        self.label.setMaximumSize(QSize(400, 100))
         font1 = QFont()
         font1.setFamilies([u"Ravie"])
         font1.setPointSize(30)
@@ -344,27 +344,29 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.tab_7, "")
         self.tab_8 = QWidget()
         self.tab_8.setObjectName(u"tab_8")
+        self.verticalLayout_3 = QVBoxLayout(self.tab_8)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.frame_2 = QFrame(self.tab_8)
         self.frame_2.setObjectName(u"frame_2")
-        self.frame_2.setGeometry(QRect(0, 0, 941, 571))
         self.frame_2.setStyleSheet(u"background-color: rgb(255, 255, 255);")
         self.frame_2.setFrameShape(QFrame.Shape.StyledPanel)
         self.frame_2.setFrameShadow(QFrame.Shadow.Raised)
         self.frame_3 = QFrame(self.frame_2)
         self.frame_3.setObjectName(u"frame_3")
-        self.frame_3.setGeometry(QRect(10, 10, 921, 80))
+        self.frame_3.setGeometry(QRect(10, 10, 981, 80))
         self.frame_3.setStyleSheet(u"background-color: rgb(253, 200, 185)")
         self.frame_3.setFrameShape(QFrame.Shape.StyledPanel)
         self.frame_3.setFrameShadow(QFrame.Shadow.Raised)
         self.label_2 = QLabel(self.frame_3)
         self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(0, 0, 921, 81))
+        self.label_2.setGeometry(QRect(0, 0, 321, 81))
         self.label_2.setStyleSheet(u"font: 20pt \"Ravie\";\n"
-"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(255, 196, 169, 255), stop:1 rgba(253, 217, 223, 255));\n"
-"color: white;")
+"background-color: none;\n"
+"color: white;\n"
+"")
         self.pushButton = QPushButton(self.frame_3)
         self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setGeometry(QRect(730, 23, 171, 31))
+        self.pushButton.setGeometry(QRect(800, 30, 171, 31))
         self.pushButton.setStyleSheet(u"QPushButton {\n"
 "background-color: rgb(255, 255, 245);\n"
 "border: 1px solid rgba(255, 255, 255, 70);\n"
@@ -379,18 +381,9 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 "background-color: rgb(255, 255, 245);\n"
 "}")
-        self.treeWidget_2 = QTreeWidget(self.frame_2)
-        font3 = QFont()
-        font3.setPointSize(12)
-        __qtreewidgetitem1 = QTreeWidgetItem()
-        __qtreewidgetitem1.setFont(0, font3);
-        self.treeWidget_2.setHeaderItem(__qtreewidgetitem1)
-        self.treeWidget_2.setObjectName(u"treeWidget_2")
-        self.treeWidget_2.setGeometry(QRect(20, 100, 901, 421))
-        self.treeWidget_2.setStyleSheet(u"background-color: rgb(253, 228, 223);")
         self.pushButton_2 = QPushButton(self.frame_2)
         self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setGeometry(QRect(710, 530, 101, 24))
+        self.pushButton_2.setGeometry(QRect(780, 530, 101, 24))
         self.pushButton_2.setStyleSheet(u"QPushButton {\n"
 "background-color: rgb(251, 198, 184);\n"
 "border: 1px solid rgba(255, 255, 255, 70);\n"
@@ -407,7 +400,7 @@ class Ui_MainWindow(object):
 "}")
         self.pushButton_3 = QPushButton(self.frame_2)
         self.pushButton_3.setObjectName(u"pushButton_3")
-        self.pushButton_3.setGeometry(QRect(820, 530, 101, 24))
+        self.pushButton_3.setGeometry(QRect(890, 530, 101, 24))
         self.pushButton_3.setStyleSheet(u"QPushButton {\n"
 "background-color: rgb(251, 198, 184);\n"
 "border: 1px solid rgba(255, 255, 255, 70);\n"
@@ -422,6 +415,9 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 "background-color: rgb(251, 198, 184);\n"
 "}")
+
+        self.verticalLayout_3.addWidget(self.frame_2)
+
         self.tabWidget.addTab(self.tab_8, "")
 
         self.verticalLayout_2.addWidget(self.tabWidget)
@@ -430,7 +426,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -450,8 +446,6 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_7), QCoreApplication.translate("MainWindow", u"\u0417\u0430\u043c\u0435\u0442\u043a\u0438", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"   Task Manager", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0437\u0430\u0434\u0430\u0447\u0443", None))
-        ___qtreewidgetitem = self.treeWidget_2.headerItem()
-        ___qtreewidgetitem.setText(0, QCoreApplication.translate("MainWindow", u"1", None));
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_8), QCoreApplication.translate("MainWindow", u"\u0417\u0430\u0434\u0430\u0447\u0438", None))
