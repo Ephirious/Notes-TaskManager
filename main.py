@@ -56,20 +56,18 @@ class NotesApp(QMainWindow):
 
     def new_storage(self):
         global STORAGE, PATH, NOTE
-
-        self.ui.treeWidget.clear()
-
         file_dialog = QFileDialog()
         PATH = file_dialog.getExistingDirectory(self, 'Создайте новую папку для заметок', 'Notes')
+        if PATH:
+            STORAGE = Storage(PATH)
+            STORAGE.load_structure()
 
-        STORAGE = Storage(PATH)
-        STORAGE.load_structure()
+            NOTE = None
 
-        NOTE = None
-
-        root_item = QTreeWidgetItem([f'{STORAGE.name}', 'DIR', '', f'{STORAGE.path}'])
-        self.uploadTreeWidget(STORAGE.storage_entry, root_item)
-        self.ui.treeWidget.addTopLevelItem(root_item)
+            self.ui.treeWidget.clear()
+            root_item = QTreeWidgetItem([f'{STORAGE.name}', 'DIR', '', f'{STORAGE.path}'])
+            self.uploadTreeWidget(STORAGE.storage_entry, root_item)
+            self.ui.treeWidget.addTopLevelItem(root_item)
 
     def flags_check(self):
         global NOTE, STORAGE
