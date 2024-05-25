@@ -39,11 +39,11 @@ class Ui_SigninWindow(object):
         self.label.setObjectName(u"label")
         font = QFont()
         font.setFamilies([u"Ravie"])
-        font.setPointSize(30)
+        font.setPointSize(29)
         font.setBold(True)
         font.setItalic(False)
         self.label.setFont(font)
-        self.label.setStyleSheet(u"font: 30pt \"Ravie\";\n"
+        self.label.setStyleSheet(u"font: 29pt \"Ravie\";\n"
 "font-weight: bold;\n"
 "background-color: none;\n"
 "color: white;")
@@ -165,12 +165,6 @@ class Ui_SigninWindow(object):
         self.label_error.setStyleSheet(u"background: none;")
 
         self.verticalLayout_7.addWidget(self.label_error)
-
-        self.label_error = QLabel(SigninWindow)
-        self.label_error.setObjectName(u"label_error")
-        self.label_error.setStyleSheet(u"color: rgb(0, 0, 0);")
-
-        self.verticalLayout_2.addWidget(self.label_error)
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 

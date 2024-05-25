@@ -488,14 +488,14 @@ border-radius: 7px;</string>
       <property name="font">
        <font>
         <family>Ravie</family>
-        <pointsize>30</pointsize>
+        <pointsize>23</pointsize>
         <italic>false</italic>
         <bold>true</bold>
         <underline>false</underline>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: 30pt &quot;Ravie&quot;;
+       <string notr="true">font: 23pt &quot;Ravie&quot;;
 font-weight: bold;
 background-color: none;
 color: white;</string>
