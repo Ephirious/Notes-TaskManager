@@ -1,7 +1,6 @@
 import os.path
 import sys
 
-import PySide6.QtGui
 from PySide6.QtWidgets import QApplication, QMainWindow, QDialog, QFileDialog, QTreeWidgetItem
 
 from data_base.data_bd import *
@@ -11,19 +10,20 @@ from ui_dialogwindow_note import Ui_Dialog
 from ui_main_window_notes import Ui_MainWindow
 from vault_module.vlt_mod import *
 
+STORAGE = None
+NOTE = None
+PATH = None
+USER = None
+
 
 class NotesApp(QMainWindow):
     def __init__(self):
-        global STORAGE, USER, PATH, NOTE
 
         super(NotesApp, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        STORAGE = None
-        NOTE = None
-        PATH = None
-        USER = None
+        self.myclose = False
 
         self.open_log_in_window()
 
@@ -31,16 +31,22 @@ class NotesApp(QMainWindow):
 
         # взаимодействие с кнопками
         self.ui.btn_add_note.clicked.connect(self.open_window_addNote)
+        # self.ui.btn_add_dir.clicked.connect(self.open_window_addDir)
         self.ui.btn_save.clicked.connect(self.saveNote)
-        self.ui.btn_delete_note.clicked.connect(self.delete_note)
+        self.ui.btn_delete_note.clicked.connect(self.deleteItem)
 
         # взаимодействие со списком файлов
-        self.ui.treeWidget.itemClicked.connect(self.open_note)
-        # print(self.ui.treeWidget.defaultDropAction())
+        self.ui.treeWidget.itemClicked.connect(self.openItem)
 
         # взаимодействие с textEdit
 
         self.flags_check()
+
+    def closeEvent(self, event):
+        global NOTE
+
+        if NOTE:
+            self.saveNote()
 
     def open_filemanager(self):
 
@@ -61,38 +67,31 @@ class NotesApp(QMainWindow):
         NOTE = None
 
         root_item = QTreeWidgetItem([f'{STORAGE.name}'])
-        self.find_notes(STORAGE.storage_entry, root_item)
+        self.uploadTreeWidget(STORAGE.storage_entry, root_item)
         self.ui.treeWidget.addTopLevelItem(root_item)
-
-    """Избавится от повтора функции flags_check, а точнее повтора прохода по файлом
-    при каждом действии (Можно разобраться с QTreeWidget и понять как добавлять QTreeWidgetItem 
-    в нужную ветку дерева, а так же удалять)"""
 
     def flags_check(self):
         global NOTE, STORAGE
 
         if NOTE is None:
             self.ui.textEdit.setDisabled(True)
-            self.ui.textEdit.setText('-----Заметка не выбрана или не создана-----')
+            self.ui.btn_delete_note.setText("Удалить папку")
+            self.ui.textEdit.setText('-------- Заметка не выбрана или не создана --------')
             self.ui.btn_save.hide()
-            self.ui.btn_delete_note.hide()
         else:
             self.ui.textEdit.setDisabled(False)
             self.ui.btn_save.show()
+            self.ui.btn_delete_note.setText("Удалить заметку")
             self.ui.btn_delete_note.show()
         self.ui.label_save_or_del.setText("")
 
-        # if STORAGE is None:
-        #     pass
-        # else:
-        #     self.ui.treeWidget.clear()
-        #
-        #     """нагружающий повтор рекурсии"""
-        #     root_item = QTreeWidgetItem([f'{STORAGE.name}'])
-        #     self.find_notes(STORAGE.storage_entry, root_item)
-        #     self.ui.treeWidget.addTopLevelItem(root_item)
-        #
-        #     self.ui.treeWidget.expandItem(root_item)
+        st = StorageExplorer()
+        current_item = self.ui.treeWidget.currentItem()
+
+        if current_item and st.check_existance(current_item.text(2), path_tp='dir'):
+            # self.ui.btn_delete_note.hide()
+            self.ui.btn_delete_note.setText("Удалить папку")
+            self.ui.btn_save.hide()
 
     def open_window_addNote(self):
         self.dialog_window = QDialog()
@@ -100,6 +99,13 @@ class NotesApp(QMainWindow):
         self.dialog.setupUi(self.dialog_window)
         self.dialog_window.show()
         self.dialog.pushButton.clicked.connect(self.addNote)
+
+    # def open_window_addDir(self):
+    #     self.dialog_window = QDialog()
+    #     self.dialog = Ui_DialogDir()
+    #     self.dialog.setupUi(self.dialog_window)
+    #     self.dialog_window.show()
+    #     self.dialog.pushButton.clicked.connect(self.addDir)
 
     def open_log_in_window(self):
         self.login_window = QDialog()
@@ -126,8 +132,9 @@ class NotesApp(QMainWindow):
             STORAGE = Storage(PATH)
             STORAGE.load_structure()
             STORAGE.user = USER.login
-            root_item = QTreeWidgetItem([f'{STORAGE.name}'])
-            self.find_notes(STORAGE.storage_entry, root_item)
+
+            root_item = QTreeWidgetItem([f'{STORAGE.name}', 'DIR', STORAGE.path])
+            self.uploadTreeWidget(STORAGE.storage_entry, root_item)
             self.ui.treeWidget.addTopLevelItem(root_item)
 
             self.show()
@@ -136,14 +143,12 @@ class NotesApp(QMainWindow):
             self.login_dialog.label_error.setText('Проверьте верность введеного логина или пароля. ')
 
     def open_sign_in_window(self):
-
         # если открыто окно логина
         self.login_window.close()
 
         self.reg_window = QDialog()
         self.reg_dialog = Ui_SigninWindow()
         self.reg_dialog.setupUi(self.reg_window)
-
         self.reg_window.show()
         self.reg_dialog.btn_signup.clicked.connect(self.sign_in_account)
 
@@ -163,8 +168,8 @@ class NotesApp(QMainWindow):
             STORAGE = Storage(PATH)
             STORAGE.load_structure()
 
-            root_item = QTreeWidgetItem([f'{STORAGE.name}'])
-            self.find_notes(STORAGE.storage_entry, root_item)
+            root_item = QTreeWidgetItem([f'{STORAGE.name}', 'DIR', STORAGE.path])
+            self.uploadTreeWidget(STORAGE.storage_entry, root_item)
             self.ui.treeWidget.addTopLevelItem(root_item)
 
             self.show()
@@ -173,7 +178,8 @@ class NotesApp(QMainWindow):
             self.reg_dialog.label_error.setText('Введеный логин уже занят, пожалуйста'
                                                 'введите новый логин')
 
-    def find_notes(self, directory, parent_item):
+    @staticmethod
+    def uploadTreeWidget(directory, parent_item):
         global STORAGE
 
         if type(directory) is DirEntry and directory.path not in STORAGE.hierarchy.loaded:
@@ -182,7 +188,7 @@ class NotesApp(QMainWindow):
         for element in directory.structure:
             if type(element) is DirEntry:
                 # Если элемент является каталогом, создаем новый элемент дерева и добавляем его к родительскому элементу
-                directory_item = QTreeWidgetItem([element.name + " - Папка", "", element.path])
+                directory_item = QTreeWidgetItem([element.name, "DIR", element.path])
                 parent_item.addChild(directory_item)
             else:
                 # Если элемент является файлом, просто добавляем его к родительскому элементу
@@ -202,50 +208,106 @@ class NotesApp(QMainWindow):
             self.ui.label_save_or_del.setText("Заметка была успешно сохранена!")
 
     def addNote(self):
-        global STORAGE, USER, PATH, NOTE
-
+        global STORAGE, USER, NOTE
         self.saveNote()
 
-        NOTE = STORAGE.create_note(PATH + f"/{self.dialog.lineEdit.text()}.json")
-        NOTE.change_header(self.dialog.lineEdit.text())
+        name = self.dialog.lineEdit.text()
+        st = StorageExplorer()
+        current_item = self.ui.treeWidget.currentItem()
+
+        if st.check_existance(current_item.text(2), path_tp='dir'):
+            path = current_item.text(2)
+            storage = current_item
+        else:
+            path = current_item.parent().text(2)
+            storage = current_item.parent()
+
+        NOTE = STORAGE.create_note(path + f"/{name}.json")
+        NOTE.change_header(name)
         NOTE._note.user = USER.login
 
-        with open(f"{PATH}\\{NOTE._note.header}" + ".json", 'w'):
+        with open(f"{path}\\{name}" + ".json", 'w'):
             pass
         #     добавить выделение нового элемента в списке
 
+        file_item = QTreeWidgetItem([name,
+                                     "JSON",
+                                     path + f"/{name}.json"])
+        storage.addChild(file_item)
+
         self.dialog_window.close()
         self.ui.textEdit.clear()
-        self.flags_check()
-
-    def delete_note(self):
-        global NOTE
-
-        os.remove(f"{NOTE._note.path}")
-        NOTE = None
 
         self.flags_check()
 
-    def open_note(self, element):
+    def addDir(self):
+        name = self.dialog.lineEdit.text()
+        st = StorageExplorer()
+        current_item = self.ui.treeWidget.currentItem()
+
+        if st.check_existance(current_item.text(2), path_tp='dir'):
+            path = current_item.text(2)
+            storage = current_item
+        else:
+            path = current_item.parent().text(2)
+            storage = current_item.parent()
+
+        os.mkdir(path + f"/{name}")
+        dir_item = QTreeWidgetItem([name,
+                                    "DIR",
+                                    path + f"/{name}"])
+        storage.addChild(dir_item)
+
+        self.dialog_window.close()
+        self.ui.textEdit.clear()
+
+        self.flags_check()
+
+    def deleteItem(self):
+        import shutil
+
+        global NOTE, STORAGE
+
+        st = StorageExplorer()
+        if not st.check_existance(self.ui.treeWidget.currentItem().text(2), path_tp='dir'):
+            os.remove(f"{NOTE._note.path}")
+            NOTE = None
+            self.ui.treeWidget.currentItem().parent().removeChild(self.ui.treeWidget.currentItem())
+        else:
+            NOTE = None
+            shutil.rmtree(f"{self.ui.treeWidget.currentItem().text(2)}")
+            self.ui.treeWidget.currentItem().parent().removeChild(self.ui.treeWidget.currentItem())
+
+        self.flags_check()
+
+    def openItem(self, element):
         global NOTE, STORAGE
         self.saveNote()
 
         st = StorageExplorer()
         path = element.text(2)
-        if st.check_existance(path, path_tp='dir'):
+        if st.check_existance(path, path_tp='dir') and path not in STORAGE.hierarchy.loaded:
             file_object = DirEntry("", path, [])
-            self.find_notes(file_object, element)
+            self.uploadTreeWidget(file_object, element)
             self.ui.treeWidget.addTopLevelItem(element)
-        else:
+            self.ui.treeWidget.expandItem(element)
+
+        elif not st.check_existance(path, path_tp='dir'):
             file_object = FileEntry("", path)
             NOTE = STORAGE.get_note(file_object)
             self.ui.textEdit.setText(NOTE.read())
-
+        else:
+            pass
         self.flags_check()
 
-    def dropfile(self, event):
-        event.setDropAction(Qt.MoveAction)
-        self.ui.treeWidget.dropEvent(event)
+    @staticmethod
+    def deleteStorage(self):
+        global STORAGE
+
+        os.rmdir(f"{STORAGE.path}")
+        STORAGE = None
+
+        self.flags_check()
 
 
 if __name__ == "__main__":
