@@ -1,7 +1,8 @@
-from Cryptodome.Cipher import AES
+from Cryptodome.Cipher import AES, PKCS1_OAEP
 from Cryptodome.Cipher import ChaCha20_Poly1305
 from Cryptodome.Random import get_random_bytes
 from Cryptodome.Protocol.KDF import bcrypt, bcrypt_check
+from Cryptodome.PublicKey import RSA
 
 
 class EncArgumentError(Exception):
@@ -56,6 +57,16 @@ hashing salt. Defaults to None.
         if isinstance(salt, str):
             salt = salt.encode()
         return bcrypt(password, 12, salt)
+    
+    @staticmethod
+    def pass_sizing(password) -> bytes:
+        if isinstance(password, str):
+            password = password.encode()
+        if len(password) < 32:
+            password = password + b'\0' * (32 - len(password))
+        elif len(password) > 32:
+            password = password[:32]
+        return password
 
     @staticmethod
     def check_pass(password, pass_hash: bytes) -> bool:
@@ -79,15 +90,13 @@ hashing salt. Defaults to None.
             return False
         return True
 
-    def encrypt(self, data,
-                pass_hash: bytes) -> tuple:
+    def encrypt(self, data, password: str) -> tuple:
         """encrypt
             encrypts data using specific algorithm
 
         Args:
             data (bytes/str): data that needs to be encrypted.
-            pass_hash (bytes): bytes of secret key\
-hashed using bcrypt (pass_to_hash).
+            pass_hash (bytes): secret key.
 
 
         Raises:
@@ -105,14 +114,15 @@ hashed using bcrypt (pass_to_hash).
         else:
             raise EncArgumentError
         if self.alg is AES:
-            cipher = self.alg.new(key=pass_hash[-31:] + b'\0', mode=self.mode)
+            cipher = self.alg.new(key=self.pass_sizing(password),
+                                  mode=self.mode)
         elif self.alg is ChaCha20_Poly1305:
-            cipher = self.alg.new(key=pass_hash[-31:] + b'\0')
+            cipher = self.alg.new(key=self.pass_sizing(password))
         enc_data, tag = cipher.encrypt_and_digest(data)
-        return enc_data, tag, cipher.nonce, pass_hash
+        return enc_data, tag, cipher.nonce, self.pass_to_hash(password)
 
     def decrypt(self, enc_data: bytes, tag: bytes, nonce: bytes,
-                pass_hash: bytes) -> tuple:
+                password: str) -> tuple:
         """decrypt
             decrypts data using specific algorithm
 
@@ -121,8 +131,7 @@ hashed using bcrypt (pass_to_hash).
             enc_data (bytes/str): encrypted data.
             tag (bytes): verification tag.
             nonce (bytes): encryption nonce.
-            pass_hash (bytes, optional): bytes of hashed secret key.\
- Defaults to None.
+            password (str): secret key.
 
 
         Raises:
@@ -140,10 +149,11 @@ hashed using bcrypt (pass_to_hash).
         else:
             raise EncArgumentError
         if self.alg is AES:
-            cipher = self.alg.new(key=pass_hash[-31:] + b'\0', mode=self.mode,
+            cipher = self.alg.new(key=self.pass_sizing(password),
+                                  mode=self.mode,
                                   nonce=nonce)
         elif self.alg is ChaCha20_Poly1305:
-            cipher = self.alg.new(key=pass_hash[-31:] + b'\0', nonce=nonce)
+            cipher = self.alg.new(key=self.pass_sizing(password), nonce=nonce)
         verification = None
         try:
             data = cipher.decrypt_and_verify(enc_data, tag)
@@ -173,3 +183,45 @@ class EncAES(ENC):
     """
     def __init__(self, mode) -> None:
         super().__init__(AES, mode)
+
+
+class EncRSA(ENC):
+    def __init__(self):
+        super().__init__(PKCS1_OAEP, None)
+
+    @staticmethod
+    def get_public(private_data: bytes, password: str) -> RSA.RsaKey:
+        return RSA.import_key(private_data, password).public_key().export_key()
+    
+    @staticmethod
+    def generate_keys():
+        private_key = RSA.generate(2048)
+        return private_key, private_key.public_key()
+    
+    @staticmethod
+    def import_private(private_data: bytes, password: str) -> RSA.RsaKey:
+        return RSA.import_key(private_data, passphrase=password)
+    
+    @staticmethod
+    def import_public(public_data: bytes) -> RSA.RsaKey:
+        return RSA.import_key(public_data)
+    
+    @staticmethod
+    def export_private(private_key: RSA.RsaKey, password: str) -> bytes:
+        return private_key.export_key(passphrase=password, pkcs=8,
+                                      protection="scryptAndAES128-CBC",
+                                      prot_params={"iteration_count": 10 ** 6})
+    
+    @staticmethod
+    def export_public(public_key: RSA.RsaKey) -> bytes:
+        return public_key.export_key()
+    
+    def encrypt_session_key(self, public_key: RSA.RsaKey,
+                            session_key: bytes) -> bytes:
+        cipher = self.alg.new(public_key)
+        return cipher.encrypt(session_key)
+    
+    def decrypt_session_key(self, private_key: RSA.RsaKey,
+                            enc_key: bytes) -> bytes:
+        cipher = self.alg.new(private_key)
+        return cipher.decrypt(enc_key)
