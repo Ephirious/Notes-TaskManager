@@ -1,6 +1,8 @@
 import os.path
 import sys
 
+from PySide6 import QtGui
+from PySide6.QtGui import QFont
 from PySide6.QtWidgets import QApplication, QMainWindow, QDialog, QFileDialog, QTreeWidgetItem
 
 from data_base.data_bd import *
@@ -39,7 +41,15 @@ class NotesApp(QMainWindow):
         # взаимодействие со списком файлов
         self.ui.treeWidget.itemClicked.connect(self.openItem)
 
+        # взаимодействие с ComboBox
+        self.ui.fontSizeBox.addItems(str(x) for x in range(6, 52))
+
         # взаимодействие с textEdit
+        self.ui.btn_formatBold.clicked.connect(self.doBoldText)
+        self.ui.btn_formatUnderline.clicked.connect(self.doUnderlineText)
+        self.ui.btn_formatItalic.clicked.connect(self.doItalicText)
+        self.ui.fontSizeBox.currentIndexChanged.connect(self.changeTextSize)
+        self.ui.fontComboBox.currentIndexChanged.connect(self.changeFontText)
 
         self.flags_check()
 
@@ -48,6 +58,29 @@ class NotesApp(QMainWindow):
 
         if NOTE:
             self.saveNote()
+
+    def flags_check(self):
+        global NOTE, STORAGE
+
+        if NOTE is None:
+            self.ui.textEdit.setDisabled(True)
+            self.ui.btn_delete_note.setText('Удалить папку')
+            self.ui.textEdit.setText('-------- Заметка не выбрана или не создана --------')
+            self.ui.btn_save.hide()
+        else:
+            self.ui.textEdit.setDisabled(False)
+            self.ui.btn_save.show()
+            self.ui.btn_delete_note.setText('Удалить заметку')
+            self.ui.btn_delete_note.show()
+        self.ui.label_save_or_del.setText('')
+
+        st = StorageExplorer()
+        current_item = self.ui.treeWidget.currentItem()
+
+        if current_item and st.check_existance(current_item.text(3), path_tp='dir'):
+            # self.ui.btn_delete_note.hide()
+            self.ui.btn_delete_note.setText('Удалить папку')
+            self.ui.btn_save.hide()
 
     def open_filemanager(self):
 
@@ -68,29 +101,6 @@ class NotesApp(QMainWindow):
             root_item = QTreeWidgetItem([f'{STORAGE.name}', 'DIR', '', f'{STORAGE.path}'])
             self.uploadTreeWidget(STORAGE.storage_entry, root_item)
             self.ui.treeWidget.addTopLevelItem(root_item)
-
-    def flags_check(self):
-        global NOTE, STORAGE
-
-        if NOTE is None:
-            self.ui.textEdit.setDisabled(True)
-            self.ui.btn_delete_note.setText("Удалить папку")
-            self.ui.textEdit.setText('-------- Заметка не выбрана или не создана --------')
-            self.ui.btn_save.hide()
-        else:
-            self.ui.textEdit.setDisabled(False)
-            self.ui.btn_save.show()
-            self.ui.btn_delete_note.setText("Удалить заметку")
-            self.ui.btn_delete_note.show()
-        self.ui.label_save_or_del.setText("")
-
-        st = StorageExplorer()
-        current_item = self.ui.treeWidget.currentItem()
-
-        if current_item and st.check_existance(current_item.text(3), path_tp='dir'):
-            # self.ui.btn_delete_note.hide()
-            self.ui.btn_delete_note.setText("Удалить папку")
-            self.ui.btn_save.hide()
 
     # =================================================================================================
     # Функции отвечающие за логин и регистрацию пользователя
@@ -126,6 +136,8 @@ class NotesApp(QMainWindow):
             self.ui.treeWidget.addTopLevelItem(root_item)
 
             self.show()
+            self.ui.label_account.setText(f'Аккаунт: {USER.login}')
+
             self.login_window.close()
         else:
             self.login_dialog.label_error.setText('Проверьте верность введеного логина или пароля. ')
@@ -179,13 +191,13 @@ class NotesApp(QMainWindow):
         for element in directory.structure:
             if type(element) is DirEntry:
                 # Если элемент является каталогом, создаем новый элемент дерева и добавляем его к родительскому элементу
-                directory_item = QTreeWidgetItem([element.name, "DIR", '', element.path])
+                directory_item = QTreeWidgetItem([element.name, 'DIR', '', element.path])
                 parent_item.addChild(directory_item)
             else:
                 # Если элемент является файлом, просто добавляем его к родительскому элементу
                 file_item = QTreeWidgetItem([element.name.split('.')[0],
                                              element.name.split('.')[-1].upper(),
-                                             '',
+                                             element.name,
                                              element.path])
                 parent_item.addChild(file_item)
 
@@ -193,11 +205,11 @@ class NotesApp(QMainWindow):
         global NOTE, USER
 
         if NOTE:
-            text = self.ui.textEdit.toPlainText()
+            text = self.ui.textEdit.toHtml()
             NOTE.user = USER.login
             NOTE.write(text)
             NOTE.save()
-            self.ui.label_save_or_del.setText("Заметка была успешно сохранена!")
+            self.ui.label_save_or_del.setText('Заметка была успешно сохранена!')
 
     def open_window_addNote(self):
         self.dialog_window = QDialog()
@@ -220,26 +232,29 @@ class NotesApp(QMainWindow):
         name = self.dialog.lineEdit.text()
         st = StorageExplorer()
         current_item = self.ui.treeWidget.currentItem()
-
-        if st.check_existance(current_item.text(3), path_tp='dir'):
-            path = current_item.text(3)
-            storage = current_item
+        if current_item:
+            if st.check_existance(current_item.text(3), path_tp='dir'):
+                path = current_item.text(3)
+                storage = current_item
+            else:
+                path = current_item.parent().text(3)
+                storage = current_item.parent()
         else:
-            path = current_item.parent().text(3)
-            storage = current_item.parent()
+            path = PATH
+            storage = self.ui.treeWidget.topLevelItem(0)
 
-        NOTE = STORAGE.create_note(path + f"/{name}.json")
+        NOTE = STORAGE.create_note(path + f'/{name}.json')
         NOTE.change_header(name)
         NOTE._note.user = USER.login
 
-        with open(f"{path}\\{name}" + ".json", 'w'):
+        with open(f'{path}\\{name}' + '.json', 'w'):
             pass
         #     добавить выделение нового элемента в списке
 
         file_item = QTreeWidgetItem([name,
-                                     "JSON",
-                                     f"{NOTE._note.createtime}",
-                                     path + f"/{name}.json"])
+                                     'JSON',
+                                     f'{NOTE._note.createtime}',
+                                     path + f'/{name}.json'])
         storage.addChild(file_item)
 
         self.dialog_window.close()
@@ -252,17 +267,21 @@ class NotesApp(QMainWindow):
         st = StorageExplorer()
         current_item = self.ui.treeWidget.currentItem()
 
-        if st.check_existance(current_item.text(3), path_tp='dir'):
-            path = current_item.text(3)
-            storage = current_item
+        if current_item:
+            if st.check_existance(current_item.text(3), path_tp='dir'):
+                path = current_item.text(3)
+                storage = current_item
+            else:
+                path = current_item.parent().text(3)
+                storage = current_item.parent()
         else:
-            path = current_item.parent().text(3)
-            storage = current_item.parent()
+            path = PATH
+            storage = self.ui.treeWidget.topLevelItem(0)
 
-        os.mkdir(path + f"/{name}")
+        os.mkdir(path + f'/{name}')
         dir_item = QTreeWidgetItem([name,
-                                    "DIR",
-                                    path + f"/{name}"])
+                                    'DIR',
+                                    path + f'/{name}'])
         storage.addChild(dir_item)
 
         self.dialog_window.close()
@@ -277,7 +296,7 @@ class NotesApp(QMainWindow):
 
         st = StorageExplorer()
         if not st.check_existance(self.ui.treeWidget.currentItem().text(3), path_tp='dir'):
-            os.remove(f"{NOTE._note.path}")
+            os.remove(f"{NOTE.get_path()}")
             NOTE = None
             self.ui.treeWidget.currentItem().parent().removeChild(self.ui.treeWidget.currentItem())
         else:
@@ -285,9 +304,9 @@ class NotesApp(QMainWindow):
             try:
                 self.ui.treeWidget.currentItem().parent().removeChild(self.ui.treeWidget.currentItem())
             except AttributeError:
-                self.ui.label_save_or_del.setText("Невозможно удалить корневую папку")
+                self.ui.label_save_or_del.setText('Невозможно удалить корневую папку')
             else:
-                shutil.rmtree(f"{self.ui.treeWidget.currentItem().text(3)}")
+                shutil.rmtree(f'{self.ui.treeWidget.currentItem().text(3)}')
 
         self.flags_check()
 
@@ -298,19 +317,83 @@ class NotesApp(QMainWindow):
         st = StorageExplorer()
         path = element.text(3)
         if st.check_existance(path, path_tp='dir') and path not in STORAGE.hierarchy.loaded:
-            file_object = DirEntry("", path, [])
+            file_object = DirEntry('', path, [])
             self.uploadTreeWidget(file_object, element)
             self.ui.treeWidget.addTopLevelItem(element)
             self.ui.treeWidget.expandItem(element)
 
-        elif not st.check_existance(path, path_tp='dir'):
-            file_object = FileEntry("", path)
+        elif st.check_existance(path, path_tp='file') and path.split('.')[-1] == 'json':
+            file_object = FileEntry('', path)
             NOTE = STORAGE.get_note(file_object)
             self.ui.textEdit.setText(NOTE.read())
-        else:
-            pass
         self.flags_check()
 
+    # =================================================================================================
+    # Функции отвечающие за разметку
+    # =================================================================================================
+    def changeTextSize(self):
+        charFormatFontSize = QtGui.QTextCharFormat(self.ui.textEdit.currentCharFormat())
+        charFormatNorm = QtGui.QTextCharFormat(self.ui.textEdit.currentCharFormat())
+
+        charFormatFontSize.setFontPointSize(float(self.ui.fontSizeBox.currentText()))
+        charFormatNorm.setFontPointSize(float(self.ui.textEdit.currentCharFormat().fontPointSize()))
+        if self.ui.textEdit.textCursor().charFormat().fontPointSize() == float(self.ui.fontSizeBox.currentText()):
+            self.ui.textEdit.setCurrentCharFormat(charFormatNorm)
+        else:
+            self.ui.textEdit.setCurrentCharFormat(charFormatFontSize)
+
+    def doBoldText(self):
+        charFormatBold = QtGui.QTextCharFormat(self.ui.textEdit.currentCharFormat())
+        charFormatNorm = QtGui.QTextCharFormat(self.ui.textEdit.currentCharFormat())
+        charFormatBold.setFontWeight(900)
+        charFormatNorm.setFontWeight(400)
+        if self.ui.textEdit.textCursor().charFormat().fontWeight() == 400:
+            self.ui.textEdit.setCurrentCharFormat(charFormatBold)
+        else:
+            self.ui.textEdit.setCurrentCharFormat(charFormatNorm)
+
+    def doUnderlineText(self):
+        charFormatUnderline = QtGui.QTextCharFormat(self.ui.textEdit.currentCharFormat())
+        charFormatNorm = QtGui.QTextCharFormat(self.ui.textEdit.currentCharFormat())
+
+        charFormatUnderline.setFontUnderline(True)
+        charFormatNorm.setFontUnderline(False)
+        if self.ui.textEdit.textCursor().charFormat().fontUnderline():
+            self.ui.textEdit.setCurrentCharFormat(charFormatNorm)
+        else:
+            self.ui.textEdit.setCurrentCharFormat(charFormatUnderline)
+
+    def doItalicText(self):
+        charFormatItalic = QtGui.QTextCharFormat(self.ui.textEdit.currentCharFormat())
+        charFormatNorm = QtGui.QTextCharFormat(self.ui.textEdit.currentCharFormat())
+
+        charFormatItalic.setFontItalic(True)
+        charFormatNorm.setFontItalic(False)
+        if self.ui.textEdit.textCursor().charFormat().fontItalic():
+            self.ui.textEdit.setCurrentCharFormat(charFormatNorm)
+        else:
+            self.ui.textEdit.setCurrentCharFormat(charFormatItalic)
+
+    def changeFontText(self):
+        if self.ui.textEdit.currentCharFormat().fontUnderline():
+            self.ui.textEdit.setCurrentFont(QFont(self.ui.fontComboBox.currentText(),
+                                                  self.ui.textEdit.currentCharFormat().fontPointSize(),
+                                                  self.ui.textEdit.currentCharFormat().fontWeight(),
+                                                  self.ui.textEdit.currentCharFormat().fontItalic()))
+
+            self.ui.textEdit.setFontUnderline(True)
+        else:
+            self.ui.textEdit.setCurrentFont(QFont(self.ui.fontComboBox.currentText(),
+                                                  self.ui.textEdit.currentCharFormat().fontPointSize(),
+                                                  self.ui.textEdit.currentCharFormat().fontWeight(),
+                                                  self.ui.textEdit.currentCharFormat().fontItalic()))
+
+    # =================================================================================================
+    # Функции отвечающие за Таск-менджер
+    # =================================================================================================
+
+
+"""При изначальной загрузке файлов не отображается поле времени"""
 
 if __name__ == "__main__":
     # ==Код не позволяющий включать приложению темную тему==

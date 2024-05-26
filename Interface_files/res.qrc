@@ -1,5 +1,9 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/format_italic_24dp_FILL0_wght400_GRAD0_opsz24.svg</file>
+    <file>icons/text_fields_24dp_FILL0_wght400_GRAD0_opsz24.svg</file>
+    <file>icons/format_bold_24dp_FILL0_wght400_GRAD0_opsz24.svg</file>
+    <file>icons/format_underlined_24dp_FILL0_wght400_GRAD0_opsz24.svg</file>
     <file>icons/dark_mode_FILL0_wght400_GRAD0_opsz24.svg</file>
     <file>icons/folder_open_24dp_FILL0_wght400_GRAD0_opsz24.svg</file>
     <file>icons/scan_delete_FILL0_wght400_GRAD0_opsz24.svg</file>
