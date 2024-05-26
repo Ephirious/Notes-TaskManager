@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 import os
 from Cryptodome.Random import get_random_bytes
-from random import sample
+from uuid import uuid4
 from string import ascii_letters, digits
 from vlt_mod import Note, StorageExplorer, NoteWrapper
 from vlt_mod import NOTE_JSON_STRUCTURE, FileEntry, DirEntry
@@ -109,27 +109,29 @@ class UserFiles:
         names_list = [i.path[:-4] for i in dr.structure
                       if isinstance(i, FileEntry) and
                       i.name.split('.')[-1] == 'key' and
-                      st.check_existance(i.path[:-3] + 'shr', "file")]
+                      st.check_existance(i.path[:-3] + 'json', "file")]
         for i in names_list:
             with open(i + '.key', 'rb') as file:
                 session_key = EncRSA().decrypt_session_key(pr_key, file.read())
-            new = Note.load_from_entry(FileEntry(i.split('/')[-1] + '.shr',
-                                                 i + 'shr'))
+            new = Note.load_from_entry(FileEntry(i.split('/')[-1] + '.json',
+                                                 i + '.json'))
             shared_list.append(NoteWrapper(new, 1, session_key))
         return shared_list
 
 
 def share_a_note(share_path: str, note: NoteWrapper):
-    new_name = sample(ascii_letters, 20) + sample(digits, 30)
+    new_name = str(uuid4())
     new_note = note.copy()
-    new_note.change_path(share_path + f'/tasks/{new_name}.shr')
-    session_key = get_random_bytes(32)
+    new_note.change_path(share_path + f'/shared/{new_name}.json')
+    session_key = b'\0'
+    while b'\0' in session_key:
+        session_key = get_random_bytes(32)
     new_note.protection_flag = 1
     new_note.save(session_key)
-    with open(share_path + '/task/keys/public.pem', 'rb') as file:
+    with open(share_path + '/shared/keys/public.pem', 'rb') as file:
         pb_key = EncRSA.import_public(file.read())
     enc_key = EncRSA().encrypt_session_key(pb_key, session_key)
     del session_key
-    with open(share_path + f'/tasks/{new_name}.key', 'wb') as file:
+    with open(share_path + f'/shared/{new_name}.key', 'wb') as file:
         file.write(enc_key)
         
