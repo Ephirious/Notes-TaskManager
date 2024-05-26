@@ -3,9 +3,9 @@ import os
 from base64 import b64encode, b64decode
 import json
 from random import randint
-import enc_module.enc_mod as encryption
+import enc_mod as encryption
 
-NOTE_JSON_STRUCTURE = {"user", "header", "id", "encryption", "data"}
+NOTE_JSON_STRUCTURE = {"user", "header", "id", "encryption", "data", "createtime"}
 
 
 class FEWrongArguments(Exception):
@@ -323,7 +323,8 @@ class Note:
         self.enc_flag = int()
         self.enc_parameters = list()
         self.data = str()
-        self.createtime = str(datetime.datetime.now())
+        x = datetime.datetime.now().replace(microsecond=0).isoformat()
+        self.createtime = x
 
     def dict_fix(self):
         records = {"header": self.header,
@@ -388,7 +389,7 @@ class Note:
         alg = encryption.EncChaCha()
         e_data, d_tag, d_nonce, _ = alg.encrypt(self.data.encode("utf-8"),
                                                 password)
-        e_header, h_tag, h_nonce, _ = alg.encrypt(self.data.encode("utf-8"),
+        e_header, h_tag, h_nonce, _ = alg.encrypt(self.header.encode("utf-8"),
                                                   password)
         self.enc_flag = 1
         self.data = b64encode(e_data).decode("utf-8")
@@ -414,7 +415,7 @@ class Note:
             raise ProtectionError
         alg = encryption.EncChaCha()
         self.data = b64decode(self.data.encode("utf-8"))
-        self.header = b64decode(self.header.encode("utf-8")) 
+        self.header = b64decode(self.header.encode("utf-8"))
         self.enc_parameters = list(map(
             lambda x: b64decode(x.encode("utf-8")),
             self.enc_parameters))
@@ -473,6 +474,7 @@ class Note:
         new.enc_parameters = self.enc_parameters
         new.user = self.user
         new.createtime = datetime.datetime.now()
+        new.createtime = new.createtime.replace(microsecond=0).isoformat()
         return new
 
 
@@ -509,7 +511,13 @@ class NoteWrapper():
             str: header of note
         """
         return self._note.header
+    
+    def get_creationtime(self):
+        return self._note.createtime
 
+    def set_createtime(self, time: str):
+        self._note.createtime = time
+        
     def get_path(self) -> str:
         """get path to note
 
