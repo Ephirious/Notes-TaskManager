@@ -566,6 +566,10 @@ class NoteWrapper():
             NoteWrapper: Wrapper of note's copy
         """
         return NoteWrapper(self._note.copy(), self.protection_flag)
+    
+    def delete(self):
+        st = StorageExplorer()
+        st.delete(st.get_contents(self._note.path))
 
 
 class Storage():

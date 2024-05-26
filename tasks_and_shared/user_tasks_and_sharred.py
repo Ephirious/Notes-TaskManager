@@ -1,8 +1,9 @@
 import json
 from datetime import datetime
+import os
 from vlt_mod import Note, StorageExplorer, NoteWrapper
-from vlt_mod import NoteWrapperError, NOTE_JSON_STRUCTURE, FileEntry, DirEntry
-from enc_mod import EncAES as encryption
+from vlt_mod import NOTE_JSON_STRUCTURE, FileEntry, DirEntry
+from enc_mod import EncChaCha, EncRSA
 
 
 class Task(NoteWrapper):
@@ -37,14 +38,8 @@ class Task(NoteWrapper):
                                         "tags": list(self.tags)})
         super().save(key)
 
-    def delete(self):
-        st = StorageExplorer()
-        st.delete(st.get_contents(self._note.path))
 
-
-
-
-class User_files:
+class UserFiles:
     def __init__(self, username, key, code, path, add):
         self.username = username
         self.key = key
@@ -81,4 +76,52 @@ class User_files:
         n_task.save()
         task = Task(n_task, self.key)
         return task
+    
+    def generate_dirs(self):
+        st = StorageExplorer()
+        dir_list = [self.path + i for i in ["", "/tasks", "/shared", "/shared/keys"]]
+        for i in dir_list:
+            if not st.check_existance(i, "dir"):
+                os.mkdir(i)
+        if len(os.listdir(dir_list[-1])) < 2:
+            pr_key, pb_key = EncRSA.generate_keys()
+            with open("public.pem", "wb") as file:
+                file.write(EncRSA.export_public(pb_key))
+            with open("private.bin", 'wb') as file:
+                file.write(EncRSA.export_private(pr_key, self.key))
+    
+    def get_keys(self):
+        with open(self.path + "/shared/keys/public.pem", 'rb') as file:
+            pb_key = EncRSA.import_public(file.read())
+        with open(self.path + "/shared/keys/private.bin", 'rb') as file:
+            pr_key = EncRSA.import_private(file.read(), self.key)
+        return pr_key, pb_key
+
+    def get_shared(self) -> list:
+        shared_list = []
+        st = StorageExplorer()
+        dr = st.get_contents(self.path + '/shared')
+        pr_key, _ = self.get_keys()
+        names_list = [i.path[:-4] for i in dr.structure
+                      if isinstance(i, FileEntry) and
+                      i.name.split('.')[-1] == 'key' and
+                      st.check_existance(i.path[:-3] + 'shr', "file")]
+        for i in names_list:
+            with open(i + '.key', 'rb') as file:
+                session_key = EncRSA().decrypt_session_key(pr_key, file.read())
+            new = Note.load_from_entry(FileEntry(i.split('/')[-1] + '.shr',
+                                                 i + 'shr'))
+            shared_list.append(NoteWrapper(new, 1, session_key))
+        return shared_list
+
+
+
         
+        
+        
+
+
+            
+
+
+
