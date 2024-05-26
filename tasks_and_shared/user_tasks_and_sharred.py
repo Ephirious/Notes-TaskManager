@@ -1,6 +1,9 @@
 import json
 from datetime import datetime
 import os
+from Cryptodome.Random import get_random_bytes
+from random import sample
+from string import ascii_letters, digits
 from vlt_mod import Note, StorageExplorer, NoteWrapper
 from vlt_mod import NOTE_JSON_STRUCTURE, FileEntry, DirEntry
 from enc_mod import EncChaCha, EncRSA
@@ -79,7 +82,8 @@ class UserFiles:
     
     def generate_dirs(self):
         st = StorageExplorer()
-        dir_list = [self.path + i for i in ["", "/tasks", "/shared", "/shared/keys"]]
+        dir_list = [self.path + i for i in ["", "/tasks", "/shared",
+                                            "/shared/keys"]]
         for i in dir_list:
             if not st.check_existance(i, "dir"):
                 os.mkdir(i)
@@ -115,13 +119,17 @@ class UserFiles:
         return shared_list
 
 
-
+def share_a_note(share_path: str, note: NoteWrapper):
+    new_name = sample(ascii_letters, 20) + sample(digits, 30)
+    new_note = note.copy()
+    new_note.change_path(share_path + f'/tasks/{new_name}.shr')
+    session_key = get_random_bytes(32)
+    new_note.protection_flag = 1
+    new_note.save(session_key)
+    with open(share_path + '/task/keys/public.pem', 'rb') as file:
+        pb_key = EncRSA.import_public(file.read())
+    enc_key = EncRSA().encrypt_session_key(pb_key, session_key)
+    del session_key
+    with open(share_path + f'/tasks/{new_name}.key', 'wb') as file:
+        file.write(enc_key)
         
-        
-        
-
-
-            
-
-
-
