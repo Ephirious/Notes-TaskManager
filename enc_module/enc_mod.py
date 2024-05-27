@@ -63,7 +63,7 @@ hashing salt. Defaults to None.
         if isinstance(password, str):
             password = password.encode()
         if len(password) < 32:
-            password = password + b'\0' * (32 - len(password))
+            password = password + b'\1' * (32 - len(password))
         elif len(password) > 32:
             password = password[:32]
         return password
@@ -187,7 +187,7 @@ class EncAES(ENC):
 
 class EncRSA(ENC):
     def __init__(self):
-        super().__init__(PKCS1_OAEP, None)
+        self.alg = PKCS1_OAEP
 
     @staticmethod
     def get_public(private_data: bytes, password: str) -> RSA.RsaKey:
@@ -210,7 +210,7 @@ class EncRSA(ENC):
     def export_private(private_key: RSA.RsaKey, password: str) -> bytes:
         return private_key.export_key(passphrase=password, pkcs=8,
                                       protection="scryptAndAES128-CBC",
-                                      prot_params={"iteration_count": 10 ** 6})
+                                      prot_params={"iteration_count": 2 ** 18})
     
     @staticmethod
     def export_public(public_key: RSA.RsaKey) -> bytes:
