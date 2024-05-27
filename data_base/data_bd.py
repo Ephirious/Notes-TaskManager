@@ -116,7 +116,9 @@ c.execute("""CREATE TABLE IF NOT EXISTS users (
    key text
  )""")
 
-
+db = sqlite3.connect('user.db')
+# Создание крусора
+c = db.cursor()
 c.execute("""CREATE TABLE IF NOT EXISTS tasks (
    id integer,
    task_name text,
