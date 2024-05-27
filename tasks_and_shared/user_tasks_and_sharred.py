@@ -88,9 +88,10 @@ class UserFiles:
                 os.mkdir(i)
         if len(os.listdir(dir_list[-1])) < 2:
             pr_key, pb_key = EncRSA.generate_keys()
-            with open("public.pem", "wb") as file:
+            with open(
+                     self.path +  "/shared/keys/public.pem", "wb") as file:
                 file.write(EncRSA.export_public(pb_key))
-            with open("private.bin", 'wb') as file:
+            with open(self.path + "/shared/keys/private.bin", 'wb') as file:
                 file.write(EncRSA.export_private(pr_key, self.key))
         if not os.path.isfile(self.path + '/tags.json'):
             tags = json.dumps([])

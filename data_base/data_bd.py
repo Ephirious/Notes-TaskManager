@@ -41,6 +41,18 @@ def search_user(login, password):
         return False
 
 
+def get_password(login):
+    db = sqlite3.connect('data_base/user.db')
+    c = db.cursor()
+    c.execute(f"SELECT * FROM users WHERE login=?", (login,))
+    value = c.fetchall()
+    close_table(db, c)
+    if value and value[0][0] == login:
+        return value[0][1]
+    else:
+        return ''
+
+
 def loginDuplicateChecker(login):
     db = sqlite3.connect('data_base/user.db')
     c = db.cursor()

@@ -132,9 +132,11 @@ class NotesApp(QMainWindow):
     def log_in_account(self):
         global USER, PATH, STORAGE
 
-        USER = search_user(self.login_dialog.lineEdit_name.text(),
-                           self.login_dialog.lineEdit_password.text())
-        if USER:
+        user_password = get_password(self.login_dialog.lineEdit_name.text())
+        password_is_ok = EncRSA.check_pass(self.login_dialog.lineEdit_password.text(), user_password.encode())
+
+        if password_is_ok:
+            USER = search_user(self.login_dialog.lineEdit_name.text(), user_password)
             if USER.data:
                 PATH = USER.data
             else:
@@ -180,7 +182,7 @@ class NotesApp(QMainWindow):
         if not USER and not loginDuplicateChecker(login):
 
             PATH = self.open_filemanager()
-            USER = registration(login, password, PATH)
+            USER = registration(login, EncRSA.pass_to_hash(password).decode(), PATH)
 
             USER_FILES = UserFiles(USER.login, USER.password, 0, PATH, [])
             USER_FILES.generate_dirs()
@@ -195,6 +197,8 @@ class NotesApp(QMainWindow):
             self.updateTasks()
 
             self.show()
+            self.ui.label_account.setText(f'Аккаунт: {USER.login}')
+
             self.reg_window.close()
         else:
             self.reg_dialog.label_error.setText('Введеный логин уже занят, пожалуйста'
@@ -303,6 +307,7 @@ class NotesApp(QMainWindow):
         os.mkdir(path + f'/{name}')
         dir_item = QTreeWidgetItem([name,
                                     'DIR',
+                                    '',
                                     path + f'/{name}'])
         storage.addChild(dir_item)
 
@@ -427,7 +432,7 @@ class NotesApp(QMainWindow):
         self.dialog_window.show()
         self.dialog.pushButton.clicked.connect(self.addTask)
 
-    def createNewTask(self, task_data, time_days, flag=False):
+    def createNewTask(self, task_data, time_days, filename, flag=False, ):
         groupBoxTask = QGroupBox()
         groupBoxTask.setMaximumSize(999999, 100)
         boxTaskLayout = QHBoxLayout()
@@ -453,7 +458,7 @@ class NotesApp(QMainWindow):
         groupBoxTask.setLayout(boxTaskLayout)
 
         checkBox.setProperty('task_id', self.ui.verticalLayout_4.count())
-
+        checkBox.setProperty('filename', filename)
         # Добавляем задание в компоновку
         self.ui.verticalLayout_4.addWidget(groupBoxTask)
         return groupBoxTask
@@ -477,7 +482,8 @@ class NotesApp(QMainWindow):
         # Сохранение таски в виде файла
         USER_FILES = UserFiles(USER.login, USER.password, 0, PATH, [])
 
-        newFileTask = Note(PATH + '/tasks/' + str(uuid4()) + '.json')
+        filename = str(uuid4())
+        newFileTask = Note(PATH + '/tasks/' + filename + '.json')
         new_header = json.dumps(
             {"st_time": time_date_start.isoformat(), "end_time": time_date_end.isoformat(), "tags": []})
         newFileTask.header = new_header
@@ -499,34 +505,37 @@ class NotesApp(QMainWindow):
         mounth_start, day_start = time_date_start.strftime('%B %d').split()
         mounth_end, day_end = time_date_end.strftime('%B %d').split()
 
-        flag_F = False
+        flag_time_is_up = False
         if time_date_end <= datetime.datetime.now():
-            flag_F = True
+            flag_time_is_up = True
 
         time = f"{' '.join((mounth_start[:3], day_start))} - {' '.join((mounth_end[:3], day_end))}"
 
         self.tasks.append([task_tag,
-                           self.createNewTask(data, time, flag_F),
-                           [data, time, flag_F]])
+                           self.createNewTask(data, time, filename, flag_time_is_up),
+                           [data, time, filename, flag_time_is_up, ]])
         self.dialog_window.close()
 
     def addTaskToRemove(self, state):
         checkbox = self.sender()
         task_id = checkbox.property('task_id')
+        filename = checkbox.property('filename')
 
-        task_tag, task_widget, _ = self.tasks[task_id]
+        task_tag, task_widget, _, = self.tasks[task_id]
         if state == 2:
-            self.listTasksToRemove.append([task_id, task_widget])
+            self.listTasksToRemove.append([task_id, task_widget, filename])
         elif state == 0:
-            self.listTasksToRemove.remove([task_id, task_widget])
+            self.listTasksToRemove.remove([task_id, task_widget, filename])
 
     def removeTasks(self):
         if self.listTasksToRemove != [] and self.ui.verticalLayout_4:
-            for task_id, task_widget in self.listTasksToRemove:
+            for task_id, task_widget, filename in self.listTasksToRemove:
                 child = self.ui.verticalLayout_4.takeAt(task_id)
                 if child.widget():
                     child.widget().deleteLater()
                 self.tasks.pop(task_id)
+                os.remove(PATH + '/tasks/' + filename + '.json')
+
             self.listTasksToRemove.clear()
 
     def filteredTaskByTags(self):
@@ -543,7 +552,7 @@ class NotesApp(QMainWindow):
         for task_tag, task_widget, components in self.tasks.copy():
             if task_tag == current_tag:
                 self.ui.verticalLayout_4.addWidget(
-                    self.createNewTask(components[0], components[1], components[2]))
+                    self.createNewTask(components[0], components[1], components[2], components[3]))
 
         # Обновляем компоновку
         self.ui.verticalLayout_4.update()
