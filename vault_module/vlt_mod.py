@@ -33,9 +33,10 @@ class FileEntry:
     """Basic (file) entry class for file hierarchy search
     """
 
-    def __init__(self, name: str, path: str):
+    def __init__(self, name: str, path: str, createtime: str):
         self.name = name
         self.path = path
+        self.createtime = createtime
 
     def __repr__(self) -> str:
         return "File: " + self.path
