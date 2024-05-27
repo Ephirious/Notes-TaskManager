@@ -3,10 +3,9 @@ from datetime import datetime
 import os
 from Cryptodome.Random import get_random_bytes
 from uuid import uuid4
-from string import ascii_letters, digits
 from vlt_mod import Note, StorageExplorer, NoteWrapper
-from vlt_mod import NOTE_JSON_STRUCTURE, FileEntry, DirEntry
-from enc_mod import EncChaCha, EncRSA
+from vlt_mod import NOTE_JSON_STRUCTURE, FileEntry
+from enc_mod import EncRSA
 
 
 class Task(NoteWrapper):
@@ -82,7 +81,7 @@ class UserFiles:
     
     def generate_dirs(self):
         st = StorageExplorer()
-        dir_list = [self.path + i for i in ["", "/tasks", "/shared",
+        dir_list = [self.path + i for i in ["", "/notes",  "/tasks", "/shared",
                                             "/shared/keys"]]
         for i in dir_list:
             if not st.check_existance(i, "dir"):
@@ -93,6 +92,20 @@ class UserFiles:
                 file.write(EncRSA.export_public(pb_key))
             with open("private.bin", 'wb') as file:
                 file.write(EncRSA.export_private(pr_key, self.key))
+        if not st.check_existance(self.path + '/tags.json', 'file'):
+            tags = json.dumps([])
+            with open(self.path + "/tags.json", 'w', encoding='UTF-8') as file:
+                file.write(tags)
+    
+    def get_tags(self):
+        with open(self.path + "/tags.json", 'r', encoding='UTF-8') as file:
+            tags = file.read()
+        return json.loads(tags)
+    
+    def save_tags(self, tags_list: list):
+        tags = json.dumps(tags_list)
+        with open(self.path + "/tags.json", 'w', encoding='UTF-8') as file:
+            file.write(tags)
     
     def get_keys(self):
         with open(self.path + "/shared/keys/public.pem", 'rb') as file:
