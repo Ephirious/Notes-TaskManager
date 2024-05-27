@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 import os
 from base64 import b64encode, b64decode
 import json
@@ -336,7 +336,7 @@ class Note:
         self.enc_flag = int()
         self.enc_parameters = list()
         self.data = str()
-        self.createtime = str(datetime.datetime.now())
+        self.createtime = str(datetime.now())
 
     def dict_fix(self):
         records = {"header": self.header,
@@ -479,7 +479,7 @@ class Note:
         new.enc_flag = self.enc_flag
         new.enc_parameters = self.enc_parameters
         new.user = self.user
-        new.createtime = datetime.datetime.now()
+        new.createtime = datetime.now()
         return new
 
 

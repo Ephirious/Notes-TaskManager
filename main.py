@@ -3,7 +3,10 @@ import sys
 
 from PySide6 import QtGui
 from PySide6.QtGui import QFont
-from PySide6.QtWidgets import QApplication, QMainWindow, QDialog, QFileDialog, QTreeWidgetItem
+from PySide6.QtWidgets import (QApplication, QMainWindow, QDialog,
+                               QFileDialog, QTreeWidgetItem, QGroupBox, QCheckBox, QTextBrowser, QLabel,
+                               QHBoxLayout, QVBoxLayout, QLayout, QBoxLayout, QSpacerItem)
+from PySide6.QtCore import Qt
 
 from data_base.data_bd import *
 from ui_account_login_window import Ui_LoginWindow
@@ -11,6 +14,8 @@ from ui_account_sign_in_window import Ui_SigninWindow
 from ui_dialog_dir_add import Ui_WinDirAdd
 from ui_dialogwindow_note import Ui_Dialog
 from ui_main_window_notes import Ui_MainWindow
+from ui_add_new_task import Ui_AddNewTask
+
 from vault_module.vlt_mod import *
 
 STORAGE = None
@@ -50,6 +55,17 @@ class NotesApp(QMainWindow):
         self.ui.btn_formatItalic.clicked.connect(self.doItalicText)
         self.ui.fontSizeBox.currentIndexChanged.connect(self.changeTextSize)
         self.ui.fontComboBox.currentIndexChanged.connect(self.changeFontText)
+
+        # взаимодействие с Таск-менджером
+        self.ui.btn_add_task.clicked.connect(self.open_window_addTask)
+        self.ui.btn_delete_task.clicked.connect(self.removeTasks)
+
+        self.tasks = []
+        self.listTasksToRemove = []
+        self.tasksTags = ['Дом', 'Работа', 'Хобби']
+
+        self.ui.comboBoxTags.addItems(self.tasksTags)
+        self.ui.btn_filterByTags.clicked.connect(self.filteredTaskByTags)
 
         self.flags_check()
 
@@ -391,6 +407,118 @@ class NotesApp(QMainWindow):
     # =================================================================================================
     # Функции отвечающие за Таск-менджер
     # =================================================================================================
+
+    def open_window_addTask(self):
+        self.dialog_window = QDialog()
+        self.dialog = Ui_AddNewTask()
+        self.dialog.setupUi(self.dialog_window)
+
+        self.dialog.dateTimeEdit_start.setDateTime(datetime.now())
+        self.dialog.dateTimeEdit_end.setDateTime(datetime.now())
+
+        self.dialog.comboBoxTags.addItems(self.tasksTags)
+
+        self.dialog_window.show()
+        self.dialog.pushButton.clicked.connect(self.addTask)
+
+    def createNewTask(self, task_data, time_days, flag=False):
+        groupBoxTask = QGroupBox()
+        groupBoxTask.setMaximumSize(999999, 100)
+        boxTaskLayout = QHBoxLayout()
+
+        checkBox = QCheckBox()
+        checkBox.stateChanged.connect(self.addTaskToRemove)
+        boxTaskLayout.addWidget(checkBox)
+
+        textBrowser = QTextBrowser()
+        textBrowser.setText(task_data)
+        textBrowser.setMaximumSize(999999, 90)
+        boxTaskLayout.addWidget(textBrowser)
+
+        label = QLabel()
+        label.setText(time_days)
+        label.setMinimumSize(150, 50)
+        label.setMaximumSize(150, 50)
+        if flag:
+            label.setStyleSheet("QLabel { color: red; }")
+        boxTaskLayout.addWidget(label)
+
+        groupBoxTask.setLayout(boxTaskLayout)
+
+        checkBox.setProperty('task_id', self.ui.verticalLayout_4.count())
+
+        # Добавляем задание в компоновку
+        self.ui.verticalLayout_4.addWidget(groupBoxTask)
+        return groupBoxTask
+
+    def addTask(self):
+        data = self.dialog.lineEdit_task.text()
+        time_date_start = datetime.strptime(self.dialog.dateTimeEdit_start.text(), '%d.%m.%Y %H:%M')
+        time_date_end = datetime.strptime(self.dialog.dateTimeEdit_end.text(), '%d.%m.%Y %H:%M')
+
+        if not self.dialog.lineEdit_category.text():
+            task_tag = self.dialog.comboBoxTags.currentText()
+            self.ui.comboBoxTags.setCurrentIndex(self.tasksTags.index(self.dialog.comboBoxTags.currentText()))
+        else:
+            task_tag = self.dialog.lineEdit_category.text()
+            self.tasksTags.append(task_tag)
+            self.ui.comboBoxTags.clear()
+            self.ui.comboBoxTags.addItems(self.tasksTags)
+            self.ui.comboBoxTags.setCurrentIndex(self.tasksTags.index(task_tag))
+
+        self.filteredTaskByTags()
+
+        mounth_start, day_start = time_date_start.strftime('%B %d').split()
+        mounth_end, day_end = time_date_end.strftime('%B %d').split()
+
+        flag_F = False
+        if time_date_end <= datetime.now():
+            flag_F = True
+
+        time = f"{' '.join((mounth_start[:3], day_start))} - {' '.join((mounth_end[:3], day_end))}"
+
+        self.tasks.append([task_tag,
+                           self.createNewTask(data, time, flag_F),
+                           [data, time, flag_F]])
+        self.dialog_window.close()
+
+    def addTaskToRemove(self, state):
+        checkbox = self.sender()
+        task_id = checkbox.property('task_id')
+
+        task_tag, task_widget, _ = self.tasks[task_id]
+        if state == 2:
+            self.listTasksToRemove.append([task_id, task_widget])
+        elif state == 0:
+            self.listTasksToRemove.remove([task_id, task_widget])
+
+    def removeTasks(self):
+        if self.listTasksToRemove != [] and self.ui.verticalLayout_4:
+            for task_id, task_widget in self.listTasksToRemove:
+                child = self.ui.verticalLayout_4.takeAt(task_id)
+                if child.widget():
+                    child.widget().deleteLater()
+                self.tasks.pop(task_id)
+            self.listTasksToRemove.clear()
+
+    def filteredTaskByTags(self):
+        # Удаляем все виджеты из компоновки
+        while self.ui.verticalLayout_4.count():
+            child = self.ui.verticalLayout_4.takeAt(0)
+            if child.widget():
+                child.widget().deleteLater()
+
+        # Получаем текущий выбранный тег
+        current_tag = self.ui.comboBoxTags.currentText()
+
+        # Добавляем виджеты, соответствующие текущему тегу
+        for task_tag, task_widget, components in self.tasks.copy():
+            if task_tag == current_tag:
+                self.ui.verticalLayout_4.addWidget(
+                    self.createNewTask(components[0], components[1], components[2]))
+
+        # Обновляем компоновку
+        self.ui.verticalLayout_4.update()
 
 
 """При изначальной загрузке файлов не отображается поле времени"""

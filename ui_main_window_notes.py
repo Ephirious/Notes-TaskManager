@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'MainWNotesTest.ui'
+## Form generated from reading UI file 'MainWNotes.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.0
 ##
@@ -15,19 +15,19 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractItemView, QAbstractScrollArea, QApplication, QCheckBox,
-    QComboBox, QFontComboBox, QFrame, QGridLayout,
-    QGroupBox, QHBoxLayout, QHeaderView, QLabel,
-    QMainWindow, QPushButton, QScrollArea, QSizePolicy,
-    QSpacerItem, QTabWidget, QTextBrowser, QTextEdit,
-    QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QAbstractItemView, QAbstractScrollArea, QApplication, QComboBox,
+    QFontComboBox, QFrame, QGridLayout, QHBoxLayout,
+    QHeaderView, QLabel, QMainWindow, QPushButton,
+    QScrollArea, QSizePolicy, QSpacerItem, QTabWidget,
+    QTextEdit, QTreeWidget, QTreeWidgetItem, QVBoxLayout,
+    QWidget)
 import res_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1059, 923)
+        MainWindow.resize(1021, 951)
         icon = QIcon()
         icon.addFile(u":/icons/icons/axolot.png", QSize(), QIcon.Normal, QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -36,8 +36,8 @@ class Ui_MainWindow(object):
         MainWindow.setDocumentMode(False)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.gridLayout = QGridLayout(self.centralwidget)
-        self.gridLayout.setObjectName(u"gridLayout")
+        self.gridLayout_2 = QGridLayout(self.centralwidget)
+        self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.frame1 = QFrame(self.centralwidget)
         self.frame1.setObjectName(u"frame1")
         self.frame1.setStyleSheet(u"background-color: rgba(255, 255, 255, 30);\n"
@@ -117,7 +117,7 @@ class Ui_MainWindow(object):
 "background-color: none;\n"
 "color: white;")
 
-        self.horizontalLayout_3.addWidget(self.label)
+        self.horizontalLayout_3.addWidget(self.label, 0, Qt.AlignmentFlag.AlignHCenter)
 
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
@@ -133,7 +133,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.addWidget(self.label_3)
 
 
-        self.gridLayout.addWidget(self.frame1, 0, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.frame1, 0, 0, 1, 1)
 
         self.tabWidget = QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName(u"tabWidget")
@@ -362,7 +362,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setContentsMargins(-1, -1, 12, -1)
         self.treeWidget = QTreeWidget(self.frame2)
         __qtreewidgetitem = QTreeWidgetItem()
-        __qtreewidgetitem.setText(0, u"Data");
+        __qtreewidgetitem.setText(0, u"\u0424\u0430\u0439\u043b\u044b");
         self.treeWidget.setHeaderItem(__qtreewidgetitem)
         self.treeWidget.setObjectName(u"treeWidget")
         self.treeWidget.setMaximumSize(QSize(350, 16777215))
@@ -477,12 +477,12 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.frame_2 = QFrame(self.taskManager_tab)
         self.frame_2.setObjectName(u"frame_2")
-        self.frame_2.setStyleSheet(u"background-color: rgba(255, 255, 255, 60);\n"
+        self.frame_2.setStyleSheet(u"background-color: rgba(255, 255, 255, 30);\n"
 "border-radius: 7px;")
         self.frame_2.setFrameShape(QFrame.Shape.StyledPanel)
         self.frame_2.setFrameShadow(QFrame.Shadow.Raised)
-        self.verticalLayout_6 = QVBoxLayout(self.frame_2)
-        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        self.verticalLayout_8 = QVBoxLayout(self.frame_2)
+        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
         self.label_taskmanager = QLabel(self.frame_2)
         self.label_taskmanager.setObjectName(u"label_taskmanager")
         self.label_taskmanager.setMaximumSize(QSize(400, 50))
@@ -499,14 +499,17 @@ class Ui_MainWindow(object):
 "background-color: none;\n"
 "color: white;")
 
-        self.verticalLayout_6.addWidget(self.label_taskmanager, 0, Qt.AlignmentFlag.AlignHCenter)
+        self.verticalLayout_8.addWidget(self.label_taskmanager, 0, Qt.AlignmentFlag.AlignHCenter)
 
-        self.horizontalLayout_9 = QHBoxLayout()
-        self.horizontalLayout_9.setSpacing(0)
+        self.frame_5 = QFrame(self.frame_2)
+        self.frame_5.setObjectName(u"frame_5")
+        self.horizontalLayout_9 = QHBoxLayout(self.frame_5)
+        self.horizontalLayout_9.setSpacing(12)
         self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
         self.horizontalLayout_9.setContentsMargins(12, 12, 12, 12)
-        self.btn_add_task = QPushButton(self.frame_2)
+        self.btn_add_task = QPushButton(self.frame_5)
         self.btn_add_task.setObjectName(u"btn_add_task")
+        self.btn_add_task.setMinimumSize(QSize(200, 40))
         self.btn_add_task.setMaximumSize(QSize(200, 25))
         self.btn_add_task.setStyleSheet(u"QPushButton {\n"
 "background-color: rgb(255, 255, 245);\n"
@@ -527,121 +530,129 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_9.addWidget(self.btn_add_task)
 
+        self.btn_delete_task = QPushButton(self.frame_5)
+        self.btn_delete_task.setObjectName(u"btn_delete_task")
+        self.btn_delete_task.setMinimumSize(QSize(200, 40))
+        self.btn_delete_task.setMaximumSize(QSize(200, 25))
+        self.btn_delete_task.setStyleSheet(u"QPushButton {\n"
+"background-color: rgb(255, 255, 245);\n"
+"border: 1px solid rgba(255, 255, 255, 70);\n"
+"border-radius: 5px;\n"
+"font: 13pt \"Sitka\";\n"
+"color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgb(222, 222, 213);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(255, 255, 245);\n"
+"}")
+        self.btn_delete_task.setIcon(icon8)
+        self.btn_delete_task.setIconSize(QSize(16, 16))
+
+        self.horizontalLayout_9.addWidget(self.btn_delete_task)
+
         self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_9.addItem(self.horizontalSpacer_4)
 
-        self.tagsBox = QComboBox(self.frame_2)
-        self.tagsBox.addItem("")
-        self.tagsBox.addItem("")
-        self.tagsBox.addItem("")
-        self.tagsBox.setObjectName(u"tagsBox")
-        self.tagsBox.setMinimumSize(QSize(100, 0))
-        self.tagsBox.setMaximumSize(QSize(300, 43))
-        self.tagsBox.setStyleSheet(u"background-color: rgba(255, 255, 255, 175);\n"
+        self.verticalLayout_6 = QVBoxLayout()
+        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        self.comboBoxTags = QComboBox(self.frame_5)
+        self.comboBoxTags.setObjectName(u"comboBoxTags")
+        self.comboBoxTags.setMinimumSize(QSize(100, 50))
+        self.comboBoxTags.setMaximumSize(QSize(300, 50))
+        self.comboBoxTags.setStyleSheet(u"background-color: rgba(255, 255, 255, 175);\n"
 "border-radius: 7px;\n"
 "\n"
 "font: 15pt;\n"
 "font-weight: bold;\n"
 "")
 
-        self.horizontalLayout_9.addWidget(self.tagsBox)
+        self.verticalLayout_6.addWidget(self.comboBoxTags)
+
+        self.btn_filterByTags = QPushButton(self.frame_5)
+        self.btn_filterByTags.setObjectName(u"btn_filterByTags")
+        self.btn_filterByTags.setStyleSheet(u"QPushButton {\n"
+"background-color: rgb(255, 255, 245);\n"
+"border: 1px solid rgba(255, 255, 255, 70);\n"
+"border-radius: 5px;\n"
+"font: 13pt \"Sitka\";\n"
+"color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgb(222, 222, 213);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(255, 255, 245);\n"
+"}")
+
+        self.verticalLayout_6.addWidget(self.btn_filterByTags)
 
 
-        self.verticalLayout_6.addLayout(self.horizontalLayout_9)
+        self.horizontalLayout_9.addLayout(self.verticalLayout_6)
+
+
+        self.verticalLayout_8.addWidget(self.frame_5)
 
         self.scrollArea = QScrollArea(self.frame_2)
         self.scrollArea.setObjectName(u"scrollArea")
-        self.scrollArea.setMaximumSize(QSize(16777215, 400))
+        self.scrollArea.setMaximumSize(QSize(16777215, 16777215))
         self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
         self.scrollArea.setSizeAdjustPolicy(QAbstractScrollArea.SizeAdjustPolicy.AdjustIgnored)
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 986, 332))
-        self.verticalLayout_4 = QVBoxLayout(self.scrollAreaWidgetContents)
-        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.taskBox = QGroupBox(self.scrollAreaWidgetContents)
-        self.taskBox.setObjectName(u"taskBox")
-        self.verticalLayout_5 = QVBoxLayout(self.taskBox)
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 948, 642))
+        self.scrollAreaWidgetContents.setStyleSheet(u"")
+        self.verticalLayout_5 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
-        self.task_1 = QGroupBox(self.taskBox)
-        self.task_1.setObjectName(u"task_1")
-        self.task_1.setMaximumSize(QSize(16777215, 90))
-        self.task_1.setStyleSheet(u"background-color: rgba(255, 255, 255, 175);\n"
-"border-radius: 7px;")
-        self.horizontalLayout_5 = QHBoxLayout(self.task_1)
-        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
-        self.checkBox_6 = QCheckBox(self.task_1)
-        self.checkBox_6.setObjectName(u"checkBox_6")
+        self.frame_4 = QFrame(self.scrollAreaWidgetContents)
+        self.frame_4.setObjectName(u"frame_4")
+        self.frame_4.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
+        self.frame_4.setStyleSheet(u"QGroupBox  {\n"
+"background-color: rgba(255, 255, 255, 60);\n"
+"border-radius: 7px;\n"
+"}\n"
+"QLabel {\n"
+"background-color: rgba(255, 255, 255, 80);\n"
+"border-radius: 7px;\n"
+"font: 15pt;\n"
+"font-weight: bold;\n"
+"}\n"
+"QTextBrowser {\n"
+"background-color: rgba(255, 255, 255, 150);\n"
+"border-radius: 7px;\n"
+"font: 15pt;\n"
+"}")
+        self.frame_4.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame_4.setFrameShadow(QFrame.Shadow.Raised)
+        self.gridLayout = QGridLayout(self.frame_4)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.verticalLayout_4 = QVBoxLayout()
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
 
-        self.horizontalLayout_5.addWidget(self.checkBox_6)
-
-        self.textBrowser = QTextBrowser(self.task_1)
-        self.textBrowser.setObjectName(u"textBrowser")
-        self.textBrowser.setMaximumSize(QSize(16777215, 90))
-
-        self.horizontalLayout_5.addWidget(self.textBrowser)
-
-        self.label_4 = QLabel(self.task_1)
-        self.label_4.setObjectName(u"label_4")
-        self.label_4.setMinimumSize(QSize(90, 0))
-        self.label_4.setMaximumSize(QSize(80, 20))
-
-        self.horizontalLayout_5.addWidget(self.label_4)
-
-
-        self.verticalLayout_5.addWidget(self.task_1)
-
-        self.task_2 = QGroupBox(self.taskBox)
-        self.task_2.setObjectName(u"task_2")
-        self.task_2.setMaximumSize(QSize(16777215, 90))
-        self.task_2.setStyleSheet(u"background-color: rgba(255, 255, 255, 175);\n"
-"border-radius: 7px;")
-        self.horizontalLayout_7 = QHBoxLayout(self.task_2)
-        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
-        self.checkBox_8 = QCheckBox(self.task_2)
-        self.checkBox_8.setObjectName(u"checkBox_8")
-
-        self.horizontalLayout_7.addWidget(self.checkBox_8)
-
-        self.textBrowser_3 = QTextBrowser(self.task_2)
-        self.textBrowser_3.setObjectName(u"textBrowser_3")
-        self.textBrowser_3.setMaximumSize(QSize(16777215, 90))
-
-        self.horizontalLayout_7.addWidget(self.textBrowser_3)
-
-        self.label_6 = QLabel(self.task_2)
-        self.label_6.setObjectName(u"label_6")
-        self.label_6.setMinimumSize(QSize(90, 0))
-        self.label_6.setMaximumSize(QSize(80, 20))
-
-        self.horizontalLayout_7.addWidget(self.label_6)
-
-
-        self.verticalLayout_5.addWidget(self.task_2)
-
-
-        self.verticalLayout_4.addWidget(self.taskBox)
+        self.gridLayout.addLayout(self.verticalLayout_4, 2, 0, 1, 1)
 
         self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
-        self.verticalLayout_4.addItem(self.verticalSpacer_3)
+        self.gridLayout.addItem(self.verticalSpacer_3, 3, 0, 1, 1)
+
+
+        self.verticalLayout_5.addWidget(self.frame_4)
 
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
 
-        self.verticalLayout_6.addWidget(self.scrollArea)
-
-        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.verticalLayout_6.addItem(self.verticalSpacer_2)
+        self.verticalLayout_8.addWidget(self.scrollArea)
 
 
         self.verticalLayout_3.addWidget(self.frame_2)
 
         self.tabWidget.addTab(self.taskManager_tab, "")
 
-        self.gridLayout.addWidget(self.tabWidget, 1, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.tabWidget, 1, 0, 1, 1)
 
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -666,8 +677,8 @@ class Ui_MainWindow(object):
         self.btn_formatItalic.setText("")
         self.btn_formatUnderline.setText("")
         ___qtreewidgetitem = self.treeWidget.headerItem()
-        ___qtreewidgetitem.setText(2, QCoreApplication.translate("MainWindow", u"Time of creation", None));
-        ___qtreewidgetitem.setText(1, QCoreApplication.translate("MainWindow", u"Type", None));
+        ___qtreewidgetitem.setText(2, QCoreApplication.translate("MainWindow", u"\u0414\u0430\u0442\u0430 \u0441\u043e\u0437\u0434\u0430\u043d\u0438\u044f", None));
+        ___qtreewidgetitem.setText(1, QCoreApplication.translate("MainWindow", u"\u0422\u0438\u043f \u0444\u0430\u0439\u043b\u0430", None));
         self.textEdit.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -682,17 +693,8 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.notesTab), QCoreApplication.translate("MainWindow", u"\u0417\u0430\u043c\u0435\u0442\u043a\u0438", None))
         self.label_taskmanager.setText(QCoreApplication.translate("MainWindow", u"Task Manager", None))
         self.btn_add_task.setText(QCoreApplication.translate("MainWindow", u"\u041d\u043e\u0432\u0430\u044f \u0437\u0430\u0434\u0430\u0447\u0430", None))
-        self.tagsBox.setItemText(0, QCoreApplication.translate("MainWindow", u"\u0414\u043e\u043c", None))
-        self.tagsBox.setItemText(1, QCoreApplication.translate("MainWindow", u"\u0420\u0430\u0431\u043e\u0442\u0430", None))
-        self.tagsBox.setItemText(2, QCoreApplication.translate("MainWindow", u"\u0425\u043e\u0431\u0431\u0438", None))
-
-        self.taskBox.setTitle("")
-        self.task_1.setTitle("")
-        self.checkBox_6.setText("")
-        self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u0447\u0435\u0440\u0435\u0437 5 \u0434\u043d.", None))
-        self.task_2.setTitle("")
-        self.checkBox_8.setText("")
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"\u0447\u0435\u0440\u0435\u0437 5 \u0434\u043d.", None))
+        self.btn_delete_task.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0432\u044b\u0431\u0440\u0430\u043d\u043d\u043e\u0435", None))
+        self.btn_filterByTags.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0442\u0444\u0438\u043b\u044c\u0442\u0440\u043e\u0432\u0430\u0442\u044c", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.taskManager_tab), QCoreApplication.translate("MainWindow", u"\u0417\u0430\u0434\u0430\u0447\u0438", None))
     # retranslateUi
 
