@@ -49,6 +49,7 @@ class UserFiles:
         self.code = code
         self.path = StorageExplorer.fix_path(path)
         self.additional = add
+        self.usr_tags = []
     
     def dict_fix(self) -> dict:
         return {"username": self.username,
@@ -82,7 +83,7 @@ class UserFiles:
     
     def generate_dirs(self):
         st = StorageExplorer()
-        dir_list = [self.path + i for i in ["", "/tasks", "/shared",
+        dir_list = [self.path + i for i in ["", "notes",  "/tasks", "/shared",
                                             "/shared/keys"]]
         for i in dir_list:
             if not st.check_existance(i, "dir"):
