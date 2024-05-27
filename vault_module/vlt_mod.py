@@ -1,4 +1,5 @@
 import datetime
+import time
 import os
 from base64 import b64encode, b64decode
 import json
@@ -55,8 +56,8 @@ class DirEntry(FileEntry):
     """Directory entry class for file hierarchy search
     """
 
-    def __init__(self, name: str, path: str, contents: list):
-        super().__init__(name, path)
+    def __init__(self, name: str, path: str, contents: list, createtime: str):
+        super().__init__(name, path, createtime)
         self.contents = contents
         self.structure = []
 
@@ -139,9 +140,13 @@ class _FileExplorer():
     def get_entry(self, path):
         f_type = self.type_check(path)
         if f_type == 1:
-            return DirEntry(path.split("/")[-1], path, [])
+            return DirEntry(path.split("/")[-1], path, [],
+                            datetime.datetime.fromtimestamp(
+                                os.path.getctime(path)))
         if f_type == 2:
-            return FileEntry(path.split("/")[-1], path)
+            return FileEntry(path.split("/")[-1], path,
+                             datetime.datetime.fromtimestamp(
+                                 os.path.getctime(path)))
         return None
 
     def get_contents(self, path):
@@ -661,3 +666,4 @@ class Storage():
             entry (FileEntry|DirEntry): Entry that needs to be deleted.
         """
         self.hierarchy.delete(entry.path)
+
