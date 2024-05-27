@@ -5,17 +5,16 @@ from PySide6 import QtGui
 from PySide6.QtGui import QFont
 from PySide6.QtWidgets import (QApplication, QMainWindow, QDialog,
                                QFileDialog, QTreeWidgetItem, QGroupBox, QCheckBox, QTextBrowser, QLabel,
-                               QHBoxLayout, QVBoxLayout, QLayout, QBoxLayout, QSpacerItem)
-from PySide6.QtCore import Qt
+                               QHBoxLayout)
 
 from data_base.data_bd import *
+from tasks_and_shared.user_tasks_and_sharred import *
 from ui_account_login_window import Ui_LoginWindow
 from ui_account_sign_in_window import Ui_SigninWindow
+from ui_add_new_task import Ui_AddNewTask
 from ui_dialog_dir_add import Ui_WinDirAdd
 from ui_dialogwindow_note import Ui_Dialog
 from ui_main_window_notes import Ui_MainWindow
-from ui_add_new_task import Ui_AddNewTask
-
 from vault_module.vlt_mod import *
 
 STORAGE = None
@@ -30,8 +29,6 @@ class NotesApp(QMainWindow):
         super(NotesApp, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-
-        self.myclose = False
 
         self.open_log_in_window()
 
@@ -62,6 +59,8 @@ class NotesApp(QMainWindow):
 
         self.tasks = []
         self.listTasksToRemove = []
+
+        self.userTasks = []
         self.tasksTags = ['Дом', 'Работа', 'Хобби']
 
         self.ui.comboBoxTags.addItems(self.tasksTags)
@@ -101,12 +100,12 @@ class NotesApp(QMainWindow):
     def open_filemanager(self):
 
         file_dialog = QFileDialog()
-        return file_dialog.getExistingDirectory(self, 'Создайте новую папку для заметок', 'Notes')
+        return file_dialog.getExistingDirectory(self, 'Создайте новую папку для заметок', '')
 
     def new_storage(self):
         global STORAGE, PATH, NOTE
         file_dialog = QFileDialog()
-        PATH = file_dialog.getExistingDirectory(self, 'Создайте новую папку для заметок', 'Notes')
+        PATH = file_dialog.getExistingDirectory(self, 'Создайте новую папку для заметок', '')
         if PATH:
             STORAGE = Storage(PATH)
             STORAGE.load_structure()
@@ -143,13 +142,15 @@ class NotesApp(QMainWindow):
                 add_link_to_data(USER.login, PATH)
 
             # Создание структуры папок и файлов
-            STORAGE = Storage(PATH)
+            STORAGE = Storage(PATH + '/notes')
             STORAGE.load_structure()
             STORAGE.user = USER.login
 
             root_item = QTreeWidgetItem([f'{STORAGE.name}', 'DIR', '', STORAGE.path])
             self.uploadTreeWidget(STORAGE.storage_entry, root_item)
             self.ui.treeWidget.addTopLevelItem(root_item)
+
+            self.updateTasks()
 
             self.show()
             self.ui.label_account.setText(f'Аккаунт: {USER.login}')
@@ -181,12 +182,17 @@ class NotesApp(QMainWindow):
             PATH = self.open_filemanager()
             USER = registration(login, password, PATH)
 
-            STORAGE = Storage(PATH)
+            USER_FILES = UserFiles(USER.login, USER.password, 0, PATH, [])
+            USER_FILES.generate_dirs()
+
+            STORAGE = Storage(PATH + '/notes')
             STORAGE.load_structure()
 
             root_item = QTreeWidgetItem([f'{STORAGE.name}', 'DIR', '', STORAGE.path])
             self.uploadTreeWidget(STORAGE.storage_entry, root_item)
             self.ui.treeWidget.addTopLevelItem(root_item)
+
+            self.updateTasks()
 
             self.show()
             self.reg_window.close()
@@ -213,7 +219,7 @@ class NotesApp(QMainWindow):
                 # Если элемент является файлом, просто добавляем его к родительскому элементу
                 file_item = QTreeWidgetItem([element.name.split('.')[0],
                                              element.name.split('.')[-1].upper(),
-                                             element.name,
+                                             str(element.createtime).replace('T', ''),
                                              element.path])
                 parent_item.addChild(file_item)
 
@@ -339,7 +345,7 @@ class NotesApp(QMainWindow):
             self.ui.treeWidget.expandItem(element)
 
         elif st.check_existance(path, path_tp='file') and path.split('.')[-1] == 'json':
-            file_object = FileEntry('', path)
+            file_object = FileEntry('', path, '')
             NOTE = STORAGE.get_note(file_object)
             self.ui.textEdit.setText(NOTE.read())
         self.flags_check()
@@ -413,8 +419,8 @@ class NotesApp(QMainWindow):
         self.dialog = Ui_AddNewTask()
         self.dialog.setupUi(self.dialog_window)
 
-        self.dialog.dateTimeEdit_start.setDateTime(datetime.now())
-        self.dialog.dateTimeEdit_end.setDateTime(datetime.now())
+        self.dialog.dateTimeEdit_start.setDateTime(datetime.datetime.now())
+        self.dialog.dateTimeEdit_end.setDateTime(datetime.datetime.now())
 
         self.dialog.comboBoxTags.addItems(self.tasksTags)
 
@@ -439,6 +445,7 @@ class NotesApp(QMainWindow):
         label.setText(time_days)
         label.setMinimumSize(150, 50)
         label.setMaximumSize(150, 50)
+
         if flag:
             label.setStyleSheet("QLabel { color: red; }")
         boxTaskLayout.addWidget(label)
@@ -452,9 +459,10 @@ class NotesApp(QMainWindow):
         return groupBoxTask
 
     def addTask(self):
+        global USER
         data = self.dialog.lineEdit_task.text()
-        time_date_start = datetime.strptime(self.dialog.dateTimeEdit_start.text(), '%d.%m.%Y %H:%M')
-        time_date_end = datetime.strptime(self.dialog.dateTimeEdit_end.text(), '%d.%m.%Y %H:%M')
+        time_date_start = datetime.datetime.strptime(self.dialog.dateTimeEdit_start.text(), '%d.%m.%Y %H:%M')
+        time_date_end = datetime.datetime.strptime(self.dialog.dateTimeEdit_end.text(), '%d.%m.%Y %H:%M')
 
         if not self.dialog.lineEdit_category.text():
             task_tag = self.dialog.comboBoxTags.currentText()
@@ -466,13 +474,33 @@ class NotesApp(QMainWindow):
             self.ui.comboBoxTags.addItems(self.tasksTags)
             self.ui.comboBoxTags.setCurrentIndex(self.tasksTags.index(task_tag))
 
+        # Сохранение таски в виде файла
+        USER_FILES = UserFiles(USER.login, USER.password, 0, PATH, [])
+
+        newFileTask = Note(PATH + '/tasks/' + str(uuid4()) + '.json')
+        new_header = json.dumps(
+            {"st_time": time_date_start.isoformat(), "end_time": time_date_end.isoformat(), "tags": []})
+        newFileTask.header = new_header
+        newFileTask.protect(USER.password)
+        task = Task(newFileTask, USER.password)
+        task.write(data)
+        task.include_tag(task_tag)
+
+        tags = USER_FILES.get_tasks()
+        if task_tag not in tags and \
+                task_tag not in ['Дом', 'Работа', 'Хобби']:
+            tags.append(task_tag)
+            USER_FILES.save_tags(tags)
+
+        task.save(USER.password)
+
         self.filteredTaskByTags()
 
         mounth_start, day_start = time_date_start.strftime('%B %d').split()
         mounth_end, day_end = time_date_end.strftime('%B %d').split()
 
         flag_F = False
-        if time_date_end <= datetime.now():
+        if time_date_end <= datetime.datetime.now():
             flag_F = True
 
         time = f"{' '.join((mounth_start[:3], day_start))} - {' '.join((mounth_end[:3], day_end))}"
@@ -519,6 +547,37 @@ class NotesApp(QMainWindow):
 
         # Обновляем компоновку
         self.ui.verticalLayout_4.update()
+
+    def updateTasks(self):
+        self.tasks.clear()
+
+        USER_FILES = UserFiles(USER.login, USER.password, 0, PATH, [])
+        tasks = USER_FILES.get_tasks()
+
+        self.tasksTags = ['Дом', 'Работа', 'Хобби'] + USER_FILES.get_tags()
+        self.ui.comboBoxTags.clear()
+        self.ui.comboBoxTags.addItems(self.tasksTags)
+
+        for i in tasks:
+            data = i.read()
+            time_date_start = i.start_time
+            time_date_end = i.end_time
+            task_tag = list(i.tags)[0]
+
+            mounth_start, day_start = time_date_start.strftime('%B %d').split()
+            mounth_end, day_end = time_date_end.strftime('%B %d').split()
+
+            time = f"{' '.join((mounth_start[:3], day_start))} - {' '.join((mounth_end[:3], day_end))}"
+
+            flag_F = False
+            if time_date_end <= datetime.datetime.now():
+                flag_F = True
+
+            self.tasks.append([task_tag,
+                               self.createNewTask(data, time, flag_F),
+                               [data, time, flag_F]])
+
+        self.filteredTaskByTags()
 
 
 """При изначальной загрузке файлов не отображается поле времени"""

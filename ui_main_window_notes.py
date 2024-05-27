@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1021, 951)
+        MainWindow.resize(781, 684)
         icon = QIcon()
         icon.addFile(u":/icons/icons/axolot.png", QSize(), QIcon.Normal, QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -605,7 +605,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 948, 642))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 708, 375))
         self.scrollAreaWidgetContents.setStyleSheet(u"")
         self.verticalLayout_5 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
@@ -619,7 +619,7 @@ class Ui_MainWindow(object):
 "QLabel {\n"
 "background-color: rgba(255, 255, 255, 80);\n"
 "border-radius: 7px;\n"
-"font: 15pt;\n"
+"font: 12pt;\n"
 "font-weight: bold;\n"
 "}\n"
 "QTextBrowser {\n"

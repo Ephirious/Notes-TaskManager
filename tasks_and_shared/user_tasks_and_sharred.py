@@ -3,9 +3,9 @@ from datetime import datetime
 import os
 from Cryptodome.Random import get_random_bytes
 from uuid import uuid4
-from vlt_mod import Note, StorageExplorer, NoteWrapper
-from vlt_mod import NOTE_JSON_STRUCTURE, FileEntry
-from enc_mod import EncRSA
+from vault_module.vlt_mod import Note, StorageExplorer, NoteWrapper
+from vault_module.vlt_mod import NOTE_JSON_STRUCTURE, FileEntry
+from enc_module.enc_mod import EncRSA
 
 
 class Task(NoteWrapper):
@@ -84,7 +84,7 @@ class UserFiles:
         dir_list = [self.path + i for i in ["", "/notes",  "/tasks", "/shared",
                                             "/shared/keys"]]
         for i in dir_list:
-            if not st.check_existance(i, "dir"):
+            if not os.path.isdir(i):
                 os.mkdir(i)
         if len(os.listdir(dir_list[-1])) < 2:
             pr_key, pb_key = EncRSA.generate_keys()
@@ -92,7 +92,7 @@ class UserFiles:
                 file.write(EncRSA.export_public(pb_key))
             with open("private.bin", 'wb') as file:
                 file.write(EncRSA.export_private(pr_key, self.key))
-        if not st.check_existance(self.path + '/tags.json', 'file'):
+        if not os.path.isfile(self.path + '/tags.json'):
             tags = json.dumps([])
             with open(self.path + "/tags.json", 'w', encoding='UTF-8') as file:
                 file.write(tags)

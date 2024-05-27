@@ -4,7 +4,7 @@ import os
 from base64 import b64encode, b64decode
 import json
 from random import randint
-import enc_mod as encryption
+import enc_module.enc_mod as encryption
 
 NOTE_JSON_STRUCTURE = {"user", "header", "id", "encryption", "data", "createtime"}
 
