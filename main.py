@@ -201,7 +201,7 @@ class NotesApp(QMainWindow):
 
             self.reg_window.close()
         else:
-            self.reg_dialog.label_error.setText('Введеный логин уже занят, пожалуйста'
+            self.reg_dialog.label_error.setText('Введеный логин уже занят, пожалуйста '
                                                 'введите новый логин')
 
     # =================================================================================================
