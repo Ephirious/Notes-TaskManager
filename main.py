@@ -37,25 +37,25 @@ class NotesApp(QMainWindow):
         # взаимодействие с кнопками
         self.ui.btn_add_note.clicked.connect(self.open_window_addNote)
         self.ui.btn_add_dir.clicked.connect(self.open_window_addDir)
-        self.ui.btn_save.clicked.connect(self.saveNote)
-        self.ui.btn_delete_note.clicked.connect(self.deleteItem)
+        self.ui.btn_save.clicked.connect(self.save_note)
+        self.ui.btn_delete_note.clicked.connect(self.delete_item)
 
         # взаимодействие со списком файлов
-        self.ui.treeWidget.itemClicked.connect(self.openItem)
+        self.ui.treeWidget.itemClicked.connect(self.open_item)
 
         # взаимодействие с ComboBox
         self.ui.fontSizeBox.addItems(str(x) for x in range(6, 52))
 
         # взаимодействие с textEdit
-        self.ui.btn_formatBold.clicked.connect(self.doBoldText)
-        self.ui.btn_formatUnderline.clicked.connect(self.doUnderlineText)
-        self.ui.btn_formatItalic.clicked.connect(self.doItalicText)
-        self.ui.fontSizeBox.currentIndexChanged.connect(self.changeTextSize)
-        self.ui.fontComboBox.currentIndexChanged.connect(self.changeFontText)
+        self.ui.btn_formatBold.clicked.connect(self.do_bold_text)
+        self.ui.btn_formatUnderline.clicked.connect(self.do_underline_text)
+        self.ui.btn_formatItalic.clicked.connect(self.do_italic_text)
+        self.ui.fontSizeBox.currentIndexChanged.connect(self.change_text_size)
+        self.ui.fontComboBox.currentIndexChanged.connect(self.change_font_Text)
 
         # взаимодействие с Таск-менджером
         self.ui.btn_add_task.clicked.connect(self.open_window_addTask)
-        self.ui.btn_delete_task.clicked.connect(self.removeTasks)
+        self.ui.btn_delete_task.clicked.connect(self.remove_tasks)
 
         self.tasks = []
         self.listTasksToRemove = []
@@ -64,15 +64,15 @@ class NotesApp(QMainWindow):
         self.tasksTags = ['Дом', 'Работа', 'Хобби']
 
         self.ui.comboBoxTags.addItems(self.tasksTags)
-        self.ui.btn_filterByTags.clicked.connect(self.filteredTaskByTags)
+        self.ui.btn_filterByTags.clicked.connect(self.filtered_task_by_tags)
 
         self.flags_check()
 
-    def closeEvent(self, event):
+    def close_event(self, event):
         global NOTE
 
         if NOTE:
-            self.saveNote()
+            self.save_note()
 
     def flags_check(self):
         global NOTE, STORAGE
@@ -114,7 +114,7 @@ class NotesApp(QMainWindow):
 
             self.ui.treeWidget.clear()
             root_item = QTreeWidgetItem([f'{STORAGE.name}', 'DIR', '', f'{STORAGE.path}'])
-            self.uploadTreeWidget(STORAGE.storage_entry, root_item)
+            self.upload_tree_widget(STORAGE.storage_entry, root_item)
             self.ui.treeWidget.addTopLevelItem(root_item)
 
     # =================================================================================================
@@ -149,10 +149,10 @@ class NotesApp(QMainWindow):
             STORAGE.user = USER.login
 
             root_item = QTreeWidgetItem([f'{STORAGE.name}', 'DIR', '', STORAGE.path])
-            self.uploadTreeWidget(STORAGE.storage_entry, root_item)
+            self.upload_tree_widget(STORAGE.storage_entry, root_item)
             self.ui.treeWidget.addTopLevelItem(root_item)
 
-            self.updateTasks()
+            self.update_tasks()
 
             self.show()
             self.ui.label_account.setText(f'Аккаунт: {USER.login}')
@@ -191,10 +191,10 @@ class NotesApp(QMainWindow):
             STORAGE.load_structure()
 
             root_item = QTreeWidgetItem([f'{STORAGE.name}', 'DIR', '', STORAGE.path])
-            self.uploadTreeWidget(STORAGE.storage_entry, root_item)
+            self.upload_tree_widget(STORAGE.storage_entry, root_item)
             self.ui.treeWidget.addTopLevelItem(root_item)
 
-            self.updateTasks()
+            self.update_tasks()
 
             self.show()
             self.ui.label_account.setText(f'Аккаунт: {USER.login}')
@@ -208,7 +208,7 @@ class NotesApp(QMainWindow):
     # Функции связанные с заметками и папками
     # =================================================================================================
     @staticmethod
-    def uploadTreeWidget(directory, parent_item):
+    def upload_tree_widget(directory, parent_item):
         global STORAGE
 
         if type(directory) is DirEntry and directory.path not in STORAGE.hierarchy.loaded:
@@ -217,7 +217,7 @@ class NotesApp(QMainWindow):
         for element in directory.structure:
             if type(element) is DirEntry:
                 # Если элемент является каталогом, создаем новый элемент дерева и добавляем его к родительскому элементу
-                directory_item = QTreeWidgetItem([element.name, 'DIR', '', element.path])
+                directory_item = QTreeWidgetItem([element.name, 'DIR', element.createtime, element.path])
                 parent_item.addChild(directory_item)
             else:
                 # Если элемент является файлом, просто добавляем его к родительскому элементу
@@ -227,7 +227,7 @@ class NotesApp(QMainWindow):
                                              element.path])
                 parent_item.addChild(file_item)
 
-    def saveNote(self):
+    def save_note(self):
         global NOTE, USER
 
         if NOTE:
@@ -242,18 +242,18 @@ class NotesApp(QMainWindow):
         self.dialog = Ui_Dialog()
         self.dialog.setupUi(self.dialog_window)
         self.dialog_window.show()
-        self.dialog.pushButton.clicked.connect(self.addNote)
+        self.dialog.pushButton.clicked.connect(self.add_note)
 
     def open_window_addDir(self):
         self.dialog_window = QDialog()
         self.dialog = Ui_WinDirAdd()
         self.dialog.setupUi(self.dialog_window)
         self.dialog_window.show()
-        self.dialog.btn_add_dir.clicked.connect(self.addDir)
+        self.dialog.btn_add_dir.clicked.connect(self.add_dir)
 
-    def addNote(self):
+    def add_note(self):
         global STORAGE, USER, NOTE
-        self.saveNote()
+        self.save_note()
 
         name = self.dialog.lineEdit.text()
         st = StorageExplorer()
@@ -282,13 +282,16 @@ class NotesApp(QMainWindow):
                                      f'{NOTE._note.createtime}',
                                      path + f'/{name}.json'])
         storage.addChild(file_item)
+        self.ui.treeWidget.expandItem(file_item)
+        self.ui.treeWidget.setCurrentItem(file_item)
+
 
         self.dialog_window.close()
         self.ui.textEdit.clear()
 
         self.flags_check()
 
-    def addDir(self):
+    def add_dir(self):
         name = self.dialog.lineEdit.text()
         st = StorageExplorer()
         current_item = self.ui.treeWidget.currentItem()
@@ -307,7 +310,7 @@ class NotesApp(QMainWindow):
         os.mkdir(path + f'/{name}')
         dir_item = QTreeWidgetItem([name,
                                     'DIR',
-                                    '',
+                                    str(datetime.datetime.now()),
                                     path + f'/{name}'])
         storage.addChild(dir_item)
 
@@ -316,7 +319,7 @@ class NotesApp(QMainWindow):
 
         self.flags_check()
 
-    def deleteItem(self):
+    def delete_item(self):
         import shutil
 
         global NOTE, STORAGE
@@ -337,15 +340,15 @@ class NotesApp(QMainWindow):
 
         self.flags_check()
 
-    def openItem(self, element):
+    def open_item(self, element):
         global NOTE, STORAGE
-        self.saveNote()
+        self.save_note()
 
         st = StorageExplorer()
         path = element.text(3)
         if st.check_existance(path, path_tp='dir') and path not in STORAGE.hierarchy.loaded:
-            file_object = DirEntry('', path, [])
-            self.uploadTreeWidget(file_object, element)
+            file_object = DirEntry('', path, [], '')
+            self.upload_tree_widget(file_object, element)
             self.ui.treeWidget.addTopLevelItem(element)
             self.ui.treeWidget.expandItem(element)
 
@@ -358,7 +361,7 @@ class NotesApp(QMainWindow):
     # =================================================================================================
     # Функции отвечающие за разметку
     # =================================================================================================
-    def changeTextSize(self):
+    def change_text_size(self):
         charFormatFontSize = QtGui.QTextCharFormat(self.ui.textEdit.currentCharFormat())
         charFormatNorm = QtGui.QTextCharFormat(self.ui.textEdit.currentCharFormat())
 
@@ -369,7 +372,7 @@ class NotesApp(QMainWindow):
         else:
             self.ui.textEdit.setCurrentCharFormat(charFormatFontSize)
 
-    def doBoldText(self):
+    def do_bold_text(self):
         charFormatBold = QtGui.QTextCharFormat(self.ui.textEdit.currentCharFormat())
         charFormatNorm = QtGui.QTextCharFormat(self.ui.textEdit.currentCharFormat())
         charFormatBold.setFontWeight(900)
@@ -379,7 +382,7 @@ class NotesApp(QMainWindow):
         else:
             self.ui.textEdit.setCurrentCharFormat(charFormatNorm)
 
-    def doUnderlineText(self):
+    def do_underline_text(self):
         charFormatUnderline = QtGui.QTextCharFormat(self.ui.textEdit.currentCharFormat())
         charFormatNorm = QtGui.QTextCharFormat(self.ui.textEdit.currentCharFormat())
 
@@ -390,7 +393,7 @@ class NotesApp(QMainWindow):
         else:
             self.ui.textEdit.setCurrentCharFormat(charFormatUnderline)
 
-    def doItalicText(self):
+    def do_italic_text(self):
         charFormatItalic = QtGui.QTextCharFormat(self.ui.textEdit.currentCharFormat())
         charFormatNorm = QtGui.QTextCharFormat(self.ui.textEdit.currentCharFormat())
 
@@ -401,7 +404,7 @@ class NotesApp(QMainWindow):
         else:
             self.ui.textEdit.setCurrentCharFormat(charFormatItalic)
 
-    def changeFontText(self):
+    def change_font_Text(self):
         if self.ui.textEdit.currentCharFormat().fontUnderline():
             self.ui.textEdit.setCurrentFont(QFont(self.ui.fontComboBox.currentText(),
                                                   self.ui.textEdit.currentCharFormat().fontPointSize(),
@@ -430,15 +433,15 @@ class NotesApp(QMainWindow):
         self.dialog.comboBoxTags.addItems(self.tasksTags)
 
         self.dialog_window.show()
-        self.dialog.pushButton.clicked.connect(self.addTask)
+        self.dialog.pushButton.clicked.connect(self.add_task)
 
-    def createNewTask(self, task_data, time_days, filename, flag=False, ):
+    def create_new_task(self, task_data, time_days, filename, flag=False, ):
         groupBoxTask = QGroupBox()
         groupBoxTask.setMaximumSize(999999, 100)
         boxTaskLayout = QHBoxLayout()
 
         checkBox = QCheckBox()
-        checkBox.stateChanged.connect(self.addTaskToRemove)
+        checkBox.stateChanged.connect(self.add_task_to_remove)
         boxTaskLayout.addWidget(checkBox)
 
         textBrowser = QTextBrowser()
@@ -463,7 +466,7 @@ class NotesApp(QMainWindow):
         self.ui.verticalLayout_4.addWidget(groupBoxTask)
         return groupBoxTask
 
-    def addTask(self):
+    def add_task(self):
         global USER
         data = self.dialog.lineEdit_task.text()
         time_date_start = datetime.datetime.strptime(self.dialog.dateTimeEdit_start.text(), '%d.%m.%Y %H:%M')
@@ -500,7 +503,7 @@ class NotesApp(QMainWindow):
 
         task.save(USER.password)
 
-        self.filteredTaskByTags()
+        self.filtered_task_by_tags()
 
         mounth_start, day_start = time_date_start.strftime('%B %d').split()
         mounth_end, day_end = time_date_end.strftime('%B %d').split()
@@ -512,11 +515,11 @@ class NotesApp(QMainWindow):
         time = f"{' '.join((mounth_start[:3], day_start))} - {' '.join((mounth_end[:3], day_end))}"
 
         self.tasks.append([task_tag,
-                           self.createNewTask(data, time, filename, flag_time_is_up),
+                           self.create_new_task(data, time, filename, flag_time_is_up),
                            [data, time, filename, flag_time_is_up, ]])
         self.dialog_window.close()
 
-    def addTaskToRemove(self, state):
+    def add_task_to_remove(self, state):
         checkbox = self.sender()
         task_id = checkbox.property('task_id')
         filename = checkbox.property('filename')
@@ -527,7 +530,7 @@ class NotesApp(QMainWindow):
         elif state == 0:
             self.listTasksToRemove.remove([task_id, task_widget, filename])
 
-    def removeTasks(self):
+    def remove_tasks(self):
         if self.listTasksToRemove != [] and self.ui.verticalLayout_4:
             for task_id, task_widget, filename in self.listTasksToRemove:
                 child = self.ui.verticalLayout_4.takeAt(task_id)
@@ -538,7 +541,7 @@ class NotesApp(QMainWindow):
 
             self.listTasksToRemove.clear()
 
-    def filteredTaskByTags(self):
+    def filtered_task_by_tags(self):
         # Удаляем все виджеты из компоновки
         while self.ui.verticalLayout_4.count():
             child = self.ui.verticalLayout_4.takeAt(0)
@@ -552,12 +555,12 @@ class NotesApp(QMainWindow):
         for task_tag, task_widget, components in self.tasks.copy():
             if task_tag == current_tag:
                 self.ui.verticalLayout_4.addWidget(
-                    self.createNewTask(components[0], components[1], components[2], components[3]))
+                    self.create_new_task(components[0], components[1], components[2], components[3]))
 
         # Обновляем компоновку
         self.ui.verticalLayout_4.update()
 
-    def updateTasks(self):
+    def update_tasks(self):
         self.tasks.clear()
 
         USER_FILES = UserFiles(USER.login, USER.password, 0, PATH, [])
@@ -583,13 +586,11 @@ class NotesApp(QMainWindow):
                 flag_F = True
 
             self.tasks.append([task_tag,
-                               self.createNewTask(data, time, flag_F),
+                               self.create_new_task(data, time, flag_F),
                                [data, time, flag_F]])
 
-        self.filteredTaskByTags()
+        self.filtered_task_by_tags()
 
-
-"""При изначальной загрузке файлов не отображается поле времени"""
 
 if __name__ == "__main__":
     # ==Код не позволяющий включать приложению темную тему==

@@ -60,6 +60,7 @@ class DirEntry(FileEntry):
         super().__init__(name, path, createtime)
         self.contents = contents
         self.structure = []
+        self.createtime = createtime
 
     def __repr__(self) -> str:
         return f"Dir: {self.path}\nContents: " \
