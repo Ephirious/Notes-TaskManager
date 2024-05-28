@@ -349,6 +349,28 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_4.addWidget(self.fontSizeBox)
 
+        self.btn_add_url = QPushButton(self.notesTab)
+        self.btn_add_url.setObjectName(u"btn_add_url")
+        self.btn_add_url.setStyleSheet(u"QPushButton {\n"
+"background-color: rgb(255, 255, 245);\n"
+"border: 1px solid rgba(255, 255, 255, 70);\n"
+"border-radius: 5px;\n"
+"font: 10pt \"Sitka\";\n"
+"color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgb(222, 222, 213);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(255, 255, 245);\n"
+"}")
+        icon8 = QIcon()
+        icon8.addFile(u":/icons/icons/image_24dp_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_add_url.setIcon(icon8)
+
+        self.horizontalLayout_4.addWidget(self.btn_add_url)
+
 
         self.verticalLayout.addLayout(self.horizontalLayout_4)
 
@@ -433,9 +455,9 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 "background-color: rgb(255, 255, 245);\n"
 "}")
-        icon8 = QIcon()
-        icon8.addFile(u":/icons/icons/scan_delete_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_delete_note.setIcon(icon8)
+        icon9 = QIcon()
+        icon9.addFile(u":/icons/icons/scan_delete_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_delete_note.setIcon(icon9)
 
         self.horizontalLayout_2.addWidget(self.btn_delete_note)
 
@@ -455,9 +477,9 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 "background-color: rgb(255, 255, 245);\n"
 "}")
-        icon9 = QIcon()
-        icon9.addFile(u":/icons/icons/save_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_save.setIcon(icon9)
+        icon10 = QIcon()
+        icon10.addFile(u":/icons/icons/save_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_save.setIcon(icon10)
 
         self.horizontalLayout_2.addWidget(self.btn_save)
 
@@ -548,7 +570,7 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 "background-color: rgb(255, 255, 245);\n"
 "}")
-        self.btn_delete_task.setIcon(icon8)
+        self.btn_delete_task.setIcon(icon9)
         self.btn_delete_task.setIconSize(QSize(16, 16))
 
         self.horizontalLayout_9.addWidget(self.btn_delete_task)
@@ -676,6 +698,7 @@ class Ui_MainWindow(object):
         self.btn_formatBold.setText("")
         self.btn_formatItalic.setText("")
         self.btn_formatUnderline.setText("")
+        self.btn_add_url.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435", None))
         ___qtreewidgetitem = self.treeWidget.headerItem()
         ___qtreewidgetitem.setText(2, QCoreApplication.translate("MainWindow", u"\u0414\u0430\u0442\u0430 \u0441\u043e\u0437\u0434\u0430\u043d\u0438\u044f", None));
         ___qtreewidgetitem.setText(1, QCoreApplication.translate("MainWindow", u"\u0422\u0438\u043f \u0444\u0430\u0439\u043b\u0430", None));

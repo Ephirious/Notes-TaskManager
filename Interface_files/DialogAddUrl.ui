@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AddUrl</class>
+ <widget class="QDialog" name="AddUrl">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>354</width>
+    <height>220</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>354</width>
+    <height>220</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>354</width>
+    <height>220</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Вставка изображения</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background:  qlineargradient(spread:repeat, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(255, 227, 195, 255), stop:1 rgba(245, 78, 140, 255))</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item alignment="Qt::AlignmentFlag::AlignHCenter">
+    <widget class="QLabel" name="label">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 15pt &quot;Sitka&quot;;
+background-color: none;
+color: black;
+border-radius: 7px;</string>
+     </property>
+     <property name="text">
+      <string>Вставьте ссылку на изображение</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_2">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: none;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="frame">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>100</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(216, 193, 219, 60);
+border: 1px solid rgba(255, 255, 255, 70);
+border-radius: 5px;
+font: 900 11pt &quot;Segoe UI Black&quot;;
+color: rgb(91, 61, 107)
+</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLineEdit" name="lineEdit">
+        <property name="styleSheet">
+         <string notr="true">QLineEdit {
+background-color: white;
+font: 11pt &quot;Sitka&quot;;
+color: black;
+}
+QLineEdit:hover {
+background-color: rgb(225, 225, 225);
+}
+
+QLineEdit:pressed {
+background-color: white;
+}
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Ваша ссылка</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_add_url">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+background-color: white;
+font: 600 11pt &quot;Sitka&quot;;
+color: black;
+}
+QPushButton:hover {
+background-color: rgb(225, 225, 225);
+}
+
+QPushButton:pressed {
+background-color: rgb(225, 225, 225);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Готово</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

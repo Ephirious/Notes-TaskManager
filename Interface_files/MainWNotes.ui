@@ -535,6 +535,33 @@ border-radius: 7px;</string>
                 </property>
                </widget>
               </item>
+              <item>
+               <widget class="QPushButton" name="btn_add_url">
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+background-color: rgb(255, 255, 245);
+border: 1px solid rgba(255, 255, 255, 70);
+border-radius: 5px;
+font: 10pt &quot;Sitka&quot;;
+color: black;
+}
+QPushButton:hover {
+background-color: rgb(222, 222, 213);
+}
+
+QPushButton:pressed {
+background-color: rgb(255, 255, 245);
+}</string>
+                </property>
+                <property name="text">
+                 <string>Вставить изображение</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="res.qrc">
+                  <normaloff>:/icons/icons/image_24dp_FILL0_wght400_GRAD0_opsz24.svg</normaloff>:/icons/icons/image_24dp_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+                </property>
+               </widget>
+              </item>
              </layout>
             </item>
             <item>
