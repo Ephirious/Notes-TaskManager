@@ -1,9 +1,7 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-PySide6
-=======
 pycryptodomex==3.20.0
->>>>>>> base_data
-=======
+certifi==2024.2.2
+charset-normalizer==3.3.2
+idna==3.7
 pycryptodomex==3.20.0
->>>>>>> base_data
+requests==2.32.2
+urllib3==2.2.1
